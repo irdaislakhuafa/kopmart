@@ -1,4 +1,4 @@
-package com.irdaislakhuafa.kopmart.controllers;
+package com.irdaislakhuafa.kopmart.controllers.admin;
 
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
@@ -13,24 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping("/kopmart/admin")
-public class AdminController {
+@RequestMapping("/kopmart/admin/produk")
+public class ProductController {
 
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping
-    public String index(Model model) {
-        try {
-            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "admin/index";
-    }
-
     // GET product new
-    @GetMapping("/produk/new")
+    @GetMapping("/new")
     public String newProduct(Model model) {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
@@ -42,7 +32,7 @@ public class AdminController {
     }
 
     // POST product new
-    @PostMapping
+    @PostMapping("/new")
     public String newProduct(
             Model model,
             @RequestParam("name") String name,
@@ -52,10 +42,10 @@ public class AdminController {
             @RequestParam("foto") MultipartFile foto,
             @RequestParam("categoryId") String categoryId) {
         try {
-
+            System.out.println(name);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/admin/product/new";
+        return "redirect:/kopmart/admin/produk/new";
     }
 }
