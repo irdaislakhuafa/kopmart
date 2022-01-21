@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,28 +64,26 @@ public class CategoryController {
 
     // edit
     @PostMapping("/edit")
-    public String editCategory(Model model,
-            @RequestParam("categoryId") String categoryId,
-            RedirectAttributes redirectAttributes) {
-        try {
-            Category category = categoryService.findById(categoryId).get();
-            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
-            // model.addAttribute("category", category);
-
-            redirectAttributes.addFlashAttribute("category", category);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "redirect:/kopmart/admin/kategori/edit";
-    }
-
-    @GetMapping("/edit")
     public String editCategory(Model model) {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "admin/kategori/edit";
+
+        return "redirect:/kopmart/admin/kategori/list";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editCategory(Model model, @PathVariable("id") String categoryId) {
+        try {
+            Category category = categoryService.findById(categoryId).get();
+
+            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
+            model.addAttribute("category", category);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "admin/category/edit";
     }
 }

@@ -29,14 +29,4 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    // private List<Product> products = new ArrayList<>(
-    // Arrays.asList(
-    // new Product("1", "foto1", "Produk 1", Double.valueOf(1000.0), "Simple
-    // Descriprion",
-    // "Full Description", categoryService.findAll().get(0),
-    // Integer.valueOf(12))));
-
-    // public List<Product> getAll() {
-    // return products;
-    // }
 }

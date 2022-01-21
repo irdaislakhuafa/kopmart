@@ -41,11 +41,12 @@
                                     <td th:text="${category.name}"></td>
                                     <td th:text="${category.description}"></td>
                                     <td class="row">
-                                        <form th:action="@{/kopmart/admin/kategori/edit}" method="post" class="mx-3">
+                                        <!-- <form th:action="@{/kopmart/admin/kategori/edit}" method="post" class="mx-3">
                                             <input type="text" hidden th:value="${category.id}" name="categoryId"
-                                                readonly required>
-                                            <button type="submit" class="btn btn-primary">Edit</button>
-                                        </form>
+                                                readonly required> -->
+                                        <a th:href="@{'/kopmart/admin/kategori/edit/' + ${category.id}}"
+                                            class="btn btn-primary mx-3">Edit</a>
+                                        <!-- </form> -->
 
                                         <form th:action="@{/kopmart/admin/kategori/delete}" method="post">
                                             <input type="text" hidden th:value="${category.id}" readonly required
