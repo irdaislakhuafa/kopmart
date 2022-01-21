@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/basic::head}">
+</head>
+
+<body>
+    <!-- layer -->
+    <div class="layer"></div>
+
+    <!-- content -->
+    <div class="page-flex">
+        <!-- sidebar -->
+        <div th:replace="~{admin/fragments/basic::sidebar}"></div>
+
+        <!-- main content -->
+        <div class="main-wrapper">
+            <!-- navbar -->
+            <div th:replace="~{admin/fragments/comp::navbar}"></div>
+
+            <!-- container -->
+            <div class="container">
+                <br><br><br>
+                <div class="card shadow col-sm-8 mx-auto " style="border-radius: 10px;">
+                    <div class="card-body">
+                        <form th:action="@{/admin/produk/new}" method="post" enctype="multipart/form-data">
+
+                            <!-- name -->
+                            <div class="mb-3 input-group">
+                                <label for="name" class="input-group-text bg-primary">Nama</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                    placeholder="Ex. Kacang garuda" required>
+                            </div>
+
+                            <!-- harga -->
+                            <div class="mb-3 input-group">
+                                <label for="harga" class="input-group-text bg-primary">Harga</label>
+                                <input type="number" class="form-control" id="harga" name="harga"
+                                    placeholder="Ex. 10000" required>
+                            </div>
+
+                            <!-- foto -->
+                            <div class="mb-3">
+                                <label for="foto" class="form-label">Foto</label>
+                                <input type="file" name="foto" id="foto" class="form-control" required>
+                            </div>
+
+                            <!-- categories -->
+                            <div class="mb-3">
+                                <label for="fullDesc" class="form-label">Kategori</label>
+                                <select name="categoryId" class="form-select" required>
+                                    <option>Pilih Kategori</option>
+                                    <option th:each="category : ${categories}" th:value="${category.id}">
+                                        <span th:text="${category.name}"></span>
+                                    </option>
+                                </select>
+                            </div>
+
+                            <!-- stok -->
+                            <div class="mb-3 input-group">
+                                <label for="stok" class="input-group-text bg-primary">Stok</label>
+                                <input type="number" class="form-control" name="stok" id="stok" required
+                                    placeholder="Ex. 100">
+                            </div>
+
+                            <!-- simple desc -->
+                            <div class="mb-3">
+                                <label for="simpleDesc" class="form-label">Deskripsi Singkat</label>
+                                <textarea class="form-control" name="simpleDesc" id="simpleDesc" rows="1"
+                                    required></textarea>
+                            </div>
+
+                            <!-- full desc -->
+                            <div class="mb-3">
+                                <label for="fullDesc" class="form-label">Deskripsi Lengkap</label>
+                                <textarea class="form-control" name="fullDesc" id="fullDesc" rows="3"
+                                    required></textarea>
+                            </div>
+
+                            <!-- buttons -->
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-outline-primary">Simpan</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- js -->
+    <div th:replace="~{admin/fragments/basic::js}"></div>
+</body>
+
+</html>

@@ -17,12 +17,14 @@
         <form action="#" class="form-search-blog col-sm-10 mx-auto">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <select id="categories" class="custom-select bg-light" style="height: 38px;">
+
+                    <select id="categories" class="custom-select bg-light" style="height: 38px;" name="categoryId">
                         <option>All Categories</option>
                         <option th:each="category : ${categories}" th:value="${category.id}">
                             <span th:text="${category.name}"></span>
                         </option>
                     </select>
+
                 </div>
                 <input type="text" name="keyword" class="form-control" placeholder="Enter keyword..">
                 <button type="submit" class="btn btn-primary" style="height: 38px;">Cari</button>

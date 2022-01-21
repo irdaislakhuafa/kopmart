@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/basic::head}">
+</head>
+
+<body>
+    <!-- layer -->
+    <div class="layer"></div>
+
+    <!-- content -->
+    <div class="page-flex">
+        <!-- sidebar -->
+        <div th:replace="~{admin/fragments/basic::sidebar}"></div>
+
+        <!-- main content -->
+        <div class="main-wrapper">
+            <!-- navbar -->
+            <div th:replace="~{admin/fragments/comp::navbar}"></div>
+
+            <!-- container -->
+            <div class="container">
+                <!-- content page -->
+                <!-- <div th:replace="~{/admin/fragments/content::card-info}"></div> -->
+
+                <h1 class="text-center mx-auto pt-5">Selamat Datang</h1>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- js -->
+    <div th:replace="~{admin/fragments/basic::js}"></div>
+</body>
+
+</html>

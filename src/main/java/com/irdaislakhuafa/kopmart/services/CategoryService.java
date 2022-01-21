@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.irdaislakhuafa.kopmart.models.entities.Category;
+import com.irdaislakhuafa.kopmart.models.repositories.CategoryRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,5 +20,12 @@ public class CategoryService {
 
     public List<Category> getAll() {
         return CategoryService.categories;
+    }
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
     }
 }

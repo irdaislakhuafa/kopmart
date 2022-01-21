@@ -1,5 +1,6 @@
 package com.irdaislakhuafa.kopmart.controllers;
 
+import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/kopmart")
 public class IndexController {
 
-    private static final String APP_TITLE = "KOPMART | Koperasi Mahasiswa Mart";
-
     @Autowired
     private CategoryService categoryService;
 
@@ -26,7 +25,7 @@ public class IndexController {
     @GetMapping
     public String index(Model model) {
         try {
-            model.addAttribute("title", APP_TITLE);
+            model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("categories", categoryService.getAll());
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,7 +37,7 @@ public class IndexController {
     @GetMapping("/produk")
     public String produk(Model model) {
         try {
-            model.addAttribute("title", APP_TITLE);
+            model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("products", productService.getAll());
         } catch (Exception e) {
             e.printStackTrace();
