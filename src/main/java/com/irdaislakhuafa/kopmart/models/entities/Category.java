@@ -25,4 +25,7 @@ public class Category {
 
     @Column(nullable = false, length = 100, unique = true)
     private String name;
+
+    @Column(length = 500)
+    private String desc;
 }

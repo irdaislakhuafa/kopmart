@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="~{fragments/basic::head}">
+</head>
+
+<body>
+    <!-- header -->
+    <div th:replace="~{fragments/basic::header}"></div>
+
+    <!-- home banner -->
+    <div th:replace="~{fragments/basic::homeBanner}"></div>
+
+
+    <!-- content -->
+    <div class="page-section">
+        <div class="container">
+            <div th:replace="~{fragments/home::cards}"></div>
+        </div>
+    </div>
+
+    <!-- js -->
+    <div th:replace="fragments/basic::js"></div>
+</body>
+
+</html>

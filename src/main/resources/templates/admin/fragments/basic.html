@@ -1,0 +1,23 @@
+<!-- head -->
+
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">KOPMART | Admin Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="@{/admin/img/svg/logo.svg}" type="image/x-icon">
+    <!-- Custom styles -->
+    <link rel="stylesheet" th:href="@{/admin/css/style.min.css}">
+</head>
+
+<!-- js -->
+<div th:fragment="js">
+    <!-- Chart library -->
+    <script th:src="@{admin/plugins/chart.min.js}"></script>
+    <!-- Icons library -->
+    <script th:src="@{plugins/feather.min.js}"></script>
+    <!-- Custom scripts -->
+    <script th:src="@{/admin/js/script.js}"></script>
+</div>

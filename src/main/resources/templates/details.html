@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/basic::head}">
+</head>
+
+<body>
+    <!-- header -->
+    <div th:replace="~{fragments/basic::header}"></div>
+
+    <!-- content -->
+    <div class="container">
+        <!-- banner -->
+        <div th:replace="~{fragments/basic::banner('Details')}"></div>
+
+        <div class="card mx-auto p-4 shadow mb-5 border border-light" style="background-color: #f6f5fc;">
+            <div class="row">
+
+                <div class="col-sm-6 ">
+                    <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img" alt="Foto Produk">
+                </div>
+
+                <div class="col-sm-6">
+                    <!-- start form -->
+                    <form action="">
+                        <!-- title -->
+                        <h1 class="text-center p-3">Title</h1>
+                        <hr class="border border-primary">
+
+                        <!-- full desc -->
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia repellat distinctio
+                            consequuntur quo libero. Ut repellendus, natus impedit voluptatibus quidem amet quasi
+                            officiis repudiandae neque voluptates aspernatur iure optio aliquid!</p>
+
+                        <!-- stok -->
+                        <h5>Stok : <span>9</span></h5>
+
+                        <!-- harga -->
+                        <div class="row">
+                            <h4 class="ms-2 mb-3">
+                                Rp. <a>1000.0</a>
+                            </h4>
+                        </div>
+
+                        <!-- <div class="row"> -->
+                        <button class="btn btn-primary">Tambahkan</button>
+                        <a th:href="@{/kopmart/produk}" class="btn btn-outline-primary">Kembali</a>
+                        <!-- </div> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- js -->
+    <div th:replace="~{fragments/basic::js}"></div>
+</body>
+
+</html>

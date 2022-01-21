@@ -1,0 +1,41 @@
+<!-- cards -->
+<div th:fragment="cards">
+    <div class="row">
+
+        <!-- <div> -->
+        <div class="col-lg-3 " th:each="category : ${categories}">
+            <div class="card-service wow fadeInUp">
+                <div class="header">
+                    <img th:src="@{/assets/img/services/service-1.svg}" alt="">
+                </div>
+
+                <div class="body">
+                    <h5 class="text-secondary" th:text="${category.name}">Title</h5>
+                    <p th:text="${category.desc}">Descriprions</p>
+                    <a href="service.html" class="btn btn-primary st-case">Cari</a>
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
+
+        <!-- others -->
+        <div class="col-lg-3">
+            <div class="card-service wow fadeInUp">
+                <div class="header">
+                    <img th:src="@{/assets/img/services/service-1.svg}" alt="">
+                </div>
+                <div class="body">
+                    <h5 class="text-secondary">Kategory lainnya</h5>
+                    <p>Descriprions</p>
+                    <a href="service.html" class="btn btn-primary st-case">cari</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- categories -->
+<div th:fragment="categories">
+
+</div>
