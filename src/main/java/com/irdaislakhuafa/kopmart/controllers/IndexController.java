@@ -26,7 +26,7 @@ public class IndexController {
     public String index(Model model) {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE);
-            model.addAttribute("categories", categoryService.getAll());
+            model.addAttribute("categories", categoryService.findAll());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,8 +37,9 @@ public class IndexController {
     @GetMapping("/produk")
     public String produk(Model model) {
         try {
+            System.out.println(productService.findAll());
             model.addAttribute("title", ViewHelper.APP_TITLE);
-            model.addAttribute("products", productService.getAll());
+            model.addAttribute("products", productService.findAll());
             model.addAttribute("categories", categoryService.findAll());
         } catch (Exception e) {
             e.printStackTrace();

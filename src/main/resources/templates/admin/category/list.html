@@ -42,12 +42,14 @@
                                     <td th:text="${category.description}"></td>
                                     <td class="row">
                                         <form th:action="@{/kopmart/admin/kategori/edit}" method="post" class="mx-3">
-                                            <input type="text" hidden th:value="${category.id}" readonly required>
+                                            <input type="text" hidden th:value="${category.id}" name="categoryId"
+                                                readonly required>
                                             <button type="submit" class="btn btn-primary">Edit</button>
                                         </form>
 
                                         <form th:action="@{/kopmart/admin/kategori/delete}" method="post">
-                                            <input type="text" hidden th:value="${category.id}" readonly required>
+                                            <input type="text" hidden th:value="${category.id}" readonly required
+                                                name="categoryId">
                                             <button type="submit" class="btn btn-outline-primary">Del</button>
                                         </form>
                                     </td>

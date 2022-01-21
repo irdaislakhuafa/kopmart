@@ -29,13 +29,14 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Ex. Craft"
-                                    required>
+                                    required th:value="*{name}">
                             </div>
 
                             <!-- Description -->
                             <div class="mb-3">
                                 <label for="description" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" id="description" name="description" rows="3"
+                                <textarea class="form-control" id="description" th:value="*{description}"
+                                    name="description" rows="3"
                                     placeholder="Tulis deskripsi disini. Ketik '-' untuk tanpa deskripsi."
                                     required></textarea>
                             </div>

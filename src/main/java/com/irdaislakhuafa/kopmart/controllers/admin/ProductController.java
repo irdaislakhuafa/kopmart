@@ -1,7 +1,13 @@
 package com.irdaislakhuafa.kopmart.controllers.admin;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
+import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
+import com.irdaislakhuafa.kopmart.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +24,9 @@ public class ProductController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private ProductService productService;
 
     // GET product new
     @GetMapping("/new")
@@ -40,9 +49,26 @@ public class ProductController {
             @RequestParam("simpleDesc") String simpleDesc,
             @RequestParam("fullDesc") String fullDesc,
             @RequestParam("foto") MultipartFile foto,
-            @RequestParam("categoryId") String categoryId) {
+            @RequestParam("categoryId") String categoryId,
+            @RequestParam("stok") Integer stok) {
         try {
-            System.out.println(name);
+
+            Path path = Paths.get(System.getProperty("user.home") + "/.cache/" + foto.getOriginalFilename());
+            byte[] bytes = foto.getBytes();
+
+            Files.write(path, bytes);
+
+            Product product = new Product();
+            product.setName(name);
+            product.setHarga(harga);
+            product.setSimpleDesc(simpleDesc);
+            product.setFullDesc(fullDesc);
+            product.setFotoUrl(foto.getOriginalFilename());
+            product.setCategoryId(categoryService.findById(categoryId).get());
+            product.setStok(stok);
+
+            productService.save(product);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
