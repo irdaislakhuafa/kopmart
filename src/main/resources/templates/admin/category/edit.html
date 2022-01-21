@@ -23,7 +23,7 @@
                 <br><br><br>
                 <div class="card shadow col-sm-8 mx-auto " style="border-radius: 10px;">
                     <div class="card-body">
-                        <form th:action="@{/kopmart/admin/kategori/new}" method="post">
+                        <form th:object="${category}" th:action="@{/kopmart/admin/kategori/edit}" method="post">
 
                             <!-- name -->
                             <div class="mb-3">

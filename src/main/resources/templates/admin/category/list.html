@@ -41,8 +41,10 @@
                                     <td th:text="${category.name}"></td>
                                     <td th:text="${category.description}"></td>
                                     <td class="row">
-                                        <a th:href="@{'/kopmart/admin/kategori/edit/' + category.id }"
-                                            class="btn mx-3 btn-primary">Edit</a>
+                                        <form th:action="@{/kopmart/admin/kategori/edit}" method="post" class="mx-3">
+                                            <input type="text" hidden th:value="${category.id}" readonly required>
+                                            <button type="submit" class="btn btn-primary">Edit</button>
+                                        </form>
 
                                         <form th:action="@{/kopmart/admin/kategori/delete}" method="post">
                                             <input type="text" hidden th:value="${category.id}" readonly required>
