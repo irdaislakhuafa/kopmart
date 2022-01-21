@@ -28,4 +28,10 @@ public class CategoryService {
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
+
+    // save
+    public Category save(Category category) {
+        category = categoryRepository.save(category);
+        return category;
+    }
 }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/basic::head}">
+</head>
+
+<body>
+    <!-- layer -->
+    <div class="layer"></div>
+
+    <!-- content -->
+    <div class="page-flex">
+        <!-- sidebar -->
+        <div th:replace="~{admin/fragments/basic::sidebar}"></div>
+
+        <!-- main content -->
+        <div class="main-wrapper">
+            <!-- navbar -->
+            <div th:replace="~{admin/fragments/comp::navbar}"></div>
+
+            <!-- container -->
+            <div class="container">
+                <br><br><br>
+                <div class="card shadow col-sm-8 mx-auto " style="border-radius: 10px;">
+                    <div class="card-body">
+                        <form th:action="@{/kopmart/admin/kategori/new}" method="post">
+
+                            <!-- name -->
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nama</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Ex. Craft"
+                                    required>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Deskripsi</label>
+                                <textarea class="form-control" id="description" name="description" rows="3"
+                                    placeholder="Tulis deskripsi disini. Ketik '-' untuk tanpa deskripsi."
+                                    required></textarea>
+                            </div>
+
+                            <!-- buttons -->
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-outline-primary">Simpan</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- js -->
+    <div th:replace="~{admin/fragments/basic::js}"></div>
+</body>
+
+</html>

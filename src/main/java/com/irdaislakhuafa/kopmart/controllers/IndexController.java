@@ -39,6 +39,7 @@ public class IndexController {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("products", productService.getAll());
+            model.addAttribute("categories", categoryService.findAll());
         } catch (Exception e) {
             e.printStackTrace();
         }
