@@ -53,11 +53,14 @@
 
             <div class="navbar-collapse collapse" id="navbarContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <!-- <h1 th:text="${#request.getRequestURI() == '/kopmart/'}"></h1> -->
+                    <li class="nav-item"
+                        th:classappend="${#request.getRequestURI() == '/kopmart/'} ? 'active shadow rounded-pill px-3' : ''">
                         <a class="nav-link" th:href="@{/kopmart/}">Beranda</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item"
+                        th:classappend="${#request.getRequestURI() == '/kopmart/produk'} ? 'active shadow rounded-pill px-3' : ''">
                         <a class="nav-link" th:href="@{/kopmart/produk}">Produk</a>
                     </li>
 

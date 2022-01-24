@@ -21,17 +21,63 @@
     </div>
 
 
-    <!-- others -->
-    <div class="page-section" th:each="category, status : ${categories}" th:class="${status.odd} ? 'bg-light' : ''">
+    <!-- start some categories product -->
+    <div class="page-section" th:each="category, status : ${usedCategories}" th:class="${status.odd} ? 'bg-light' : ''">
         <div class="container">
+            <!-- start category card -->
             <div class="text-center wow fadeInUp">
                 <img th:src="@{/assets/img/services/service-1.svg}" alt="Foto kategori"
                     class="mt-5 shadow rounded-pill">
                 <h1 th:text="${category.name}" class="display-3 py-4"></h1>
                 <hr class="col-sm-6 mx-auto">
+
+                <!-- start products cards -->
+                <div th:each="product : ${productService.findByCategoryId(category.id)}"
+                    class="row card-inline d-inline-block  m-3 p-0 overflow-auto">
+                    <!-- <div th:replace="~{fragments/produk::card(${product})}"></div> -->
+                    <div th:if="${product != null}">
+                        <!-- card product -->
+                        <div class="card text-start shadow">
+                            <img class="card-img-top" th:src="@{/assets/img/blog/blog-1.jpg}" alt="">
+                            <!-- card body -->
+                            <div class="card-body">
+                                <!-- title -->
+                                <h4 class="card-title">
+                                    <a th:href="@{'/kopmart/produk/details/' + ${product.id}}"
+                                        th:text="${product.name}"></a>
+                                </h4>
+                                <!-- category -->
+                                <small>Kategori : <a th:text="${product.categoryId.name}"></a></small>
+                                <!-- description -->
+                                <p class="card-text" th:text="${product.simpleDesc}">Simple Desc</p>
+                                <!-- button -->
+                                <a href="#" class="btn btn-primary">Tambahkan</a>
+                                <!-- harga -->
+                                Rp. <span th:text="${product.harga}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br>
+                <!-- end products cards -->
+
+                <!-- category properties -->
+                <h3 class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa at
+                    corrupti dolores,
+                    voluptatibus
+                    maxime quos illo hic molestiae. Veniam corrupti magni libero beatae inventore corporis sunt minus
+                    eveniet distinctio architecto. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae est
+                    voluptatum repellendus animi. Fugit debitis repellendus, tempora libero sunt, eius error iusto alias
+                    molestias, quam rerum culpa quia perspiciatis voluptate?</h3>
+                <br><br><br><br>
             </div>
+            <!-- end category card -->
+
         </div>
     </div>
+    <!-- end some categories product -->
+
+
 
     <!-- js -->
     <div th:replace="fragments/basic::js"></div>

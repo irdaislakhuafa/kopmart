@@ -1,9 +1,12 @@
 package com.irdaislakhuafa.kopmart.models.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -28,4 +31,7 @@ public class Category {
 
     @Column(length = 500)
     private String description;
+
+    @OneToMany
+    List<Product> productId;
 }

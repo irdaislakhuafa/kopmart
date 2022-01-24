@@ -30,6 +30,33 @@
     </div>
 </div>
 
+<!-- produk cart with parameter -->
+<div th:fragment="card(product)">
+    <!-- col -->
+    <div class="col">
+        <div th:each="product : ${products}" class="card m-4 shadow wow fadeInUp" style="width: 18rem;float: left;">
+            <!-- image -->
+            <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img-top" alt="Foto Produk">
+
+            <!-- card body -->
+            <div class="card-body">
+                <!-- title -->
+                <h5 class="card-title">
+                    <a th:href="@{'/kopmart/produk/details/' + ${product.id}}" th:text="${product.name}"></a>
+                </h5>
+                <!-- category -->
+                <small>Kategori : <a th:text="${product.categoryId.name}"></a></small>
+                <!-- description -->
+                <p class="card-text" th:text="${product.simpleDesc}">Simple Desc</p>
+                <!-- button -->
+                <a href="#" class="btn btn-primary">Tambahkan</a>
+                <!-- harga -->
+                Rp. <span th:text="${product.harga}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- produk details -->
 <div th:fragment="details">
     <img th:src="" alt="">

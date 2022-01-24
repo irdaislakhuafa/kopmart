@@ -1,7 +1,10 @@
 .st-case {
   text-transform: capitalize;
 }
-
+.card-inline {
+  width: 18rem;
+  /* float: left; */
+}
 .fix-category {
   height: calc(1.5em + 1.375rem + 2px);
 }

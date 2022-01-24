@@ -3,8 +3,8 @@
     <div class="row">
 
         <!-- <div> -->
-        <div class="col-lg-3 " th:each="category : ${categories}">
-            <div class="card-service wow fadeInUp">
+        <div class="col-lg-3 " th:each="category : ${usedCategories}">
+            <div class="card-service shadow wow fadeInUp">
                 <div class="header">
                     <img th:src="@{/assets/img/services/service-1.svg}" alt="">
                 </div>
@@ -19,7 +19,7 @@
         <!-- </div> -->
 
         <!-- others -->
-        <div class="col-lg-3">
+        <!-- <div class="col-lg-3">
             <div class="card-service wow fadeInUp">
                 <div class="header">
                     <img th:src="@{/assets/img/services/service-1.svg}" alt="">
@@ -30,7 +30,7 @@
                     <a href="service.html" class="btn btn-primary st-case">cari</a>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
 </div>

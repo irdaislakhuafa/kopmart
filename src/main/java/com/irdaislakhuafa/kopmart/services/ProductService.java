@@ -1,7 +1,9 @@
 package com.irdaislakhuafa.kopmart.services;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
@@ -64,5 +66,20 @@ public class ProductService implements BasicService<Product> {
     public List<Product> findByCategoryId(String id) {
         return productRepository.findByCategoryId(
                 categoryService.findById(id).get());
+    }
+
+    public Set<Category> findAllUsedCategories() {
+        Set<Category> usedCategory = new HashSet<>();
+
+        this.findAll().forEach((p) -> {
+            usedCategory.add(p.getCategoryId());
+        });
+        return usedCategory;
+    }
+
+    public List<Product> findByNameAndCategory(String name, String categoryId) {
+        return productRepository.findByNameContainsIgnoreCaseAndCategoryId(
+                name,
+                categoryService.findById(categoryId).get());
     }
 }
