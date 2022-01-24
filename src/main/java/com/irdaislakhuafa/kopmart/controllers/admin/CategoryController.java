@@ -1,10 +1,18 @@
 package com.irdaislakhuafa.kopmart.controllers.admin;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,10 +59,41 @@ public class CategoryController {
 
     // get list
     @GetMapping("/list")
-    public String listCategory(Model model) {
+    public String listCategory(
+            Model model,
+            @RequestParam("requestPage") Optional<Integer> requestPage,
+            @RequestParam("requestData") Optional<Integer> requestData,
+            @RequestParam(value = "requestSort", required = false) Optional<String> requestSort) {
         try {
+
+            // get pages of category
+            Page<Category> categoryPages = categoryService.findAll(
+                    PageRequest.of(
+                            // request page
+                            requestPage.orElse(0),
+                            // request data
+                            requestData.orElse(10),
+                            // sorting request
+                            (requestSort.orElse("asc").contains("asc")) ?
+                            // ascending
+                                    Sort.by("name").ascending() :
+                                    // descending
+                                    Sort.by("name").descending()));
+
+            // build list of page numbers
+            List<Integer> categoryPageNumbers = IntStream.rangeClosed(
+                    // get number range from 1 to total pages
+                    1, categoryPages.getTotalPages())
+                    // convert IntStream to Stream<Integer>
+                    .boxed()
+                    // convert Stream<Integer> to List or ArrayList
+                    .collect(Collectors.toList());
+
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
-            model.addAttribute("listCategory", categoryService.findAll());
+            // model.addAttribute("listCategory", categoryService.findAll());
+            model.addAttribute("categoryPages", categoryPages);
+            model.addAttribute("categoryPageNumbers", categoryPageNumbers);
+            // System.out.println(categoryPages.getContent());
         } catch (Exception e) {
             e.printStackTrace();
         }

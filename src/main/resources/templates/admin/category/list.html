@@ -36,18 +36,17 @@
                             </thead>
 
                             <tbody>
-                                <tr th:each="category, value : ${listCategory}">
+                                <!-- table category -->
+                                <tr th:each="category, value : ${categoryPages.content}">
                                     <td th:text="${value.index + 1}"></td>
                                     <td th:text="${category.name}"></td>
                                     <td th:text="${category.description}"></td>
                                     <td class="row">
-                                        <!-- <form th:action="@{/kopmart/admin/kategori/edit}" method="post" class="mx-3">
-                                            <input type="text" hidden th:value="${category.id}" name="categoryId"
-                                                readonly required> -->
+                                        <!-- edit button -->
                                         <a th:href="@{'/kopmart/admin/kategori/edit/' + ${category.id}}"
                                             class="btn btn-primary mx-3">Edit</a>
-                                        <!-- </form> -->
 
+                                        <!-- delete button -->
                                         <form th:action="@{/kopmart/admin/kategori/delete}" method="post">
                                             <input type="text" hidden th:value="${category.id}" readonly required
                                                 name="categoryId">
@@ -55,9 +54,18 @@
                                         </form>
                                     </td>
                                 </tr>
+
                             </tbody>
                         </table>
 
+                        <!-- pagination -->
+                        <a th:if="${categoryPages.totalPages > 1}" th:each="pageNumber : ${categoryPageNumbers}">
+                            <a th:href="@{/kopmart/admin/kategori/list(
+                                requestPage = ${pageNumber - 1},
+                                requestData = ${categoryPages.size}
+                            )}" th:text="${pageNumber}"
+                                th:class="${pageNumber == (categoryPages.number + 1)} ? 'btn btn-outline-primary py-0 rounded rounded-pill px-2 ' : ''"></a>
+                        </a>
 
                     </div>
                 </div>

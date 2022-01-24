@@ -24,14 +24,13 @@
                 <div class="card shadow col-sm-8 mx-auto " style="border-radius: 10px;">
                     <div class="card-body">
 
-                        <table class="table table-striped">
+                        <table class="table table-striped shadow">
                             <thead class="thead-inverse">
                                 <tr class="text-start">
                                     <th>NO</th>
                                     <th>NAMA</th>
                                     <th>DESKRIPSI</th>
                                     <th>AKSI</th>
-                                    <!-- <th></th> -->
                                 </tr>
                             </thead>
 
@@ -41,13 +40,11 @@
                                     <td th:text="${category.name}"></td>
                                     <td th:text="${category.description}"></td>
                                     <td class="row">
-                                        <!-- <form th:action="@{/kopmart/admin/kategori/edit}" method="post" class="mx-3">
-                                            <input type="text" hidden th:value="${category.id}" name="categoryId"
-                                                readonly required> -->
+                                        <!-- edit button -->
                                         <a th:href="@{'/kopmart/admin/kategori/edit/' + ${category.id}}"
                                             class="btn btn-primary mx-3">Edit</a>
-                                        <!-- </form> -->
 
+                                        <!-- delete button -->
                                         <form th:action="@{/kopmart/admin/kategori/delete}" method="post">
                                             <input type="text" hidden th:value="${category.id}" readonly required
                                                 name="categoryId">
