@@ -1,10 +1,6 @@
 package com.irdaislakhuafa.kopmart.controllers.user;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
-import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 
@@ -30,7 +26,6 @@ public class IndexController {
         try {
             model.addAttribute("productService", productService);
             model.addAttribute("title", ViewHelper.APP_TITLE);
-            // model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("usedCategories", productService.findAllUsedCategories());
         } catch (Exception e) {
             e.printStackTrace();
