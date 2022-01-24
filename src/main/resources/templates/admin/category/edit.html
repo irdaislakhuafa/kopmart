@@ -24,18 +24,20 @@
                 <div class="card shadow col-sm-8 mx-auto " style="border-radius: 10px;">
                     <div class="card-body">
                         <form th:object="${category}" th:action="@{/kopmart/admin/kategori/edit}" method="post">
+                            <!-- id -->
+                            <input type="text" th:field="*{id}" hidden name="id" id="id" readonly required>
 
                             <!-- name -->
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Ex. Craft"
-                                    required th:value="*{name}">
+                                    required th:field="*{name}">
                             </div>
 
                             <!-- Description -->
                             <div class="mb-3">
                                 <label for="description" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" id="description" th:value="*{description}"
+                                <textarea class="form-control" id="description" th:field="*{description}"
                                     name="description" rows="3"
                                     placeholder="Tulis deskripsi disini. Ketik '-' untuk tanpa deskripsi."
                                     required></textarea>

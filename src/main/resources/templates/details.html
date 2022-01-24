@@ -22,23 +22,24 @@
 
                 <div class="col-sm-6">
                     <!-- start form -->
-                    <form action="">
+                    <form action="" th:object="${product}">
                         <!-- title -->
-                        <h1 class="text-center p-3">Title</h1>
+                        <h1 class="text-center p-3" th:text="*{name}">Title</h1>
                         <hr class="border border-primary">
 
                         <!-- full desc -->
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia repellat distinctio
+                        <p th:text="*{fullDesc}">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
+                            repellat distinctio
                             consequuntur quo libero. Ut repellendus, natus impedit voluptatibus quidem amet quasi
                             officiis repudiandae neque voluptates aspernatur iure optio aliquid!</p>
 
                         <!-- stok -->
-                        <h5>Stok : <span>9</span></h5>
+                        <h5>Stok : <span th:text="*{stok}">9</span></h5>
 
                         <!-- harga -->
                         <div class="row">
                             <h4 class="ms-2 mb-3">
-                                Rp. <a>1000.0</a>
+                                Rp. <a th:text="*{harga}">1000.0</a>
                             </h4>
                         </div>
 

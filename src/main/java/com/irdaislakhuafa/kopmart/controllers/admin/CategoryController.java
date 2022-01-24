@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/kopmart/admin/kategori")
@@ -64,13 +63,13 @@ public class CategoryController {
 
     // edit
     @PostMapping("/edit")
-    public String editCategory(Model model) {
+    public String editCategory(Model model, Category category) {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
+            categoryService.save(category);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return "redirect:/kopmart/admin/kategori/list";
     }
 

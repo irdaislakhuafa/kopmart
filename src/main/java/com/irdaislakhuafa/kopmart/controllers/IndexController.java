@@ -1,6 +1,7 @@
 package com.irdaislakhuafa.kopmart.controllers;
 
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
+import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 
@@ -51,7 +52,8 @@ public class IndexController {
     @GetMapping("/produk/details/{id}")
     public String productDetails(Model model, @PathVariable(value = "id", required = true) String productId) {
         try {
-
+            Product product = productService.findById(productId).get();
+            model.addAttribute("product", product);
         } catch (Exception e) {
             e.printStackTrace();
         }

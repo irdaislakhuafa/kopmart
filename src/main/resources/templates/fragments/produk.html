@@ -4,8 +4,8 @@
     <div class="row">
 
         <!-- col -->
-        <div class="col-sm-2 py-3">
-            <div th:each="product : ${products}" class="card wow fadeInUp" style="width: 18rem;">
+        <div class="col">
+            <div th:each="product : ${products}" class="card m-4 shadow wow fadeInUp" style="width: 18rem;float: left;">
                 <!-- image -->
                 <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img-top" alt="Foto Produk">
 
@@ -27,30 +27,6 @@
             </div>
         </div>
 
-        <!-- column -->
-        <!-- <div class="col-sm-4 py-3 hy-auto" th:each="product : ${products}">
-            <div class="card-blog wow fadeInUp">
-                <div class="header">
-                    <div class="post-thumb">
-                        <img th:src="@{/assets/img/blog/blog-1.jpg}" alt="Foto Produk">
-                    </div>
-                </div>
-
-                <div class="body">
-                    <h5 class="post-title">
-                        <a href="blog-details.html" th:text="${product.name}">Nama Produk</a>
-                    </h5>
-
-
-                    <div class="post-date">
-                        <p th:text="${product.simpleDesc}"></p>
-                        Posted on <a href="#">27 Jan 2020</a>
-                    </div>
-                    <button class="btn btn-primary">Tambahkan</button>
-                </div>
-
-            </div>
-        </div> -->
     </div>
 </div>
 
