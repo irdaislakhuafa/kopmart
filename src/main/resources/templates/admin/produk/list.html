@@ -21,41 +21,72 @@
             <!-- container -->
             <div class="container">
                 <br><br><br>
-                <div class="card shadow col-sm-8 mx-auto " style="border-radius: 10px;">
+                <div class="card shadow  mx-auto " style="border-radius: 10px;">
                     <div class="card-body">
 
-                        <table class="table table-striped shadow">
+                        <table class="table table-striped ">
                             <thead class="thead-inverse">
                                 <tr class="text-start">
                                     <th>NO</th>
                                     <th>NAMA</th>
-                                    <th>DESKRIPSI</th>
+                                    <th>HARGA</th>
+                                    <th>STOK</th>
+                                    <th>FOTO URL</th>
+                                    <th>KATEGORI</th>
+                                    <th>DESKRIPSI SINGKAT</th>
+                                    <th>DESKRIPSI LENGKAP</th>
                                     <th>AKSI</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <tr th:each="category, value : ${listCategory}">
-                                    <td th:text="${value.index + 1}"></td>
-                                    <td th:text="${category.name}"></td>
-                                    <td th:text="${category.description}"></td>
-                                    <td class="row">
-                                        <!-- edit button -->
-                                        <a th:href="@{'/kopmart/admin/kategori/edit/' + ${category.id}}"
-                                            class="btn btn-primary mx-3">Edit</a>
 
-                                        <!-- delete button -->
-                                        <form th:action="@{/kopmart/admin/kategori/delete}" method="post">
-                                            <input type="text" hidden th:value="${category.id}" readonly required
-                                                name="categoryId">
-                                            <button type="submit" class="btn btn-outline-primary">Del</button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                <div th:if="${productPages != null}">
+                                    <tr th:each="product, status : ${productPages.content}">
+                                        <!-- no -->
+                                        <td th:text="${status.index + 1}"></td>
+                                        <!-- nama -->
+                                        <td th:text="${product.name}"></td>
+                                        <!-- harga -->
+                                        <td th:text="${product.harga}"></td>
+                                        <!-- stok -->
+                                        <td th:text="${product.stok}"></td>
+                                        <!-- fotoUrl -->
+                                        <td th:text="${product.fotoUrl}"></td>
+                                        <!-- category -->
+                                        <td th:text="${product.categoryId.name}"></td>
+                                        <!-- simple description -->
+                                        <td th:text="${product.simpleDesc}"></td>
+                                        <!-- full description -->
+                                        <td th:text="${product.fullDesc}"></td>
+                                        <!-- aksi -->
+                                        <td class="row" style="margin-right: 5px;">
+                                            <!-- edit button -->
+                                            <a th:href="@{'/kopmart/admin/kategori/edit/' + ${product.id}}"
+                                                class="btn btn-primary mx-auto">Edit</a>
+
+                                            <!-- delete button -->
+                                            <form th:action="@{/kopmart/admin/kategori/delete}" method="post">
+                                                <input type="text" hidden th:value="${product.id}" readonly required
+                                                    name="categoryId">
+                                                <button type="submit" class="btn btn-outline-primary">Del</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </div>
                             </tbody>
                         </table>
 
-
+                        <!-- pagination -->
+                        <a th:if="${productPages.totalPages > 1}" th:each="pageNumber, status : ${productPageNumbers}">
+                            <a th:text="${pageNumber}"
+                                th:class="${pageNumber == (productPages.number + 1)} ? 'btn btn-outline-primary py-0 px-2 rounded rounded-pill' : ''"
+                                th:href="@{/kopmart/admin/produk/list(
+                                    requestPage = ${pageNumber - 1},
+                                    requestData = ${productPages.size},
+                                    requestSort = 'asc'
+                                )}"></a>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -59,7 +59,7 @@ public class CategoryController {
 
     // get list
     @GetMapping("/list")
-    public String listCategory(
+    public String listCategories(
             Model model,
             @RequestParam("requestPage") Optional<Integer> requestPage,
             @RequestParam("requestData") Optional<Integer> requestData,
@@ -90,10 +90,8 @@ public class CategoryController {
                     .collect(Collectors.toList());
 
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
-            // model.addAttribute("listCategory", categoryService.findAll());
             model.addAttribute("categoryPages", categoryPages);
             model.addAttribute("categoryPageNumbers", categoryPageNumbers);
-            // System.out.println(categoryPages.getContent());
         } catch (Exception e) {
             e.printStackTrace();
         }
