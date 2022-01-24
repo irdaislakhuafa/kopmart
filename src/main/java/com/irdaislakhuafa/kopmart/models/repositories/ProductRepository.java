@@ -2,6 +2,7 @@ package com.irdaislakhuafa.kopmart.models.repositories;
 
 import java.util.List;
 
+import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
 
 import org.springframework.data.domain.Page;
@@ -16,4 +17,6 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     public Product findByName(String name);
 
     public Page<Product> findAll(Pageable pageable);
+
+    public List<Product> findByCategoryId(Category categoryId);
 }

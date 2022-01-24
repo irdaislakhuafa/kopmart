@@ -3,6 +3,7 @@ package com.irdaislakhuafa.kopmart.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.models.repositories.ProductRepository;
 
@@ -16,6 +17,9 @@ public class ProductService implements BasicService<Product> {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Override
     public Product save(Product entity) {
@@ -57,4 +61,8 @@ public class ProductService implements BasicService<Product> {
         return productRepository.findAll(pageable);
     }
 
+    public List<Product> findByCategoryId(String id) {
+        return productRepository.findByCategoryId(
+                categoryService.findById(id).get());
+    }
 }

@@ -122,4 +122,16 @@ public class CategoryController {
         }
         return "admin/category/edit";
     }
+
+    // delete
+    @PostMapping("/delete")
+    public String deleteCategory(Model model, @RequestParam("categoryId") String categoryId) {
+        try {
+            categoryService.removeById(categoryId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/kopmart/admin/kategori/list";
+    }
+
 }
