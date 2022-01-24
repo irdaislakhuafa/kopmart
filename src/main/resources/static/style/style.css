@@ -264,6 +264,7 @@
 
 /* end padding */
 
+/* start tables */
 .table {
   --bs-table-bg: transparent;
   --bs-table-accent-bg: transparent;
@@ -279,7 +280,11 @@
   vertical-align: top;
   border-color: #dee2e6;
 }
-
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+/* end tables */
 .mb-0 {
   margin-bottom: 0 !important;
 }
