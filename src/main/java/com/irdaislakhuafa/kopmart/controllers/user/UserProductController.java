@@ -36,6 +36,7 @@ public class UserProductController {
             model.addAttribute("products", productService.findAll());
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("searchActionUrl", "/kopmart/produk");
+            // model.addAttribute("categoryValueId", "");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,7 +69,7 @@ public class UserProductController {
                     productService.findByNameAndCategory(keyword.orElse(""), categoryId.orElse("")));
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("searchActionUrl", "/kopmart/produk");
-            model.addAttribute("categoryValue", categoryValue);
+            model.addAttribute("categoryValueId", categoryValue.getId());
             model.addAttribute("keyword", keyword.get());
 
         } catch (Exception e) {

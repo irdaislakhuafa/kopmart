@@ -14,6 +14,7 @@ import com.irdaislakhuafa.kopmart.services.CategoryService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/kopmart/admin/produk")
@@ -41,6 +43,7 @@ public class ProductController {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
             model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("product", new Product());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,7 +60,13 @@ public class ProductController {
             @RequestParam("fullDesc") String fullDesc,
             @RequestParam("foto") MultipartFile foto,
             @RequestParam("categoryId") String categoryId,
-            @RequestParam("stok") Integer stok) {
+            @RequestParam("stok") Integer stok,
+            RedirectAttributes redirectAttributes) {
+
+        Product product = new Product();
+        model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
+        model.addAttribute("categories", categoryService.findAll());
+
         try {
 
             Path path = Paths.get(System.getProperty("user.home") + "/.cache/" + foto.getOriginalFilename());
@@ -65,7 +74,6 @@ public class ProductController {
 
             Files.write(path, bytes);
 
-            Product product = new Product();
             product.setName(name);
             product.setHarga(harga);
             product.setSimpleDesc(simpleDesc);
@@ -76,6 +84,20 @@ public class ProductController {
 
             productService.save(product);
 
+        } catch (DataIntegrityViolationException e) {
+            model.addAttribute("errorMessage",
+                    e.getMessage().contains("ConstraintViolationException") ? "Maaf nama foto tidak boleh sama!" : "");
+
+            product.setName(name);
+            product.setHarga(harga);
+            product.setSimpleDesc(simpleDesc);
+            product.setFullDesc(fullDesc);
+            product.setFotoUrl(foto.getOriginalFilename());
+            product.setCategoryId(categoryService.findById(categoryId).get());
+            product.setStok(stok);
+
+            model.addAttribute("product", product);
+            return "admin/produk/new";
         } catch (Exception e) {
             e.printStackTrace();
         }

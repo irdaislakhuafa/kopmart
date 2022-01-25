@@ -24,7 +24,7 @@
                     <select id="categories" class="custom-select bg-light" style="height: 38px;" name="categoryId">
                         <option>All Categories</option>
                         <option th:each="category : ${categories}" th:value="${category.id}"
-                            th:selected="${category.id == categoryValue.id}">
+                            th:selected="${category.id == categoryValueId}">
                             <span th:text="${category.name}"></span>
                         </option>
                     </select>
