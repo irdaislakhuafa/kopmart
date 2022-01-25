@@ -62,11 +62,11 @@
                                         <!-- aksi -->
                                         <td class="row" style="margin-right: 5px;">
                                             <!-- edit button -->
-                                            <a th:href="@{'/kopmart/admin/kategori/edit/' + ${product.id}}"
+                                            <a th:href="@{'/kopmart/admin/produk/edit/' + ${product.id}}"
                                                 class="btn btn-primary mx-auto">Edit</a>
 
                                             <!-- delete button -->
-                                            <form th:action="@{/kopmart/admin/kategori/delete}" method="post">
+                                            <form th:action="@{/kopmart/admin/produk/delete}" method="post">
                                                 <input type="text" hidden th:value="${product.id}" readonly required
                                                     name="categoryId">
                                                 <button type="submit" class="btn btn-outline-primary">Del</button>

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
+import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -145,5 +147,61 @@ public class ProductController {
             e.printStackTrace();
         }
         return "admin/produk/list";
+    }
+
+    // GET for edit
+    @GetMapping("/edit/{id}")
+    public String editProduct(
+            Model model,
+            @PathVariable("id") Optional<String> productId) {
+
+        try {
+            if (productId.isPresent()) {
+                Product product = productService.findById(
+                        productId.get())
+                        .get();
+
+                model.addAttribute("product", product);
+            }
+
+            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
+            model.addAttribute("categories", categoryService.findAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "admin/produk/edit";
+    }
+
+    @PostMapping("/edit")
+    public String editProduct(
+            Model model,
+            Product product,
+            @RequestParam("oldPic") Optional<Boolean> oldPic,
+            RedirectAttributes redirectAttributes) {
+        try {
+            // System.out.println("=".repeat(100) + oldPic + "=".repeat(100));
+            // productService.save(product);
+
+            // if use old pic
+            if (oldPic.isPresent()) {
+                product.setFotoUrl(
+                        productService.findById(
+                                product.getId()).get()
+                                .getFotoUrl());
+                System.out.println(product);
+            }
+
+            // if foto url is null
+            if (product.getFotoUrl() == null) {
+                redirectAttributes.addFlashAttribute("fotoErrorMessage",
+                        "Foto tidak boleh kosong, gunakan foto sebelumnya jika tidak ingin merubah!");
+
+                return "redirect:/kopmart/admin/produk/edit/" + product.getId();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/kopmart/admin/produk/list";
     }
 }
