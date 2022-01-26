@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/kopmart")
+@RequestMapping("/")
 public class IndexController {
 
     @Autowired
@@ -20,8 +20,13 @@ public class IndexController {
     @Autowired
     private ProductService productService;
 
+    @GetMapping
+    public String redirectIndex() {
+        return "redirect:/kopmart/home/";
+    }
+
     // index
-    @GetMapping(value = { "/", "/home" })
+    @GetMapping(value = { "/kopmart/", "/kopmart/home" })
     public String index(Model model) {
         try {
             model.addAttribute("productService", productService);
