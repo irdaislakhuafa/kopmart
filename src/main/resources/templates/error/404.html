@@ -7,6 +7,28 @@
 <body>
     <!-- header -->
     <div th:replace="~{fragments/basic :: header}"></div>
+
+    <!-- content -->
+    <div class="container wow fadeInUp">
+        <div>
+            <h1 style="font-size: 200px;" class="text-center">
+                <span class="text-primary">4</span>
+                <span class="text-success">0</span>
+                <span class="text-warning">4</span>
+            </h1>
+            <h2 class="text-capitalize text-center text-danger mb-3">Oops.. maaf halaman tidak ditemukan!</span> </h2>
+        </div>
+
+        <div class="mb-5 text-center">
+            <a th:href="@{/kopmart/}" class="  btn btn-outline-primary">Kembali ke Beranda</a>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="bottom-0" th:insert="~{fragments/basic :: footer}">
+    </div>
+    <!-- js -->
+    <div th:replace="~{fragments/basic :: js}"></div>
 </body>
 
 </html>
