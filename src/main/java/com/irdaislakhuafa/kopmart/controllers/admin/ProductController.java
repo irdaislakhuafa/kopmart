@@ -204,4 +204,17 @@ public class ProductController {
         }
         return "redirect:/kopmart/admin/produk/list";
     }
+
+    @PostMapping("/delete")
+    public String delete(
+            Model model,
+            @RequestParam("categoryId") String categoryId) {
+
+        try {
+            productService.removeById(categoryId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/kopmart/admin/produk/list";
+    }
 }
