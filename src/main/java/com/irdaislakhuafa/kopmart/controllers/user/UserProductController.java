@@ -59,18 +59,27 @@ public class UserProductController {
     @PostMapping
     public String searchProducts(
             Model model,
-            @RequestParam("categoryId") Optional<String> categoryId,
+            @RequestParam("categoryIdName") Optional<String> categoryIdName,
             @RequestParam("keyword") Optional<String> keyword) {
 
         try {
-            Category categoryValue = categoryService.findById(categoryId.orElse("")).get();
+            boolean isAllCategories = categoryIdName.get().equalsIgnoreCase("semua kategori");
+
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("products",
-                    productService.findByNameAndCategory(keyword.orElse(""), categoryId.orElse("")));
+                    // is all categories?
+                    (isAllCategories) ?
+
+                    // true
+                            productService.findByNameContains(keyword.orElse("")) :
+                            // false
+                            productService.findByNameAndCategory(keyword.orElse(""), categoryIdName.get()));
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("searchActionUrl", "/kopmart/produk");
-            model.addAttribute("categoryValueId", categoryValue.getId());
             model.addAttribute("keyword", keyword.get());
+
+            Category categoryValue = categoryService.findByName(categoryIdName.get());
+            model.addAttribute("categoryValueId", categoryValue.getId());
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -12,9 +12,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, String> {
-    public List<Product> findByNameContains(String name);
+    public List<Product> findByNameContainsIgnoreCase(String name);
 
-    public Product findByName(String name);
+    public Product findByNameIgnoreCase(String name);
 
     public Page<Product> findAll(Pageable pageable);
 
@@ -22,5 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     public List<Category> findByCategoryIdIsNotNull();
 
-    public List<Product> findByNameContainsIgnoreCaseAndCategoryId(String name, Category categoryId);
+    public List<Product> findByNameContainsIgnoreCaseAndCategoryIdNameIgnoreCase(String name, String categoryIdName);
+
+    public List<Product> findByCategoryIdNameIgnoreCase(String name);
 }
