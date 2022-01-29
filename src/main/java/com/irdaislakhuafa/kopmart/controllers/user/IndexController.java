@@ -26,7 +26,7 @@ public class IndexController {
     }
 
     // index
-    @GetMapping(value = { "/kopmart/", "/kopmart/home" })
+    @GetMapping(value = { "/kopmart", "/kopmart/", "/kopmart/home", "/kopmart/home/" })
     public String index(Model model) {
         try {
             model.addAttribute("productService", productService);

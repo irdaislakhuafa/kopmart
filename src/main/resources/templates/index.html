@@ -23,6 +23,7 @@
 
     <!-- start some categories product -->
     <div class="page-section" th:each="category, status : ${usedCategories}" th:class="${status.odd} ? 'bg-light' : ''">
+        <!-- used categories -->
         <div class="container">
             <!-- start category card -->
             <div class="text-center wow fadeInUp">
@@ -31,13 +32,32 @@
                 <h1 th:text="${category.name}" class="display-3 py-4"></h1>
                 <hr class="col-sm-6 mx-auto">
 
+
+
+                <!-- category properties -->
+                <h3 class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa at
+                    corrupti dolores,
+                    voluptatibus
+                    maxime quos illo hic molestiae. Veniam corrupti magni libero beatae inventore corporis sunt minus
+                    eveniet distinctio architecto. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae est
+                    voluptatum repellendus animi. Fugit debitis repellendus, tempora libero sunt, eius error iusto alias
+                    molestias, quam rerum culpa quia perspiciatis voluptate?</h3>
+                <br><br><br><br>
+            </div>
+            <!-- end category card -->
+
+        </div>
+
+        <!-- products -->
+        <div class="container-fluid">
+            <div class="row d-flex   justify-content-evenly ">
                 <!-- start products cards -->
                 <div th:each="product : ${productService.findByCategoryId(category.id)}"
-                    class="row card-inline d-inline-block  m-3 p-0 overflow-auto">
+                    class="  card-inline   m-3 p-0 ">
                     <!-- <div th:replace="~{fragments/produk::card(${product})}"></div> -->
-                    <div th:if="${product != null}">
+                    <div th:if="${product != null}" class="">
                         <!-- card product -->
-                        <div class="card text-start shadow">
+                        <div class="card  text-start shadow ">
                             <img class="card-img-top" th:src="@{/assets/img/blog/blog-1.jpg}" alt="">
                             <!-- card body -->
                             <div class="card-body">
@@ -58,22 +78,12 @@
                         </div>
                     </div>
                 </div>
-                <br><br><br>
-                <!-- end products cards -->
-
-                <!-- category properties -->
-                <h3 class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa at
-                    corrupti dolores,
-                    voluptatibus
-                    maxime quos illo hic molestiae. Veniam corrupti magni libero beatae inventore corporis sunt minus
-                    eveniet distinctio architecto. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae est
-                    voluptatum repellendus animi. Fugit debitis repellendus, tempora libero sunt, eius error iusto alias
-                    molestias, quam rerum culpa quia perspiciatis voluptate?</h3>
-                <br><br><br><br>
             </div>
-            <!-- end category card -->
-
         </div>
+
+        <br><br><br>
+        <!-- end products cards -->
+
     </div>
     <!-- end some categories product -->
 

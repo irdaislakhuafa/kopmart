@@ -1,31 +1,36 @@
 <!-- produk cart -->
 <div th:fragment="cards">
     <!-- row -->
-    <div class="row">
+    <div class="row d-flex justify-content-evenly">
 
         <!-- col -->
-        <div class="col">
-            <div th:each="product : ${products}" class="card m-4 shadow wow fadeInUp" style="width: 18rem;float: left;">
-                <!-- image -->
-                <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img-top" alt="Foto Produk">
+        <!-- <div class="col"> -->
+        <div th:each="product : ${products}" class="card m-4 p-0 shadow wow fadeInUp" style="width: 18rem;">
+            <!-- image -->
+            <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img-top" alt="Foto Produk">
 
-                <!-- card body -->
-                <div class="card-body">
-                    <!-- title -->
-                    <h5 class="card-title">
-                        <a th:href="@{'/kopmart/produk/details/' + ${product.id}}" th:text="${product.name}"></a>
-                    </h5>
-                    <!-- category -->
-                    <small>Kategori : <a th:text="${product.categoryId.name}"></a></small>
-                    <!-- description -->
-                    <p class="card-text" th:text="${product.simpleDesc}">Simple Desc</p>
-                    <!-- button -->
-                    <a href="#" class="btn btn-primary">Tambahkan</a>
-                    <!-- harga -->
-                    Rp. <span th:text="${product.harga}"></span>
+            <!-- card body -->
+            <div class="card-body">
+                <!-- title -->
+                <h5 class="card-title">
+                    <a th:href="@{'/kopmart/produk/details/' + ${product.id}}" th:text="${product.name}"></a>
+                </h5>
+                <!-- category -->
+                <small>Kategori : <a th:text="${product.categoryId.name}"></a></small>
+                <!-- description -->
+                <p class="card-text" th:text="${product.simpleDesc}">Simple Desc</p>
+
+                <div class="row">
+                    <div>
+                        <!-- button -->
+                        <a href="#" class="btn btn-primary">Tambahkan</a>
+                        <!-- harga -->
+                        Rp. <span th:text="${product.harga}"></span>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- </div> -->
 
     </div>
 </div>

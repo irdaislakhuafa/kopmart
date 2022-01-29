@@ -188,7 +188,7 @@ public class ProductController {
                         productService.findById(
                                 product.getId()).get()
                                 .getFotoUrl());
-                System.out.println(product);
+                // System.out.println(product);
             }
 
             // if foto url is null
@@ -199,6 +199,8 @@ public class ProductController {
                 return "redirect:/kopmart/admin/produk/edit/" + product.getId();
             }
 
+            // update product
+            productService.save(product);
         } catch (Exception e) {
             e.printStackTrace();
         }
