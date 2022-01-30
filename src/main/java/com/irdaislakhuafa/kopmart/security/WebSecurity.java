@@ -1,11 +1,17 @@
 package com.irdaislakhuafa.kopmart.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private DaoAuthenticationProvider provider;
+
     @Override
     protected void configure(HttpSecurity https) throws Exception {
         https
@@ -32,6 +38,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/kopmart/login")
                 .permitAll();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(provider);
     }
 
 }
