@@ -5,7 +5,19 @@
 </head>
 
 <body>
-    <div th:replace="~{fragments/basic}"></div>
+    <div th:replace="~{fragments/basic :: header}"></div>
+    <div class="container">
+        <div th:replace="~{fragments/basic :: banner('Keranjang')}"></div>
+
+
+        <!-- start card -->
+        <div th:each="product : ${listProducts}">
+            <div th:replace="~{fragments/cart :: cart(${product})}"></div>
+        </div>
+    </div>
+
+    <!-- js -->
+    <div th:replace="~{fragments/basic :: js}"></div>
 </body>
 
 </html>

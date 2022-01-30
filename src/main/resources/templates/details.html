@@ -13,47 +13,8 @@
         <!-- banner -->
         <div th:replace="~{fragments/basic::banner('Details')}"></div>
 
-        <div class="card mx-auto p-4 shadow mb-5 border border-light" style="background-color: #f6f5fc;">
-            <div class="row">
-
-                <div class="col-sm-6 justify-content-evenly d-flex ">
-                    <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img" alt="Foto Produk">
-                </div>
-
-                <div class="col-sm-6">
-                    <!-- start form -->
-                    <form action="" th:object="${product}">
-                        <!-- title -->
-                        <div class="p-3 shadow mt-3 card-header">
-                            <h1 class="text-center" th:text="*{name}">Title</h1>
-                        </div>
-                        <hr>
-
-                        <!-- full desc -->
-                        <p th:text="*{fullDesc}">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
-                            repellat distinctio
-                            consequuntur quo libero. Ut repellendus, natus impedit voluptatibus quidem amet quasi
-                            officiis repudiandae neque voluptates aspernatur iure optio aliquid!</p>
-
-
-                        <!-- harga -->
-                        <div class="row">
-                            <h4 class="ms-2 mb-3">
-                                Rp. <a th:text="*{harga}">1000.0</a>
-                            </h4>
-                        </div>
-
-                        <!-- stok -->
-                        <h5 class="fs-6 ms-2 text-primary">Stok : <span th:text="*{stok}">9</span></h5>
-
-                        <!-- <div class="row"> -->
-                        <button class="btn btn-primary">Tambahkan</button>
-                        <a th:href="@{/kopmart/produk}" class="btn btn-outline-primary">Kembali</a>
-                        <!-- </div> -->
-                    </form>
-                </div>
-            </div>
-        </div>
+        <!-- details -->
+        <div th:replace="~{fragments/produk :: details(${product})}"></div>
     </div>
 
     <!-- footer -->

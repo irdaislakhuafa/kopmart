@@ -1,0 +1,54 @@
+<div th:fragment="cart(product)">
+    <div class="card m-3 p-4 shadow wow fadeInUp">
+        <div class="row">
+            <!-- img -->
+            <div class="col-sm-6 d-flex justity-content-evenly">
+                <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img-top" th:alt="${product.name}">
+            </div>
+
+            <!-- content -->
+            <div class="col-sm-6 ">
+                <form th:action="@{/}" class="">
+                    <input type=" text" th:value="${product.id}" name="id" hidden>
+                    <h5 th:text="${product.name}" class="card-header rounded-pill shadow text-center text-uppercase">
+                    </h5>
+
+                    <div class="card-body">
+                        <h5 class="card-title my-0">Kategori : <span th:text="${product.categoryId.name}"></span></h5>
+
+                        <p th:text="${product.fullDesc}" class="card-text fs-5"></p>
+                    </div>
+
+                    <div class="mb-3 input-group">
+                        <label for="jumlah" class="input-group-text">Jumlah</label>
+                        <input type="number" id="jumlah" min="0" value="1" class="form-control col-sm-2 col-3">
+                    </div>
+
+                    <div class="row ms-0">
+                        <!-- check out -->
+                        <button type="button" class="btn btn-outline-primary col-4 me-3">
+                            <!-- start icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-cash" viewBox="0 0 16 16">
+                                <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                                <path
+                                    d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
+                            </svg>
+                            <!-- end icon -->
+                            Checkout
+                        </button>
+
+                        <button type="button" class="btn col-4 btn-outline-danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                            </svg>
+                            Hapus
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

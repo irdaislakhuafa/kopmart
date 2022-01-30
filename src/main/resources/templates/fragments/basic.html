@@ -21,6 +21,10 @@
     <link rel="stylesheet" th:href="@{/assets/vendor/animate/animate.css}">
     <link rel="stylesheet" th:href="@{/assets/css/theme.css}">
     <link rel="stylesheet" th:href="@{/assets/css/custom.css}">
+
+    <!-- <div th:replace="~{fragments/basic::fontAwesome}"></div> -->
+    <link rel="stylesheet" th:href="@{/style/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+
 </head>
 
 <!-- js -->
@@ -65,10 +69,16 @@
                     </li>
 
                     <!-- produk -->
-                    <li class="nav-item"
-                        th:classappend="${#request.getRequestURI() == '/kopmart/produk'} ? 'active shadow rounded-pill px-3' : ''">
+                    <li class="nav-item" th:classappend="${
+                            #request.getRequestURI() == '/kopmart/produk'
+                        } ? 'active shadow rounded-pill px-3' : ''">
                         <a class="nav-link" th:href="@{/kopmart/produk}">Produk</a>
                     </li>
+
+                    <!-- keranjang -->
+                    <!-- <div class="nav-item">
+                        <a th:href="@{/kopmart/produk/keranjang}"></a>
+                    </div> -->
 
                     <!-- <li class="nav-item">
                         <a class="nav-link" th:href="@{/kopmart/}">About</a>
@@ -86,8 +96,11 @@
                         <a class="nav-link" th:href="@{/kopmart/}">Contact</a>
                     </li> -->
 
-                    <li class="nav-item">
-                        <a class="btn">
+                    <li class="nav-item" th:classappend="${
+                        #request.getRequestURI() == '/kopmart/produk/keranjang' || 
+                        #request.getRequestURI() == '/kopmart/produk/keranjang/'  
+                    } ? 'active' : ''">
+                        <a class="text-decoration-none" th:href="@{/kopmart/produk/keranjang}">
                             <!-- icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                 class="bi bi-cart4" viewBox="0 0 16 16">
@@ -199,3 +212,6 @@
         </div>
     </footer>
 </div>
+
+<!-- font awesome -->
+<link rel="stylesheet" th:href="@{/style/fonts/font-awesome-4.7.0/css/font-awesome.min.css}" th:fragment="fontAwesome">

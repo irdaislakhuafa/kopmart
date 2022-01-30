@@ -24,11 +24,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         // assets
                         "/assets/**",
                         // kopmart
+                        "/",
+                        "/kopmart",
+                        "/kopmart/",
                         "/kopmart/home/**",
                         "/kopmart/produk",
                         "/kopmart/produk/",
                         "/kopmart/produk/details/**",
-                        "/spring-boot.png"
+                        "/kopmart/produk/keranjang",
+                        "/spring-boot.png",
+                        "/admin/**",
+                        "/kopmart/admin/**"
                 //
                 )
                 .permitAll()
