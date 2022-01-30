@@ -54,7 +54,7 @@ public class CategoryController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/kopmart/admin/kategori/new";
+        return "redirect:/kopmart/admin/kategori/list";
     }
 
     // get list

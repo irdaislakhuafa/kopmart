@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
-import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
@@ -103,7 +102,7 @@ public class ProductController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/kopmart/admin/produk/new";
+        return "redirect:/kopmart/admin/produk/list";
     }
 
     // GET list product

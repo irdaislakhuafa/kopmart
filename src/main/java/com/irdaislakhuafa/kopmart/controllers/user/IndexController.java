@@ -1,7 +1,6 @@
 package com.irdaislakhuafa.kopmart.controllers.user;
 
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
-import com.irdaislakhuafa.kopmart.services.CategoryService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-
-    @Autowired
-    private CategoryService categoryService;
 
     @Autowired
     private ProductService productService;

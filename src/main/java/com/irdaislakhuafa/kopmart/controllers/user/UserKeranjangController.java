@@ -1,7 +1,6 @@
 package com.irdaislakhuafa.kopmart.controllers.user;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
