@@ -8,7 +8,7 @@
 
             <!-- content -->
             <div class="col-sm-6 ">
-                <form th:action="@{/}" class="">
+                <form th:action="@{/}" class="" method="post">
                     <input type=" text" th:value="${product.id}" name="id" hidden>
                     <h5 th:text="${product.name}" class="card-header rounded-pill shadow text-center text-uppercase">
                     </h5>

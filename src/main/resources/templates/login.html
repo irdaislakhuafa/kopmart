@@ -9,13 +9,13 @@
     <!-- start content -->
     <div class="limiter">
         <div class="container-login100">
-            <div class="wrap-login100 shadow-lg wow fadeInUp">
+            <div class="wrap-login100  shadow-lg wow fadeInUp">
                 <div class="login100-pic js-tilt" data-tilt>
                     <img th:src="@{/style/images/img-01.png}" alt="IMG">
                 </div>
 
                 <!-- start form  -->
-                <form class="login100-form validate-form" th:action="@{/kopmart/login}">
+                <form class="login100-form validate-form" method="post" th:action="@{${loginUrl }}">
                     <!-- login title -->
                     <span class="login100-form-title">
                         <div class="mb-3">
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="text-center p-t-136">
-                        <a class="txt2" href="#">
+                        <a class="txt2" th:href="@{${registerUrl}}">
                             Buat akun
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>

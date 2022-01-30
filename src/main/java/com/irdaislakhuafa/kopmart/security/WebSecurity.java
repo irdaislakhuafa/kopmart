@@ -33,8 +33,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/kopmart/produk/details/**",
                         "/kopmart/produk/keranjang",
                         "/spring-boot.png",
+
+                        // admin
                         "/admin/**",
-                        "/kopmart/admin/**"
+                        "/kopmart/admin/**",
+
+                        // register
+                        "/kopmart/user/register"
                 //
                 )
                 .permitAll()
@@ -42,7 +47,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 // login page
                 .formLogin()
-                .loginPage("/kopmart/login")
+                .loginPage("/kopmart/user/login")
                 .permitAll();
     }
 
