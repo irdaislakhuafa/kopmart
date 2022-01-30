@@ -20,6 +20,12 @@
     <link rel="stylesheet" th:href="@{/style/login/css/util.css}">
     <link rel="stylesheet" th:href="@{/style/login/css/main.css}">
     <!--===============================================================================================-->
+
+    <!-- bs 5 css -->
+    <!-- <div th:replace="~{fragments/login :: bs5-css}"></div> -->
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 </head>
 
 <!-- js -->
@@ -40,4 +46,10 @@
     </script>
     <!--===============================================================================================-->
     <script th:src="@{/style/js/main.js}"></script>
+</div>
+
+<!-- bootstrap css -->
+<div th:fragment="bs5-css">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 </div>
