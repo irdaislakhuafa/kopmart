@@ -16,7 +16,7 @@
         <div class="card mx-auto p-4 shadow mb-5 border border-light" style="background-color: #f6f5fc;">
             <div class="row">
 
-                <div class="col-sm-6 ">
+                <div class="col-sm-6 justify-content-evenly d-flex ">
                     <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img" alt="Foto Produk">
                 </div>
 
@@ -24,8 +24,10 @@
                     <!-- start form -->
                     <form action="" th:object="${product}">
                         <!-- title -->
-                        <h1 class="text-center p-3" th:text="*{name}">Title</h1>
-                        <hr class="border border-primary">
+                        <div class="p-3 shadow mt-3 card-header">
+                            <h1 class="text-center" th:text="*{name}">Title</h1>
+                        </div>
+                        <hr>
 
                         <!-- full desc -->
                         <p th:text="*{fullDesc}">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
@@ -33,8 +35,6 @@
                             consequuntur quo libero. Ut repellendus, natus impedit voluptatibus quidem amet quasi
                             officiis repudiandae neque voluptates aspernatur iure optio aliquid!</p>
 
-                        <!-- stok -->
-                        <h5>Stok : <span th:text="*{stok}">9</span></h5>
 
                         <!-- harga -->
                         <div class="row">
@@ -42,6 +42,9 @@
                                 Rp. <a th:text="*{harga}">1000.0</a>
                             </h4>
                         </div>
+
+                        <!-- stok -->
+                        <h5 class="fs-6 ms-2 text-primary">Stok : <span th:text="*{stok}">9</span></h5>
 
                         <!-- <div class="row"> -->
                         <button class="btn btn-primary">Tambahkan</button>
