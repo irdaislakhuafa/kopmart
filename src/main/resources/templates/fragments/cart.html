@@ -14,9 +14,10 @@
                     </h5>
 
                     <div class="card-body">
-                        <h5 class="card-title my-0">Kategori : <span th:text="${product.categoryId.name}"></span></h5>
 
                         <p th:text="${product.fullDesc}" class="card-text fs-5"></p>
+                        <small class="text-muted my-0">Kategori : <span
+                                th:text="${product.categoryId.name}"></span></small>
                     </div>
 
                     <div class="mb-3 input-group">
@@ -26,7 +27,7 @@
 
                     <div class="row ms-0">
                         <!-- check out -->
-                        <button type="button" class="btn btn-outline-primary col-4 me-3">
+                        <button type="button" class="btn btn-outline-primary rounded-pill col-3 me-3">
                             <!-- start icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-cash" viewBox="0 0 16 16">
@@ -35,10 +36,10 @@
                                     d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
                             </svg>
                             <!-- end icon -->
-                            Checkout
+                            Beli
                         </button>
 
-                        <button type="button" class="btn col-4 btn-outline-danger">
+                        <button type="button" class="btn col-3 rounded-pill btn-outline-danger">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
                                 <path
