@@ -33,5 +33,5 @@ public class Category {
     private String description;
 
     @OneToMany
-    List<Product> productId;
+    List<Product> product;
 }

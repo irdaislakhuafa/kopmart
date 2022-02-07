@@ -27,5 +27,5 @@ public class Keranjang {
     private String id;
 
     @OneToMany(cascade = { CascadeType.ALL })
-    private List<Product> productsId;
+    private List<Product> products;
 }

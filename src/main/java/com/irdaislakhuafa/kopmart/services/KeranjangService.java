@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
+import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.models.repositories.KeranjangRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,8 @@ public class KeranjangService implements BasicService<Keranjang> {
 
     @Override
     public List<Keranjang> findByNameContains(String name) {
-        return keranjangRepository.findByNameContainsIgnoreCase(name);
+        // return keranjangRepository.findByNameContainsIgnoreCase(name);
+        return null;
     }
 
     @Override
@@ -57,6 +59,10 @@ public class KeranjangService implements BasicService<Keranjang> {
     @Override
     public Page<Keranjang> findAll(Pageable pageable) {
         return null;
+    }
+
+    public List<Product> findAllProduct() {
+        return keranjangRepository.findAllProducts();
     }
 
 }

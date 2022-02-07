@@ -39,7 +39,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/kopmart/admin/**",
 
                         // register
-                        "/kopmart/user/register"
+                        "/kopmart/user/register",
+
+                        // test
+                        "/test"
                 //
                 )
                 .permitAll()
