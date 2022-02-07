@@ -74,7 +74,8 @@
 
                     <!-- no telegram -->
                     <div class="wrap-input100 validate-input" data-validate="Nomor telegram harus berupa angka">
-                        <input type="number" name="noTelegram" class="input100 shadow wow fadeInUp" required>
+                        <input type="number" name="noTelegram" class="input100 shadow wow fadeInUp"
+                            placeholder="No Telegram" min="0" required>
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-telegram"></i>
@@ -83,11 +84,11 @@
 
                     <div class="container-login100-form-btn">
                         <div class="container row">
+                            <a th:href="@{/kopmart/login}" class="login100-form-btn text-decoration-none col-6 shadow"
+                                type="button">Kembali</a>
                             <button class="login100-form-btn col-6 shadow" type="submit">
                                 Daftar
                             </button>
-                            <a th:href="@{/kopmart/login}" class="login100-form-btn text-decoration-none col-6 shadow"
-                                type="button">Kembali</a>
                         </div>
                     </div>
 
