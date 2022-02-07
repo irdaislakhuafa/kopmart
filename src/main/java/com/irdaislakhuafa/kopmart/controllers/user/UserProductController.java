@@ -78,7 +78,13 @@ public class UserProductController {
             model.addAttribute("searchActionUrl", "/kopmart/produk");
             model.addAttribute("keyword", keyword.get());
 
-            Category categoryValue = categoryService.findByName(categoryIdName.get());
+            Category categoryValue = categoryService.findByName(categoryIdName.get())
+                    .orElse(
+                            new Category(
+                                    null,
+                                    "Kategori tidak valid",
+                                    "Deskripsi tidak valid",
+                                    null));
             model.addAttribute("categoryValueId", categoryValue.getId());
 
         } catch (Exception e) {

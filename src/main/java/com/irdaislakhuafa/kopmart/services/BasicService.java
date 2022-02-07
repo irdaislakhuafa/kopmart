@@ -15,7 +15,7 @@ public interface BasicService<A> {
 
     public List<A> findByNameContains(String name);
 
-    public A findByName(String name);
+    public Optional<A> findByName(String name);
 
     public List<A> saveAll(List<A> entities);
 

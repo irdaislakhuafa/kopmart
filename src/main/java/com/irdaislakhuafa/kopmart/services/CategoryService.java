@@ -38,7 +38,7 @@ public class CategoryService implements BasicService<Category> {
     }
 
     @Override
-    public Category findByName(String name) {
+    public Optional<Category> findByName(String name) {
         return categoryRepository.findByName(name);
     }
 

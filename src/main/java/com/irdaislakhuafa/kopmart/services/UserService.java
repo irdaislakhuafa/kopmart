@@ -56,7 +56,7 @@ public class UserService implements UserDetailsService, BasicService<User> {
     }
 
     @Override
-    public User findByName(String name) {
+    public Optional<User> findByName(String name) {
         return null;
     }
 

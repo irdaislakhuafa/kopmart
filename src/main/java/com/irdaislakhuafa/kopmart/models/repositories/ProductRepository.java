@@ -1,6 +1,7 @@
 package com.irdaislakhuafa.kopmart.models.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends JpaRepository<Product, String> {
     public List<Product> findByNameContainsIgnoreCase(String name);
 
-    public Product findByNameIgnoreCase(String name);
+    public Optional<Product> findByNameIgnoreCase(String name);
 
     public Page<Product> findAll(Pageable pageable);
 
