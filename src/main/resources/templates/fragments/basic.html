@@ -63,14 +63,15 @@
                             #request.getRequestURI() == '/kopmart' ||
                             #request.getRequestURI() == '/kopmart/' || 
                             #request.getRequestURI() == '/kopmart/home' || 
-                            #request.getRequestURI() == '/kopmart/home/' 
+                            #request.getRequestURI() == '/kopmart/home/' || 
+                            #request.getRequestURI().contains('/kopmart/home') 
                         } ? 'active shadow rounded-pill px-3' : ''">
                         <a class="nav-link" th:href="@{/kopmart/}">Beranda</a>
                     </li>
 
                     <!-- produk -->
                     <li class="nav-item" th:classappend="${
-                            #request.getRequestURI() == '/kopmart/produk'
+                            #request.getRequestURI().contains('/kopmart/produk')
                         } ? 'active shadow rounded-pill px-3' : ''">
                         <a class="nav-link" th:href="@{/kopmart/produk}">Produk</a>
                     </li>

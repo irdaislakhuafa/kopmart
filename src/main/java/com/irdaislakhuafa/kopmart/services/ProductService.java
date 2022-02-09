@@ -77,10 +77,10 @@ public class ProductService implements BasicService<Product> {
         return usedCategory;
     }
 
-    public List<Product> findByNameAndCategory(String name, String categoryIdName) {
-        return productRepository.findByNameContainsIgnoreCaseAndCategoryIdNameIgnoreCase(
+    public List<Product> findByNameAndCategory(String name, String categoryId) {
+        return productRepository.findByNameContainsIgnoreCaseAndCategoryIdId(
                 name,
-                categoryIdName);
+                categoryId);
     }
 
     public List<Product> findByCategoryName(String name) {

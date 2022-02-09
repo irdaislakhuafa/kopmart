@@ -2,6 +2,9 @@ package com.irdaislakhuafa.kopmart.controllers.user;
 
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
+
+import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
@@ -36,6 +39,7 @@ public class UserProductController {
             model.addAttribute("products", productService.findAll());
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("searchActionUrl", "/kopmart/produk");
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
             // model.addAttribute("categoryValueId", "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,6 +53,7 @@ public class UserProductController {
         try {
             Product product = productService.findById(productId).get();
             model.addAttribute("product", product);
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,14 +61,14 @@ public class UserProductController {
     }
 
     // search by category
-    @PostMapping
+    @GetMapping("/search")
     public String searchProducts(
             Model model,
-            @RequestParam("categoryIdName") Optional<String> categoryIdName,
+            @RequestParam("categoryId") Optional<String> categoryId,
             @RequestParam("keyword") Optional<String> keyword) {
 
         try {
-            boolean isAllCategories = categoryIdName.get().equalsIgnoreCase("semua kategori");
+            boolean isAllCategories = categoryId.get().equalsIgnoreCase("semua kategori");
 
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("products",
@@ -71,14 +76,20 @@ public class UserProductController {
                     (isAllCategories) ?
 
                     // true
-                            productService.findByNameContains(keyword.orElse("")) :
+                            productService.findByNameContains(
+                                    keyword.orElse(""))
+                            :
                             // false
-                            productService.findByNameAndCategory(keyword.orElse(""), categoryIdName.get()));
-            model.addAttribute("categories", categoryService.findAll());
-            model.addAttribute("searchActionUrl", "/kopmart/produk");
-            model.addAttribute("keyword", keyword.get());
+                            productService.findByNameAndCategory(
+                                    keyword.orElse(""),
+                                    categoryId.get()));
 
-            Category categoryValue = categoryService.findByName(categoryIdName.get())
+            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("searchActionUrl", "/kopmart/produk/search");
+            model.addAttribute("keyword", keyword.orElse(""));
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
+
+            Category categoryValue = categoryService.findById(categoryId.get())
                     .orElse(
                             new Category(
                                     null,

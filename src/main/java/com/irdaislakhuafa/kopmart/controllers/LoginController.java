@@ -1,6 +1,9 @@
 package com.irdaislakhuafa.kopmart.controllers;
 
+import java.util.Optional;
+
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
+import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.User;
 import com.irdaislakhuafa.kopmart.models.entities.utils.UserRole;
 import com.irdaislakhuafa.kopmart.services.UserService;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping({
@@ -52,11 +56,32 @@ public class LoginController {
             @RequestParam("nama") String name,
             @RequestParam("email") String email,
             @RequestParam("password") String password,
-            @RequestParam("noTelegram") String noTelegram) {
+            @RequestParam("noTelegram") String noTelegram,
+            RedirectAttributes redirectAttributes) {
 
         try {
-            // System.out.println("\033\143");
-            // System.out.println(npm + " => " + userRole);
+            // npm
+            userService.findByNpm(npm).ifPresent((valueNpm) -> {
+                redirectAttributes.addFlashAttribute("npmError",
+                        String.format("npm \"%s\" already exists!", npm));
+            });
+
+            // email
+            userService.findByEmail(email).ifPresent((valueEmail) -> {
+                redirectAttributes.addFlashAttribute("emailError",
+                        String.format("Email \"%s\" already exists!", email));
+            });
+
+            // no telegram
+            userService.findByNoTelegram(noTelegram).ifPresent((valueNoTelegram) -> {
+                redirectAttributes.addFlashAttribute("noTelegramError",
+                        String.format("no telegram \"%s\" already exists!", noTelegram));
+            });
+
+            if (userService.existsByNpmOrEmailOrNoTelegram(npm, email, noTelegram)) {
+                return "redirect:/kopmart/user/login";
+            }
+
             User userRegister = new User();
             userRegister.setNpm(npm);
             userRegister.setNama(name);
@@ -64,6 +89,7 @@ public class LoginController {
             userRegister.setPassword(password);
             userRegister.setNoTelegram(noTelegram);
             userRegister.setRole(UserRole.MAHASISWA);
+            userRegister.setKeranjang(new Keranjang());
 
             userService.save(userRegister);
         } catch (Exception e) {

@@ -84,4 +84,15 @@ public class UserService implements UserDetailsService, BasicService<User> {
         return userRepository.findByEmailIgnoreCase(email);
     }
 
+    public Optional<User> findByNpm(String npm) {
+        return userRepository.findByNpm(npm);
+    }
+
+    public Optional<User> findByNoTelegram(String noTelegram) {
+        return userRepository.findByNoTelegram(noTelegram);
+    }
+
+    public boolean existsByNpmOrEmailOrNoTelegram(String npm, String email, String noTelegram) {
+        return userRepository.existsByNpmIgnoreCaseOrEmailIgnoreCaseOrNoTelegramIgnoreCase(npm, email, noTelegram);
+    }
 }

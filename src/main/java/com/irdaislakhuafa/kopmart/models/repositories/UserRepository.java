@@ -17,4 +17,13 @@ public interface UserRepository extends JpaRepository<User, String> {
     List<User> findByNamaContains(String nama);
 
     Page<User> findAll(Pageable pageable);
+
+    Optional<User> findByNpm(String npm);
+
+    Optional<User> findByNoTelegram(String noTelegram);
+
+    boolean existsByNpmIgnoreCaseOrEmailIgnoreCaseOrNoTelegramIgnoreCase(
+            String npm,
+            String email,
+            String noTelegram);
 }

@@ -17,13 +17,13 @@
     <!-- fluid content -->
     <div class="container-fluid">
         <!-- search produk -->
-        <form th:action="@{ ${searchActionurl} }" method="post" class="form-search-blog col-sm-10 mx-auto ">
+        <form th:action="@{ ${searchActionurl} }" method="get" class="form-search-blog col-sm-10 mx-auto ">
             <div class="input-group ">
                 <div class="input-group-prepend">
 
-                    <select id="categories" class="custom-select bg-light" style="height: 38px;" name="categoryIdName">
+                    <select id="categories" class="custom-select bg-light" style="height: 38px;" name="categoryId">
                         <option>Semua Kategori</option>
-                        <option th:each="category : ${categories}" th:value="${category.name}"
+                        <option th:each="category : ${categories}" th:value="${category.id}"
                             th:selected="${category.id == categoryValueId}">
                             <span th:text="${category.name}"></span>
                         </option>

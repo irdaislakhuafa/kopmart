@@ -35,6 +35,7 @@ public class IndexController {
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("usedCategories", productService.findAllUsedCategories());
             model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
+            model.addAttribute("categorySearchUrl", "/kopmart/produk/search");
         } catch (Exception e) {
             e.printStackTrace();
         }

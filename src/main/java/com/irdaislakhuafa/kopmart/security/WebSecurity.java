@@ -32,7 +32,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/kopmart/home/**",
                         "/kopmart/produk",
                         "/kopmart/produk/",
-                        "/kopmart/produk/details/**",
+                        "/kopmart/produk/search",
+                        // "/kopmart/produk/details/**",
                         // "/kopmart/produk/keranjang",
                         "/spring-boot.png",
 

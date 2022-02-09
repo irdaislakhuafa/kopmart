@@ -19,11 +19,11 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 
     public Page<Product> findAll(Pageable pageable);
 
-    public List<Product> findByCategoryId(Category categoryId);
+    public List<Product> findByCategoryId(Category category);
 
     public List<Category> findByCategoryIdIsNotNull();
 
-    public List<Product> findByNameContainsIgnoreCaseAndCategoryIdNameIgnoreCase(String name, String categoryIdName);
+    public List<Product> findByNameContainsIgnoreCaseAndCategoryIdId(String name, String categoryId);
 
     public List<Product> findByCategoryIdNameIgnoreCase(String name);
 }

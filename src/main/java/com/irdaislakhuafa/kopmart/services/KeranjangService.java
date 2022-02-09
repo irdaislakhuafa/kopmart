@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.models.repositories.KeranjangRepository;
@@ -37,7 +38,6 @@ public class KeranjangService implements BasicService<Keranjang> {
 
     @Override
     public List<Keranjang> findByNameContains(String name) {
-        // return keranjangRepository.findByNameContainsIgnoreCase(name);
         return null;
     }
 
@@ -62,7 +62,11 @@ public class KeranjangService implements BasicService<Keranjang> {
     }
 
     public List<Product> findAllProduct() {
-        return keranjangRepository.findAllProducts();
+        return keranjangRepository.findByUserId(
+                UserHelper
+                        .getCurrentUser()
+                        .get().getId())
+                .getProducts();
     }
 
 }

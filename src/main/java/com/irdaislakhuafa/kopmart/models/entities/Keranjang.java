@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
@@ -28,4 +30,7 @@ public class Keranjang extends BasicEntity<String> {
 
     @OneToMany(cascade = { CascadeType.ALL })
     private List<Product> products;
+
+    @OneToOne(cascade = { CascadeType.ALL })
+    private User user;
 }
