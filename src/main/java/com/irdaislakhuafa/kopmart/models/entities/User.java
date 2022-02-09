@@ -66,7 +66,7 @@ public class User extends BasicEntity<String> implements UserDetails {
     private String fotoUrl;
 
     @OneToOne(cascade = { CascadeType.REMOVE })
-    private Keranjang keranjangId;
+    private Keranjang keranjang;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

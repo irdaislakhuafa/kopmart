@@ -1,12 +1,14 @@
 package com.irdaislakhuafa.kopmart.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+@Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -31,7 +33,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/kopmart/produk",
                         "/kopmart/produk/",
                         "/kopmart/produk/details/**",
-                        "/kopmart/produk/keranjang",
+                        // "/kopmart/produk/keranjang",
                         "/spring-boot.png",
 
                         // admin
@@ -51,7 +53,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 // login page
                 .formLogin()
                 .loginPage("/kopmart/user/login")
-                .permitAll();
+                .permitAll()
+
+                .and().httpBasic();
+        ;
     }
 
     @Override

@@ -15,7 +15,7 @@
                 </div>
 
                 <!-- start form  -->
-                <form class="login100-form validate-form" method="post" th:action="@{${loginUrl }}">
+                <form class="login100-form validate-form " method="post" th:action="@{/kopmart/user/login}">
                     <!-- login title -->
                     <span class="login100-form-title">
                         <div class="mb-3">
@@ -30,7 +30,7 @@
 
                     <!-- username -->
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100 shadow wow fadeInUp" type="text" name="email" placeholder="Email">
+                        <input class="input100 shadow wow fadeInUp" type="text" name="username" placeholder="Email">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -47,8 +47,8 @@
                         </span>
                     </div>
 
-                    <div class="container-login100-form-btn">
-                        <button class="login100-form-btn shadow" type="submit">
+                    <div class="container-login100-form-btn row">
+                        <button class="login100-form-btn shadow ms-4" type="submit">
                             Masuk
                         </button>
                     </div>
@@ -62,7 +62,12 @@
                         </a>
                     </div>
 
+                    <div th:text="${#error}"></div>
+
                     <div class="text-center p-t-136">
+                        <a th:href="@{/kopmart/}" class="txt2">
+                            <i class="fa fa-long-arrow-left m-l-5" aria-hidden="true"></i>
+                            Beranda</a>
                         <a class="txt2" th:href="@{${registerUrl}}">
                             Buat akun
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>

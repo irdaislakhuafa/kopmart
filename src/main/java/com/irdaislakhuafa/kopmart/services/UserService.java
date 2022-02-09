@@ -3,6 +3,8 @@ package com.irdaislakhuafa.kopmart.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import com.irdaislakhuafa.kopmart.models.entities.User;
 import com.irdaislakhuafa.kopmart.models.repositories.UserRepository;
 
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class UserService implements UserDetailsService, BasicService<User> {
     @Autowired
     private UserRepository userRepository;
@@ -25,11 +28,13 @@ public class UserService implements UserDetailsService, BasicService<User> {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmailIgnoreCase(username)
-                .orElseThrow(
-                        () -> new RuntimeException(
-                                String.format("Username with email  \"%s\" not found!", username)));
-
+        return userRepository.findByEmailIgnoreCase(username).orElse(
+                new User() {
+                    {
+                        setNama("Anonymouse User");
+                        setEmail("anonymouse@user.com");
+                    }
+                });
     }
 
     @Override
@@ -73,6 +78,10 @@ public class UserService implements UserDetailsService, BasicService<User> {
     @Override
     public Page<User> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmailIgnoreCase(email);
     }
 
 }

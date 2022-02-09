@@ -1,5 +1,6 @@
 package com.irdaislakhuafa.kopmart.controllers.user;
 
+import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 
@@ -18,6 +19,11 @@ public class IndexController {
 
     @GetMapping
     public String redirectIndex() {
+        try {
+            System.out.println(UserHelper.getCurrentUser());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "redirect:/kopmart/home/";
     }
 
@@ -28,6 +34,7 @@ public class IndexController {
             model.addAttribute("productService", productService);
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("usedCategories", productService.findAllUsedCategories());
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
         } catch (Exception e) {
             e.printStackTrace();
         }

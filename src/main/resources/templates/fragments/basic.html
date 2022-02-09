@@ -75,6 +75,11 @@
                         <a class="nav-link" th:href="@{/kopmart/produk}">Produk</a>
                     </li>
 
+                    <!-- if not registeres -->
+                    <li class="nav-item" th:if="${currentUser == 'anonymouse@user.com'}">
+                        <a th:href="@{/kopmart/user/login}" class="nav-link">Masuk</a>
+                    </li>
+
                     <!-- keranjang -->
                     <!-- <div class="nav-item">
                         <a th:href="@{/kopmart/produk/keranjang}"></a>
