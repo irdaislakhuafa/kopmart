@@ -1,5 +1,6 @@
 package com.irdaislakhuafa.kopmart.controllers;
 
+import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.User;
@@ -30,6 +31,9 @@ public class LoginController {
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("registerUrl", "/kopmart/user/register");
             model.addAttribute("loginUrl", "/kopmart/user/login");
+            // if (UserHelper.getCurrentUser() != null) {
+            // return "redirect:/kopmart";
+            // }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,6 +45,10 @@ public class LoginController {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("user", new User());
+
+            // if (UserHelper.getCurrentUser() != null) {
+            // return "redirect:/kopmart";
+            // }
         } catch (Exception e) {
             e.printStackTrace();
         }
