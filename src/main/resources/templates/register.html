@@ -17,7 +17,8 @@
                 </div>
 
                 <!-- start form  -->
-                <form class="login100-form validate-form" method="post" th:action="@{/kopmart/user/register}">
+                <form th:object="${user}" class="login100-form validate-form" method="post"
+                    th:action="@{/kopmart/user/register}">
                     <!-- login title -->
                     <span class="login100-form-title">
                         <div class="mb-3">
@@ -32,19 +33,27 @@
                     <!-- end login title -->
 
                     <!-- npm -->
-                    <div class="wrap-input100 validate-input" data-validate="NPM yang di inginkan misal : 1412xxxxxx">
-                        <input type="number" min="0" name="npm" class="input100 shadow wow fadeInUp" minlength="10"
-                            required placeholder="NPM">
+                    <!-- error message -->
+                    <small class="text-danger text-center text-capitalize" th:text="${npmError}"></small>
+                    <div class="wrap-input100 validate-input pl-red"
+                        data-validate="NPM yang di inginkan misal : 1412xxxxxx">
+                        <input type="number" min="0" name="npm" class="shadow wow fadeInUp input100" minlength="10"
+                            required placeholder="NPM" th:placeholder="${
+                                npmError == null ? 'NPM' : npmError
+                            }" th:field="*{npm}" th:classappend="${
+                                npmError == null ? '' : 'text-danger'
+                            }">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-address-card" aria-hidden="true"></i>
                         </span>
+                        <!-- <span th:text="${npmError}" class="text-center"></span> -->
                     </div>
 
                     <!-- nama -->
                     <div class="wrap-input100 validate-input" data-validate="Masukan nama anda">
                         <input type="text" name="nama" class="input100 shadow wow fadeInUp" placeholder="Nama mahasiswa"
-                            required>
+                            required th:field="*{nama}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
@@ -52,10 +61,12 @@
                     </div>
 
                     <!-- email as username -->
+                    <!-- error message -->
+                    <small class="text-danger text-center text-capitalize" th:text="${emailError}"></small>
                     <div class="wrap-input100 validate-input"
                         data-validate="Contoh email yang harus dimasukan: ex@abc.xyz">
                         <input class="input100 shadow wow fadeInUp" type="text" required name="email"
-                            placeholder="Email">
+                            th:placeholder="${emailError == null ? 'Email' : emailError}" th:field="*{email}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -65,7 +76,7 @@
                     <!-- password -->
                     <div class="wrap-input100 validate-input" data-validate="Password wajib dimasukan">
                         <input class="input100 shadow wow fadeInUp" type="password" name="password"
-                            placeholder="Password" required>
+                            placeholder="Password" required th:field="*{password}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -73,9 +84,11 @@
                     </div>
 
                     <!-- no telegram -->
+                    <!-- error message -->
+                    <small class="text-danger text-center text-capitalize" th:text="${noTelegramError}"></small>
                     <div class="wrap-input100 validate-input" data-validate="Nomor telegram harus berupa angka">
                         <input type="number" name="noTelegram" class="input100 shadow wow fadeInUp"
-                            placeholder="No Telegram" min="0" required>
+                            placeholder="No Telegram" min="0" required th:field="*{noTelegram}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-telegram"></i>
@@ -106,6 +119,13 @@
 
     <!-- js -->
     <div th:replace="~{fragments/login :: js}"></div>
+    <script>
+        const inputs = document.getElementsByTagName(`input`);
+        Array.from(inputs).forEach((value) => {
+            value.style.textTransform = 'capitalize';
+            // value.inputMode
+        })
+    </script>
 </body>
 
 </html>

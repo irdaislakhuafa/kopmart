@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping({
@@ -40,7 +39,8 @@ public class LoginController {
     @GetMapping("/user/register")
     public String register(Model model) {
         try {
-
+            model.addAttribute("title", ViewHelper.APP_TITLE);
+            model.addAttribute("user", new User());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,41 +55,40 @@ public class LoginController {
             @RequestParam("email") String email,
             @RequestParam("password") String password,
             @RequestParam("noTelegram") String noTelegram,
-            RedirectAttributes redirectAttributes) {
+            // RedirectAttributes redirectAttributes,
+            User user) {
 
         try {
+            model.addAttribute("title", ViewHelper.APP_TITLE);
+
             // npm
             userService.findByNpm(npm).ifPresent((valueNpm) -> {
-                redirectAttributes.addFlashAttribute("npmError",
-                        String.format("npm \"%s\" already exists!", npm));
+                model.addAttribute("npmError",
+                        String.format("npm \"%s\" sudah ada!", npm));
             });
 
             // email
             userService.findByEmail(email).ifPresent((valueEmail) -> {
-                redirectAttributes.addFlashAttribute("emailError",
-                        String.format("Email \"%s\" already exists!", email));
+                model.addAttribute("emailError",
+                        String.format("Email \"%s\" sudah ada!", email));
             });
 
             // no telegram
             userService.findByNoTelegram(noTelegram).ifPresent((valueNoTelegram) -> {
-                redirectAttributes.addFlashAttribute("noTelegramError",
-                        String.format("no telegram \"%s\" already exists!", noTelegram));
+                model.addAttribute("noTelegramError",
+                        String.format("no telegram \"%s\" sudah ada!", noTelegram));
             });
 
             if (userService.existsByNpmOrEmailOrNoTelegram(npm, email, noTelegram)) {
-                return "redirect:/kopmart/user/login";
+                model.addAttribute("user", user);
+                return "register";
             }
 
-            User userRegister = new User();
-            userRegister.setNpm(npm);
-            userRegister.setNama(name);
-            userRegister.setEmail(email);
-            userRegister.setPassword(password);
-            userRegister.setNoTelegram(noTelegram);
-            userRegister.setRole(UserRole.MAHASISWA);
-            userRegister.setKeranjang(new Keranjang());
+            user.setNoTelegram(noTelegram);
+            user.setRole(UserRole.MAHASISWA);
+            user.setKeranjang(new Keranjang());
 
-            userService.save(userRegister);
+            userService.save(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
