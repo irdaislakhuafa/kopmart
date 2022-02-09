@@ -7,7 +7,7 @@ import com.irdaislakhuafa.kopmart.models.entities.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserHelper {
-    public Optional<User> getCurrentUser() {
+    public static Optional<User> getCurrentUser() {
         User currentUser = null;
 
         currentUser = (User) SecurityContextHolder
