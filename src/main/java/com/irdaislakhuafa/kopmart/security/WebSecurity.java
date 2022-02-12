@@ -54,6 +54,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 // login page
                 .formLogin()
                 .loginPage("/kopmart/user/login")
+                // on success
+                .defaultSuccessUrl("/kopmart/")
+                // .failureUrl("/kopmart/user/login/failed")
                 .permitAll()
 
                 .and().httpBasic();
