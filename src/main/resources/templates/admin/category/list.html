@@ -23,6 +23,9 @@
                 <br><br><br>
                 <div class="card shadow col-sm-8 mx-auto " style="border-radius: 10px;">
                     <div class="card-body">
+                        <!-- add button -->
+                        <a th:href="@{'/kopmart/admin/kategori/new'}" class="btn btn-outline-primary mb-3 shadow"
+                            style="border: none;">Tambah</a>
 
                         <table class="table table-striped">
                             <thead class="thead-inverse">
@@ -37,20 +40,23 @@
 
                             <tbody>
                                 <!-- table category -->
-                                <tr th:each="category, value : ${categoryPages.content}">
+                                <tr th:each="category, value : ${categoryPages.content}"
+                                    class="text-capitalize text-start">
                                     <td th:text="${value.index + 1}"></td>
                                     <td th:text="${category.name}"></td>
                                     <td th:text="${category.description}"></td>
                                     <td class="row">
                                         <!-- edit button -->
                                         <a th:href="@{'/kopmart/admin/kategori/edit/' + ${category.id}}"
-                                            class="btn btn-primary mx-3">Edit</a>
+                                            class="btn btn-outline-primary shadow-sm mx-3"
+                                            style="border: none;">Edit</a>
 
                                         <!-- delete button -->
                                         <form th:action="@{/kopmart/admin/kategori/delete}" method="post">
                                             <input type="text" hidden th:value="${category.id}" readonly required
                                                 name="categoryId">
-                                            <button type="submit" class="btn btn-outline-primary">Del</button>
+                                            <button type="submit" class="btn btn-outline-danger shadow-sm"
+                                                style="border: none;">Del</button>
                                         </form>
                                     </td>
                                 </tr>
