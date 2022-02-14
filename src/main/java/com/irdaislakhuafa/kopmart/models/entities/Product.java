@@ -1,7 +1,9 @@
 package com.irdaislakhuafa.kopmart.models.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -46,7 +48,7 @@ public class Product extends BasicEntity<String> {
     @Column(nullable = false)
     private Integer stok;
 
-    // @ManyToOne
-    // @JoinColumn(nullable = false)
-    // private Keranjang keranjang;
+    @ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    @JoinColumn(nullable = true)
+    private Keranjang keranjang;
 }
