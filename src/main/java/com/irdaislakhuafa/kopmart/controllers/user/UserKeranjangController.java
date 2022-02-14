@@ -43,7 +43,19 @@ public class UserKeranjangController {
                             .get()
                             .getKeranjang()
                             .getProducts());
-            System.out.println(UserHelper.getCurrentUser());
+            // System.out.println(UserHelper.getCurrentUser());
+
+            // if user is login
+            if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {
+                model.addAttribute("cartLength", keranjangService.findById(
+                        UserHelper
+                                .getCurrentUser()
+                                .get()
+                                .getKeranjang()
+                                .getId())
+                        .get()
+                        .getProducts().size());
+            }
         } catch (Exception e) {
             UserHelper.errorLog("gagal memuat halaman UserKeranjangController");
             // e.printStackTrace();

@@ -42,6 +42,7 @@ public class UserProductController {
             model.addAttribute("searchActionUrl", "/kopmart/produk");
             model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
 
+            // if user is login
             if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {
                 model.addAttribute("cartLength", keranjangService.findById(
                         UserHelper
@@ -67,6 +68,18 @@ public class UserProductController {
             Product product = productService.findById(productId).get();
             model.addAttribute("product", product);
             model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
+
+            // if user is login
+            if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {
+                model.addAttribute("cartLength", keranjangService.findById(
+                        UserHelper
+                                .getCurrentUser()
+                                .get()
+                                .getKeranjang()
+                                .getId())
+                        .get()
+                        .getProducts().size());
+            }
         } catch (Exception e) {
             UserHelper.errorLog("gagal mendapatkan details produk dengan id \"" + productId + "\"", this);
             // e.printStackTrace();
@@ -112,6 +125,17 @@ public class UserProductController {
                                     null));
             model.addAttribute("categoryValueId", categoryValue.getId());
 
+            // if user is login
+            if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {
+                model.addAttribute("cartLength", keranjangService.findById(
+                        UserHelper
+                                .getCurrentUser()
+                                .get()
+                                .getKeranjang()
+                                .getId())
+                        .get()
+                        .getProducts().size());
+            }
         } catch (Exception e) {
             // e.printStackTrace();
             UserHelper.errorLog("error saat search by category or keyword", this);
