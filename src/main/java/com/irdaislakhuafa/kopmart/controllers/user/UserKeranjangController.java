@@ -1,5 +1,7 @@
 package com.irdaislakhuafa.kopmart.controllers.user;
 
+import java.util.Optional;
+
 import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
@@ -43,7 +45,6 @@ public class UserKeranjangController {
                             .get()
                             .getKeranjang()
                             .getProducts());
-            // System.out.println(UserHelper.getCurrentUser());
 
             // if user is login
             if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {
@@ -56,6 +57,9 @@ public class UserKeranjangController {
                         .get()
                         .getProducts().size());
             }
+
+            // delete url
+            model.addAttribute("deleteUrl", "/kopmart/produk/keranjang/delete");
         } catch (Exception e) {
             UserHelper.errorLog("gagal memuat halaman UserKeranjangController");
             // e.printStackTrace();
@@ -88,5 +92,24 @@ public class UserKeranjangController {
             // e.printStackTrace();
         }
         return "redirect:/kopmart/produk";
+    }
+
+    @PostMapping("/delete")
+    public String deleteById(Model model, @RequestParam("id") Optional<String> id) {
+        try {
+
+            Keranjang keranjang = keranjangService.findById(
+                    UserHelper.getCurrentUser()
+                            .get()
+                            .getKeranjang()
+                            .getId())
+                    .get();
+
+            keranjang.getProducts().removeIf((product) -> product.getId().equals(id.get()));
+            keranjangService.save(keranjang);
+        } catch (Exception e) {
+            UserHelper.errorLog("gagal menghapus product di keranjang", this);
+        }
+        return "redirect:/kopmart/produk/keranjang";
     }
 }
