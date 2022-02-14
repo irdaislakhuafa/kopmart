@@ -22,9 +22,9 @@
 
                 <div class="row">
                     <div>
-                        <form th:action="@{/kopmart/produk/keranjang/tambah}" method="post">
+                        <form th:action="@{/kopmart/produk/keranjang/add}" method="post">
                             <!-- product id -->
-                            <input type="text" th:value="${product.id}" name="id" hidden required readonly>
+                            <input type="text" th:value="${product.id}" name="id" id="id" hidden required readonly>
                             <!-- button -->
                             <button type="submit" class="btn btn-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

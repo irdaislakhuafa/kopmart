@@ -2,6 +2,7 @@ package com.irdaislakhuafa.kopmart.helpers;
 
 import java.util.Optional;
 
+import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.User;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,5 +26,17 @@ public class UserHelper {
         }
 
         return Optional.of(currentUser);
+    }
+
+    public static Keranjang getCurrentKeranjang() {
+        Keranjang keranjang = null;
+        try {
+            keranjang = UserHelper.getCurrentUser().get().getKeranjang();
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Gagal mendapkan keranjang saat ini!");
+        }
+
+        return keranjang;
     }
 }

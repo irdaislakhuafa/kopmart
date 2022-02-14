@@ -1,5 +1,7 @@
 package com.irdaislakhuafa.kopmart.controllers;
 
+import java.util.ArrayList;
+
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.User;
@@ -93,7 +95,11 @@ public class LoginController {
 
             user.setNoTelegram(noTelegram);
             user.setRole(UserRole.MAHASISWA);
-            user.setKeranjang(new Keranjang());
+
+            Keranjang keranjang = new Keranjang();
+            keranjang.setProducts(new ArrayList<>());
+
+            user.setKeranjang(keranjang);
 
             userService.save(user);
         } catch (Exception e) {

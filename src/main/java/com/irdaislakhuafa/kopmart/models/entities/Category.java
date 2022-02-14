@@ -1,7 +1,9 @@
 package com.irdaislakhuafa.kopmart.models.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +34,6 @@ public class Category extends BasicEntity<String> {
     @Column(length = 500)
     private String description;
 
-    @OneToMany
-    List<Product> product;
+    @OneToMany(cascade = { CascadeType.ALL })
+    List<Product> product = new ArrayList<>();
 }
