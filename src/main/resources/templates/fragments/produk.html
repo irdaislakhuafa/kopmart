@@ -13,12 +13,13 @@
             <div class="card-body">
                 <!-- title -->
                 <h5 class="card-title">
-                    <a th:href="@{'/kopmart/produk/details/' + ${product.id}}" th:text="${product.name}"></a>
+                    <a th:href="@{'/kopmart/produk/details/' + ${product.id}}" class="text-capitalize"
+                        th:text="${product.name}"></a>
                 </h5>
                 <!-- category -->
                 <small>Kategori : <a th:text="${product.categoryId.name}"></a></small>
                 <!-- description -->
-                <p class="card-text" th:text="${product.simpleDesc}">Simple Desc</p>
+                <p class="card-text text-capitalize" th:text="${product.simpleDesc}">Simple Desc</p>
 
                 <div class="row">
                     <div>

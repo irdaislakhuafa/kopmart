@@ -2,12 +2,13 @@ package com.irdaislakhuafa.kopmart.controllers.user;
 
 import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Category;
+import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
+import com.irdaislakhuafa.kopmart.services.KeranjangService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class UserProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private KeranjangService keranjangService;
+
     // produk
     @GetMapping
     public String produk(Model model) {
@@ -37,6 +41,18 @@ public class UserProductController {
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("searchActionUrl", "/kopmart/produk");
             model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
+
+            if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {
+                model.addAttribute("cartLength", keranjangService.findById(
+                        UserHelper
+                                .getCurrentUser()
+                                .get()
+                                .getKeranjang()
+                                .getId())
+                        .get()
+                        .getProducts().size());
+            }
+
         } catch (Exception e) {
             UserHelper.errorLog("terjadi error tidak diketahui", this);
             // e.printStackTrace();

@@ -115,7 +115,8 @@
                             </svg>
 
                             <!-- notif -->
-                            <span class="shadow badge bg-primary text-light top-0 translate-middle rounded-pill">
+                            <span th:text="${currentUser == 'anonymouse@user.com' ? '99+' : cartLength}"
+                                class="shadow badge bg-primary text-light top-0 translate-middle rounded-pill">
                                 99+
                             </span>
                         </a>
