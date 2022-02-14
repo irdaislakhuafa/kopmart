@@ -43,12 +43,9 @@ public class Product extends BasicEntity<String> {
     private String fullDesc;
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category categoryId;
 
     @Column(nullable = false)
     private Integer stok;
-
-    @ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-    @JoinColumn(nullable = true)
-    private Keranjang keranjang;
 }

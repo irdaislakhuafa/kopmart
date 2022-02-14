@@ -2,6 +2,7 @@ package com.irdaislakhuafa.kopmart.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -61,7 +62,7 @@ public class KeranjangService implements BasicService<Keranjang> {
         return null;
     }
 
-    public List<Product> findAllProduct() {
+    public Set<Product> findAllProduct() {
         return keranjangRepository.findByUserId(
                 UserHelper
                         .getCurrentUser()

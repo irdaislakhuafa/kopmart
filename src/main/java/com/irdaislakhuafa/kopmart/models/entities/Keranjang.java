@@ -1,13 +1,16 @@
 package com.irdaislakhuafa.kopmart.models.entities;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -29,8 +32,8 @@ public class Keranjang extends BasicEntity<String> {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "keranjang")
-    private List<Product> products = new ArrayList<>();
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private Set<Product> products = new HashSet<>();
 
     @OneToOne(cascade = { CascadeType.ALL })
     private User user;

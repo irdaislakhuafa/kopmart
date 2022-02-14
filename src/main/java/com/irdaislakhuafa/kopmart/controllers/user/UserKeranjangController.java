@@ -1,13 +1,11 @@
 package com.irdaislakhuafa.kopmart.controllers.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
-import com.irdaislakhuafa.kopmart.models.entities.Category;
+import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.models.entities.User;
+import com.irdaislakhuafa.kopmart.services.KeranjangService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 import com.irdaislakhuafa.kopmart.services.UserService;
 
@@ -28,31 +26,12 @@ public class UserKeranjangController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private KeranjangService keranjangService;
+
     @GetMapping
     public String index(Model model) {
         try {
-            /*
-             * List<Product> productExampleList = new ArrayList<>();
-             * 
-             * for (int i = 0; i < 10; i++) {
-             * productExampleList.add(
-             * new Product(
-             * "id ke ".replaceAll(" ", "_") + i,
-             * "url foto ke ".replaceAll(" ", "_") + i,
-             * "nama produk ke ".replaceAll(" ", "_"),
-             * Double.valueOf(i + "200"),
-             * "simple description product".replaceAll(" ", "_"),
-             * "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt in libero, sit est odit vel quaerat autem assumenda tenetur quas eos, cum voluptates. Obcaecati iure ipsa, fugit omnis sunt quisquam."
-             * ,
-             * new Category() {
-             * {
-             * setName("category id");
-             * }
-             * },
-             * Integer.valueOf(12 + i)));
-             * }
-             */
-
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("listProducts",
                     userService.findByEmail(
@@ -66,7 +45,8 @@ public class UserKeranjangController {
                             .getProducts());
             System.out.println(UserHelper.getCurrentUser());
         } catch (Exception e) {
-            e.printStackTrace();
+            UserHelper.errorLog("gagal memuat halaman UserKeranjangController");
+            // e.printStackTrace();
         }
         return "cart";
     }
@@ -76,14 +56,20 @@ public class UserKeranjangController {
         try {
             // get product by id
             Product product = productService.findById(id).orElse(null);
-            // get user by id
-            User currentUser = userService.findById(UserHelper.getCurrentUser().get().getId()).get();
+            // get current keranjang
+            Keranjang keranjang = keranjangService.findById(
+                    UserHelper
+                            .getCurrentUser()
+                            .get()
+                            .getKeranjang()
+                            .getId())
+                    .get();
 
-            // add product to keranjang user
-            currentUser.getKeranjang().getProducts().add(product);
-
-            // save user
-            userService.save(currentUser);
+            // add new product to keranjang
+            keranjang.getProducts().add(product);
+            // save keranjang
+            keranjangService.save(keranjang);
+            System.out.println("Success add product (" + product.getId() + ") to cart (" + keranjang.getId() + ")");
         } catch (Exception e) {
             System.out.println("Gagal menampah ke keranjang!");
             // e.printStackTrace();

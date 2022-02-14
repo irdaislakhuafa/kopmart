@@ -1,6 +1,7 @@
 package com.irdaislakhuafa.kopmart.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
@@ -97,7 +98,7 @@ public class LoginController {
             user.setRole(UserRole.MAHASISWA);
 
             Keranjang keranjang = new Keranjang();
-            keranjang.setProducts(new ArrayList<>());
+            keranjang.setProducts(new HashSet<>());
 
             user.setKeranjang(keranjang);
 
