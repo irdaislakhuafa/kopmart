@@ -16,7 +16,8 @@ public class UserHelper {
                     .getAuthentication()
                     .getPrincipal();
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            System.out.println("error bagian UserHelper".toUpperCase());
             currentUser = new User() {
                 {
                     setNama("Anonymouse User");

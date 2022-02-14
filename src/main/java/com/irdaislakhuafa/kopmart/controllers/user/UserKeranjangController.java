@@ -9,6 +9,7 @@ import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.models.entities.User;
 import com.irdaislakhuafa.kopmart.services.ProductService;
+import com.irdaislakhuafa.kopmart.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserKeranjangController {
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public String index(Model model) {
@@ -50,10 +54,16 @@ public class UserKeranjangController {
              */
 
             model.addAttribute("title", ViewHelper.APP_TITLE);
-            // model.addAttribute("listProducts", productExampleList);
-            model.addAttribute("listProducts", productService.findAll());
-            // model.addAttribute("listProducts",
-            // UserHelper.getCurrentUser().get().getKeranjang().getProducts());
+            model.addAttribute("listProducts",
+                    userService.findByEmail(
+                            // get current user
+                            UserHelper
+                                    .getCurrentUser()
+                                    .get()
+                                    .getEmail())
+                            .get()
+                            .getKeranjang()
+                            .getProducts());
             System.out.println(UserHelper.getCurrentUser());
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,22 +74,20 @@ public class UserKeranjangController {
     @PostMapping("/add")
     public String addProduct(Model model, @RequestParam("id") String id) {
         try {
+            // get product by id
             Product product = productService.findById(id).orElse(null);
-            UserHelper.getCurrentKeranjang().getProducts().add(product);
+            // get user by id
+            User currentUser = userService.findById(UserHelper.getCurrentUser().get().getId()).get();
+
+            // add product to keranjang user
+            currentUser.getKeranjang().getProducts().add(product);
+
+            // save user
+            userService.save(currentUser);
         } catch (Exception e) {
             System.out.println("Gagal menampah ke keranjang!");
+            // e.printStackTrace();
         }
-
-        /*
-         * System.out.println("\033\143");
-         * System.out.println(productService.findById(id));
-         * 
-         * try {
-         * Thread.sleep(5000);
-         * } catch (Exception e) {
-         * // TODO: handle exception
-         * }
-         */
         return "redirect:/kopmart/produk";
     }
 }

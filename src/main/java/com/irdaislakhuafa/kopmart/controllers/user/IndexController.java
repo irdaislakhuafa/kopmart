@@ -33,12 +33,11 @@ public class IndexController {
         try {
             model.addAttribute("productService", productService);
             model.addAttribute("title", ViewHelper.APP_TITLE);
-            System.out.println(productService.findAllUsedCategories());
             model.addAttribute("usedCategories", productService.findAllUsedCategories());
             model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
             model.addAttribute("categorySearchUrl", "/kopmart/produk/search");
         } catch (Exception e) {
-            // e.printStackTrace();
+            e.printStackTrace();
         }
         return "index";
     }
