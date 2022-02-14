@@ -10,7 +10,7 @@
             <div class="col-sm-6 ">
                 <!-- <form th:action="@{/}" class="" method="post"> -->
                 <!-- <input type=" text" th:value="${product.id}" name="id" hidden> -->
-                <h5 th:text="${product.name}" class="card-header rounded-pill shadow text-center text-uppercase">
+                <h5 th:text="${product.name}" class="card-header rounded-pill shadow mt-3 text-center text-uppercase">
                 </h5>
 
                 <div class="card-body">
@@ -24,34 +24,40 @@
                     <input type="number" id="jumlah" min="0" value="1" class="form-control col-sm-2 col-3">
                 </div>
 
-                <div class="row ms-0">
-                    <!-- check out -->
-                    <form th:action="@{/}">
-                        <button type="button" class="btn btn-outline-primary rounded-pill col-3 me-3">
-                            <!-- start icon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-cash" viewBox="0 0 16 16">
-                                <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
-                                <path
-                                    d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
-                            </svg>
-                            <!-- end icon -->
-                            Beli
-                        </button>
-                    </form>
+                <div class="row">
+                    <div class="col-2 me-3">
+                        <!-- check out -->
+                        <form th:action="@{/}">
+                            <button type="button"
+                                class="btn btn-outline-primary rounded-pill border border-light shadow">
+                                <!-- start icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-cash" viewBox="0 0 16 16">
+                                    <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                                    <path
+                                        d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
+                                </svg>
+                                <!-- end icon -->
+                                <!-- Beli -->
+                            </button>
+                        </form>
+                    </div>
 
-                    <!-- delete -->
-                    <form th:action="@{${deleteUrl}}" method="post">
-                        <input type="text" th:value="${product.id}" hidden readonly required name="id" id="id">
-                        <button type="submit" class="btn col-3 rounded-pill btn-outline-danger">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                            </svg>
-                            Hapus
-                        </button>
-                    </form>
+                    <div class="col-2">
+                        <!-- delete -->
+                        <form th:action="@{${deleteUrl}}" method="post">
+                            <input type="text" th:value="${product.id}" hidden readonly required name="id" id="id">
+                            <button type="submit"
+                                class="shadow btn rounded-pill btn-outline-danger border border-light shadow">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                </svg>
+                                <!-- Hapus -->
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <!-- </form> -->
             </div>
