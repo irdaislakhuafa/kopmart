@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
@@ -32,7 +33,8 @@ public class CategoryController {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("terjadi error di halaman new category di admin", this);
         }
         return "admin/category/new";
     }
@@ -44,15 +46,19 @@ public class CategoryController {
             @RequestParam("description") String description) {
 
         try {
-            Category category = new Category();
-            category.setName(name);
-            category.setDescription(description);
-
-            categoryService.save(category);
-
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
+
+            // create new category
+            Category category = new Category();
+            // set category name
+            category.setName(name);
+            // set category description
+            category.setDescription(description);
+            // save new category
+            categoryService.save(category);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("terjadi error saat membuat category baru", this);
         }
         return "redirect:/kopmart/admin/kategori/list";
     }
@@ -65,6 +71,7 @@ public class CategoryController {
             @RequestParam("requestData") Optional<Integer> requestData,
             @RequestParam(value = "requestSort", required = false) Optional<String> requestSort) {
         try {
+            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
 
             // get pages of category
             Page<Category> categoryPages = categoryService.findAll(
@@ -89,11 +96,11 @@ public class CategoryController {
                     // convert Stream<Integer> to List or ArrayList
                     .collect(Collectors.toList());
 
-            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
             model.addAttribute("categoryPages", categoryPages);
             model.addAttribute("categoryPageNumbers", categoryPageNumbers);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("error saat mencoba mengambil list category di admin", this);
         }
         return "admin/category/list";
     }
@@ -105,7 +112,8 @@ public class CategoryController {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
             categoryService.save(category);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("terjadi kesalahan saat mengedit category", this);
         }
         return "redirect:/kopmart/admin/kategori/list";
     }
@@ -118,7 +126,8 @@ public class CategoryController {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
             model.addAttribute("category", category);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("terjadi error saat memuat halaman edit category", this);
         }
         return "admin/category/edit";
     }
@@ -129,7 +138,8 @@ public class CategoryController {
         try {
             categoryService.removeById(categoryId);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("gagal menghapus category", this);
         }
         return "redirect:/kopmart/admin/kategori/list";
     }

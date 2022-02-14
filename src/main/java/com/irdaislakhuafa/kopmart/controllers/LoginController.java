@@ -3,6 +3,7 @@ package com.irdaislakhuafa.kopmart.controllers;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.User;
@@ -28,16 +29,13 @@ public class LoginController {
 
     @GetMapping("/user/login")
     public String index(Model model) {
-        // System.out.println(UserHelper.getCurrentUser());
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("registerUrl", "/kopmart/user/register");
             model.addAttribute("loginUrl", "/kopmart/user/login");
-            // if (UserHelper.getCurrentUser() != null) {
-            // return "redirect:/kopmart";
-            // }
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("terjadi error saat memuat halaman login", this);
         }
         return "login";
     }
@@ -47,12 +45,8 @@ public class LoginController {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("user", new User());
-
-            // if (UserHelper.getCurrentUser() != null) {
-            // return "redirect:/kopmart";
-            // }
         } catch (Exception e) {
-            e.printStackTrace();
+            UserHelper.errorLog("Terjadi kesalahan di controller halaman register", this);
         }
         return "register";
     }
@@ -104,7 +98,8 @@ public class LoginController {
 
             userService.save(user);
         } catch (Exception e) {
-            e.printStackTrace();
+            UserHelper.errorLog("terjadi kesalahan saat register user baru", this);
+            // e.printStackTrace();
         }
         return "redirect:/kopmart/user/login";
     }

@@ -3,11 +3,13 @@ package com.irdaislakhuafa.kopmart.controllers.admin;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
@@ -46,7 +48,8 @@ public class ProductController {
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("product", new Product());
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("gagal memuat halaman untuk membuat new product", this);
         }
         return "admin/produk/new";
     }
@@ -69,23 +72,35 @@ public class ProductController {
         model.addAttribute("categories", categoryService.findAll());
 
         try {
+            String fileName = new Date().toInstant()
+                    + foto.getOriginalFilename();
+            // get path of file
+            Path path = Paths
+                    .get(
+                            System.getProperty("user.home")
+                                    + "/.cache/"
+                                    + fileName);
 
-            Path path = Paths.get(System.getProperty("user.home") + "/.cache/" + foto.getOriginalFilename());
+            // get bytes of file
             byte[] bytes = foto.getBytes();
 
+            // write file to path
             Files.write(path, bytes);
 
+            // set product properties
             product.setName(name);
             product.setHarga(harga);
             product.setSimpleDesc(simpleDesc);
             product.setFullDesc(fullDesc);
-            product.setFotoUrl(foto.getOriginalFilename());
+            product.setFotoUrl(fileName);
             product.setCategoryId(categoryService.findById(categoryId).get());
             product.setStok(stok);
 
+            // save products
             productService.save(product);
 
         } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
             model.addAttribute("errorMessage",
                     e.getMessage().contains("ConstraintViolationException") ? "Maaf nama foto tidak boleh sama!" : "");
 
@@ -100,7 +115,8 @@ public class ProductController {
             model.addAttribute("product", product);
             return "admin/produk/new";
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("terjadi error saat membuat product baru admin", this);
         }
         return "redirect:/kopmart/admin/produk/list";
     }
@@ -114,6 +130,8 @@ public class ProductController {
             @RequestParam("requestSort") Optional<String> requestSort) {
 
         try {
+            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
+
             // get pageable of products
             Page<Product> productPages = productService.findAll(
                     PageRequest.of(
@@ -139,11 +157,11 @@ public class ProductController {
                     // convert to list
                     .collect(Collectors.toList());
 
-            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
             model.addAttribute("productPages", productPages);
             model.addAttribute("productPageNumbers", productPageNumbers);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("terjadi kesakahan saat memuat list product admin", this);
         }
         return "admin/produk/list";
     }
@@ -155,9 +173,11 @@ public class ProductController {
             @PathVariable("id") Optional<String> productId) {
 
         try {
+            // if product is exists
             if (productId.isPresent()) {
-                Product product = productService.findById(
-                        productId.get())
+                Product product = productService
+                        .findById(
+                                productId.get())
                         .get();
 
                 model.addAttribute("product", product);
@@ -166,7 +186,8 @@ public class ProductController {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
             model.addAttribute("categories", categoryService.findAll());
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("terjadi error saat mngedit product admin", this);
         }
         return "admin/produk/edit";
     }
@@ -178,16 +199,12 @@ public class ProductController {
             @RequestParam("oldPic") Optional<Boolean> oldPic,
             RedirectAttributes redirectAttributes) {
         try {
-            // System.out.println("=".repeat(100) + oldPic + "=".repeat(100));
-            // productService.save(product);
-
             // if use old pic
             if (oldPic.isPresent()) {
                 product.setFotoUrl(
                         productService.findById(
                                 product.getId()).get()
                                 .getFotoUrl());
-                // System.out.println(product);
             }
 
             // if foto url is null
@@ -201,7 +218,8 @@ public class ProductController {
             // update product
             productService.save(product);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("terjadi kesalahan saat menyimpan product yg sudah di edit admin", this);
         }
         return "redirect:/kopmart/admin/produk/list";
     }
@@ -214,7 +232,8 @@ public class ProductController {
         try {
             productService.removeById(categoryId);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("Terjadi kesalahan saat menghapus product admin", this);
         }
         return "redirect:/kopmart/admin/produk/list";
     }

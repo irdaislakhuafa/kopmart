@@ -1,5 +1,6 @@
 package com.irdaislakhuafa.kopmart.controllers.admin;
 
+import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,8 @@ public class AdminController {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("terjadi error saat memuat halaman awal admin", this);
         }
         return "admin/index";
     }

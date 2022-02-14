@@ -69,9 +69,10 @@ public class UserKeranjangController {
             keranjang.getProducts().add(product);
             // save keranjang
             keranjangService.save(keranjang);
-            System.out.println("Success add product (" + product.getId() + ") to cart (" + keranjang.getId() + ")");
+            // print message
+            UserHelper.print("Success add product (" + product.getId() + ") to cart (" + keranjang.getId() + ")");
         } catch (Exception e) {
-            System.out.println("Gagal menampah ke keranjang!");
+            UserHelper.errorLog("Gagal menampah ke keranjang", this);
             // e.printStackTrace();
         }
         return "redirect:/kopmart/produk";

@@ -20,9 +20,10 @@ public class IndexController {
     @GetMapping
     public String redirectIndex() {
         try {
-            System.out.println(UserHelper.getCurrentUser());
+            UserHelper.print(UserHelper.getCurrentUser());
         } catch (Exception e) {
-            e.printStackTrace();
+            UserHelper.errorLog("gagal redirect", this);
+            // e.printStackTrace();
         }
         return "redirect:/kopmart/home/";
     }
@@ -37,7 +38,8 @@ public class IndexController {
             model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
             model.addAttribute("categorySearchUrl", "/kopmart/produk/search");
         } catch (Exception e) {
-            e.printStackTrace();
+            UserHelper.errorLog("terjadi error halaman index", this);
+            // e.printStackTrace();
         }
         return "index";
     }

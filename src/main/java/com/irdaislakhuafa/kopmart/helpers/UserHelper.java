@@ -2,12 +2,13 @@ package com.irdaislakhuafa.kopmart.helpers;
 
 import java.util.Optional;
 
-import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.User;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserHelper {
+    private static boolean enableMyLog = true;
+
     public static Optional<User> getCurrentUser() {
         User currentUser = null;
         try {
@@ -30,9 +31,23 @@ public class UserHelper {
     }
 
     public static void errorLog(String s) {
-        System.out.println("=".repeat(30));
-        System.out.println(s.toUpperCase() + "!!!");
-        System.out.println("=".repeat(30));
+        if (!enableMyLog) {
+            System.out.println("=".repeat(30));
+            System.out.println(s.toUpperCase() + "!!!");
+            System.out.println("=".repeat(30));
+        }
+    }
+
+    public static void errorLog(String s, Object object) {
+        if (!enableMyLog) {
+            System.out.println("=".repeat(30));
+            System.out.println(s.toUpperCase() + "!!! => (" + String.valueOf(Object.class.getName()) + ")");
+            System.out.println("=".repeat(30));
+        }
+    }
+
+    public static void print(Object object) {
+        System.out.println((enableMyLog) ? object : "");
     }
 
     // public static Keranjang getCurrentKeranjang() {

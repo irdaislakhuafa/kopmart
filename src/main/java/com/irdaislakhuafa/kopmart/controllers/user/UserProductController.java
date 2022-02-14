@@ -2,6 +2,7 @@ package com.irdaislakhuafa.kopmart.controllers.user;
 
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Category;
@@ -31,15 +32,14 @@ public class UserProductController {
     @GetMapping
     public String produk(Model model) {
         try {
-            // System.out.println(productService.findAll());
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("products", productService.findAll());
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("searchActionUrl", "/kopmart/produk");
             model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
-            // model.addAttribute("categoryValueId", "");
         } catch (Exception e) {
-            e.printStackTrace();
+            UserHelper.errorLog("terjadi error tidak diketahui", this);
+            // e.printStackTrace();
         }
         return "produk";
     }
@@ -52,7 +52,8 @@ public class UserProductController {
             model.addAttribute("product", product);
             model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
         } catch (Exception e) {
-            e.printStackTrace();
+            UserHelper.errorLog("gagal mendapatkan details produk dengan id \"" + productId + "\"", this);
+            // e.printStackTrace();
         }
         return "details";
     }
@@ -96,7 +97,8 @@ public class UserProductController {
             model.addAttribute("categoryValueId", categoryValue.getId());
 
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("error saat search by category or keyword", this);
         }
         return "produk";
     }
