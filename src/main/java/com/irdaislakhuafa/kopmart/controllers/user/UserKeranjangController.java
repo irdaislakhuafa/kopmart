@@ -6,7 +6,6 @@ import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
-import com.irdaislakhuafa.kopmart.models.entities.User;
 import com.irdaislakhuafa.kopmart.services.KeranjangService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 import com.irdaislakhuafa.kopmart.services.UserService;
