@@ -2,13 +2,10 @@ package com.irdaislakhuafa.kopmart.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
-import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
-import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.models.repositories.KeranjangRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
