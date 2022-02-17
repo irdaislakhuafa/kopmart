@@ -2,6 +2,8 @@ package com.irdaislakhuafa.kopmart.controllers.user;
 
 import java.util.Optional;
 
+import com.irdaislakhuafa.kopmart.helpers.ClassHelper;
+import com.irdaislakhuafa.kopmart.helpers.FieldsTextMode;
 import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
@@ -60,6 +62,9 @@ public class UserKeranjangController {
 
             // delete url
             model.addAttribute("deleteUrl", "/kopmart/produk/keranjang/delete");
+            // model.addAttribute("productFields",
+            // ClassHelper.getFieldsFrom(Product.class, FieldsTextMode.UPPERCASE, "id",
+            // "fotoUrl", "fullDesc"));
         } catch (Exception e) {
             UserHelper.errorLog("gagal memuat halaman UserKeranjangController");
             // e.printStackTrace();

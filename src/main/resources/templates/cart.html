@@ -11,9 +11,10 @@
 
 
         <!-- start card -->
-        <div th:each="product : ${listProducts}">
-            <div th:replace="~{fragments/cart :: cart(${product})}"></div>
-        </div>
+        <!-- <div th:each="product : ${listProducts}">
+            <div th:replace="~{fragments/cart :: cartCard(${product})}"></div>
+        </div> -->
+        <div th:replace="fragments/cart :: cartTable(${listProducts})"></div>
     </div>
 
     <!-- js -->
