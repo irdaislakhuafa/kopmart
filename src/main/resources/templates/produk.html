@@ -39,7 +39,15 @@
         <br>
 
         <!-- produk -->
-        <div th:replace="~{fragments/produk::cards}"></div>
+        <div class="row d-flex justify-content-evenly">
+            <!-- col -->
+            <!-- <div class="col"> -->
+            <div class="card-inline m-3 p-0" th:each="product : ${products}">
+                <div th:replace="fragments/produk::card(${product})"></div>
+            </div>
+            <!-- </div> -->
+
+        </div>
 
     </div>
 

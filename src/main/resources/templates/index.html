@@ -50,38 +50,13 @@
 
         <!-- products -->
         <div class="container-fluid">
-            <div class="row d-flex   justify-content-evenly ">
+            <div class="row d-flex  justify-content-evenly ">
                 <!-- start products cards -->
                 <div th:each="product : ${productService.findByCategoryId(category.id)}" class="card-inline   m-3 p-0 ">
                     <!-- <div th:replace="~{fragments/produk::card(${product})}"></div> -->
                     <div th:if="${product != null}">
                         <!-- card product -->
-                        <div class="card  text-start shadow ">
-                            <img class="card-img-top" th:src="@{/assets/img/blog/blog-1.jpg}" alt="">
-                            <!-- card body -->
-                            <div class="card-body">
-                                <!-- title -->
-                                <h4 class="card-title text-capitalize">
-                                    <a th:href="@{'/kopmart/produk/details/' + ${product.id}}"
-                                        th:text="${product.name}"></a>
-                                </h4>
-                                <!-- category -->
-                                <small>Kategori : <a th:text="${product.categoryId.name}"></a></small>
-                                <!-- description -->
-                                <p class="card-text" th:text="${product.simpleDesc}">Simple Desc</p>
-                                <!-- button -->
-                                <a href="#" class="btn btn-primary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                                        <path
-                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                                    </svg>
-                                    Tambahkan
-                                </a>
-                                <!-- harga -->
-                                Rp. <span th:text="${product.harga}"></span>
-                            </div>
-                        </div>
+                        <div th:replace="fragments/produk::card(${product})"></div>
                     </div>
                 </div>
                 <!-- start products cards -->
