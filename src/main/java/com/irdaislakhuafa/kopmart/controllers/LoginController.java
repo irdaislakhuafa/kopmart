@@ -44,6 +44,7 @@ public class LoginController {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("user", new User());
+            model.addAttribute("loginUrl", "/kopmart/user/login");
         } catch (Exception e) {
             UserHelper.errorLog("Terjadi kesalahan di controller halaman register", this);
         }

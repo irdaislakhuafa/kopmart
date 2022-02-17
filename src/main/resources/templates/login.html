@@ -17,7 +17,7 @@
                 </div>
 
                 <!-- start form  -->
-                <form class="login100-form validate-form " method="post" th:action="@{/kopmart/user/login}">
+                <form class="login100-form validate-form " method="post" th:action="@{${loginUrl}}">
                     <!-- login title -->
                     <span class="login100-form-title">
                         <div class="mb-3">
@@ -32,8 +32,7 @@
 
                     <!-- username -->
                     <div class="wrap-input100 validate-input" data-validate="Format email yang di inginkan: ex@abc.xyz">
-                        <input class="input100 shadow wow fadeInUp text-capitalize" type="email" name="username"
-                            placeholder="Email">
+                        <input class="input100 shadow wow fadeInUp" type="email" name="username" placeholder="Email">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>

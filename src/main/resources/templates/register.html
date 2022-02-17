@@ -65,7 +65,7 @@
                     <small class="text-danger text-center text-capitalize" th:text="${emailError}"></small>
                     <div class="wrap-input100 validate-input"
                         data-validate="Contoh email yang harus dimasukan: ex@abc.xyz">
-                        <input class="input100 shadow wow fadeInUp" type="text" required name="email"
+                        <input class="input100 shadow wow fadeInUp " type="text" required name="email"
                             th:placeholder="${emailError == null ? 'Email' : emailError}" th:field="*{email}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
@@ -88,7 +88,7 @@
                     <small class="text-danger text-center text-capitalize" th:text="${noTelegramError}"></small>
                     <div class="wrap-input100 validate-input" data-validate="Nomor telegram harus berupa angka">
                         <input type="number" name="noTelegram" class="input100 shadow wow fadeInUp"
-                            placeholder="No Telegram" min="0" required th:field="*{noTelegram}">
+                            placeholder="No Telegram" min="000000" required th:field="*{noTelegram}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-telegram"></i>
@@ -101,7 +101,7 @@
                     <!-- buttons -->
                     <div class="container-login100-form-btn">
                         <div class="container row">
-                            <a th:href="@{/kopmart/login}" class="login100-form-btn text-decoration-none col-6 shadow"
+                            <a th:href="@{${loginUrl}}" class="login100-form-btn text-decoration-none col-6 shadow"
                                 type="button">Kembali</a>
                             <button class="login100-form-btn col-6 shadow" type="submit">
                                 Daftar
