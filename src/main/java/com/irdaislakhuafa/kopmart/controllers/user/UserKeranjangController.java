@@ -44,6 +44,7 @@ public class UserKeranjangController {
                             .get()
                             .getKeranjang()
                             .getProducts());
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get());
 
             // if user is login
             if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {

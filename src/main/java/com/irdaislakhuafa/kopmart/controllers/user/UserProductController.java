@@ -39,7 +39,7 @@ public class UserProductController {
             model.addAttribute("products", productService.findAll());
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("searchActionUrl", "/kopmart/produk");
-            model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get());
 
             // if user is login
             if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {
@@ -66,7 +66,7 @@ public class UserProductController {
         try {
             Product product = productService.findById(productId).get();
             model.addAttribute("product", product);
-            model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get());
 
             // if user is login
             if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {
@@ -113,7 +113,7 @@ public class UserProductController {
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("searchActionUrl", "/kopmart/produk/search");
             model.addAttribute("keyword", keyword.orElse(""));
-            model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get());
 
             Category categoryValue = categoryService.findById(categoryId.get())
                     .orElse(

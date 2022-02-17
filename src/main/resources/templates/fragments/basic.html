@@ -71,16 +71,21 @@
 
                     <!-- produk -->
                     <li class="nav-item" th:classappend="${
-                            #request.getRequestURI().contains('/kopmart/produk') && (!#request.getRequestURI().contains('/kopmart/produk/keranjang'))
+                            #request.getRequestURI().contains('/kopmart/produk') && 
+                            (
+                                !#request.getRequestURI().contains('/kopmart/produk/keranjang')
+                            )
                         } ? 'active shadow rounded-pill px-3' : ''">
                         <a class="nav-link" th:href="@{/kopmart/produk}">Produk</a>
                     </li>
 
                     <!-- if not registeres -->
-                    <li class="nav-item" th:if="${currentUser == 'anonymouse@user.com'}">
-                        <a th:href="@{/kopmart/user/login}" class="nav-link">Masuk</a>
+                    <li class="nav-item">
+                        <a th:if="${currentUser.getEmail() == 'anonymouse@user.com'}" th:href="@{/kopmart/user/login}"
+                            class="nav-link">Masuk</a>
+                        <a href="/profil" th:unless="${currentUser.email == 'anonymouse@user.com'}"
+                            th:text="${currentUser.nama}" class="text-primary mx-2 nav-link text-capitalize"></a>
                     </li>
-
                     <!-- keranjang -->
                     <!-- <div class="nav-item">
                         <a th:href="@{/kopmart/produk/keranjang}"></a>

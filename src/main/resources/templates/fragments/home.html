@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="body">
-                    <h5 class="text-secondary" th:text="${category.name}">Title</h5>
+                    <h5 class="text-secondary text-capitalize" th:text="${category.name}">Title</h5>
                     <p th:text="${category.description}">Descriprions</p>
                     <form th:action="@{${categorySearchUrl}}" method="get">
                         <!-- category id -->

@@ -39,7 +39,7 @@ public class IndexController {
             model.addAttribute("productService", productService);
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("usedCategories", productService.findAllUsedCategories());
-            model.addAttribute("currentUser", UserHelper.getCurrentUser().get().getEmail());
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get());
             model.addAttribute("categorySearchUrl", "/kopmart/produk/search");
 
             // if user is login
