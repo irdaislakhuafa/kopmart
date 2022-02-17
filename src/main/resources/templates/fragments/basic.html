@@ -81,10 +81,17 @@
 
                     <!-- if not registeres -->
                     <li class="nav-item">
-                        <a th:if="${currentUser.getEmail() == 'anonymouse@user.com'}" th:href="@{/kopmart/user/login}"
-                            class="nav-link">Masuk</a>
-                        <a href="/profil" th:unless="${currentUser.email == 'anonymouse@user.com'}"
-                            th:text="${currentUser.nama}" class="text-primary mx-2 nav-link text-capitalize"></a>
+                        <span th:if="${currentUser != null}" class="nav-link">
+                            <a th:if="${currentUser.getEmail() == 'anonymouse@user.com'}"
+                                th:href="@{/kopmart/user/login}">
+                                Masuk
+                            </a>
+                            <a href="/profil" th:unless="${currentUser.email == 'anonymouse@user.com'}"
+                                th:text="${currentUser.nama}" class="text-primary pe-3 text-capitalize"></a>
+                        </span>
+                        <a th:if="${currentUser == null}" class="nav-link" th:href="@{/kopmart/user/login}">
+                            Masuk
+                        </a>
                     </li>
                     <!-- keranjang -->
                     <!-- <div class="nav-item">

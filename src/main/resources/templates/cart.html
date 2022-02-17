@@ -9,12 +9,40 @@
     <div class="container">
         <div th:replace="~{fragments/basic :: banner('Keranjang')}"></div>
 
+        <!-- selection view -->
+        <div class="ms-0 mb-3 ps-0 col-sm-3  col-3 wow fadeInUp">
+            <form th:action="@{${editViewModeUrl}}" method="post" class="d-flex">
+                <!-- view mode -->
+                <select name="cartView" id="cardView" class="custom-select h-25 shadow border-light">
+                    <option th:each="mode : ${viewModes}" th:value="${mode}"
+                        th:selected="${mode == currentCartViewMode}">
+                        <span th:if="${mode == viewMode.CARD}">KARTU</span>
+                        <span th:if="${mode == viewMode.TABLE}">TABEL</span>
+                    </option>
+                </select>
+
+                <!-- current url -->
+                <input type="text" name="currentUrl" th:value="${#request.getRequestURI()}" hidden required readonly
+                    id="currentUrl">
+
+                <!-- keranjang id -->
+                <input type="text" name="keranjangId" th:value="${currentUser.getKeranjang().getId()}" hidden readonly
+                    required>
+                <!-- <div th:text="${#request.getRequestURI()}"></div> -->
+                <!-- button -->
+                <button type="submit" class="py-1 my-auto mx-3 btn shadow rounded-pill btn-primary">Terapkan</button>
+            </form>
+        </div>
 
         <!-- start card -->
-        <!-- <div th:each="product : ${listProducts}">
+        <!-- if card -->
+        <div th:if="${currentCartViewMode == viewMode.CARD}" th:each="product : ${listProducts}">
             <div th:replace="~{fragments/cart :: cartCard(${product})}"></div>
-        </div> -->
-        <div th:replace="fragments/cart :: cartTable(${listProducts})"></div>
+        </div>
+        <!-- if table -->
+        <div th:if="${currentCartViewMode == viewMode.TABLE}" th:insert="fragments/cart :: cartTable(${listProducts})">
+        </div>
+
     </div>
 
     <!-- js -->

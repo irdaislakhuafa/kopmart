@@ -62,12 +62,4 @@ public class KeranjangService implements BasicService<Keranjang> {
         return null;
     }
 
-    public Set<Product> findAllProduct() {
-        return keranjangRepository.findByUserId(
-                UserHelper
-                        .getCurrentUser()
-                        .get().getId())
-                .getProducts();
-    }
-
 }

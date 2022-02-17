@@ -65,7 +65,7 @@ public class User extends BasicEntity<String> implements UserDetails {
     @Column(length = 1000)
     private String fotoUrl;
 
-    @OneToOne(cascade = { CascadeType.ALL })
+    @OneToOne(cascade = { CascadeType.ALL }, orphanRemoval = true)
     private Keranjang keranjang;
 
     @Override

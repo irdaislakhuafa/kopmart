@@ -8,6 +8,7 @@ import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
+import com.irdaislakhuafa.kopmart.models.entities.utils.KeranjangViewMode;
 import com.irdaislakhuafa.kopmart.services.KeranjangService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 import com.irdaislakhuafa.kopmart.services.UserService;
@@ -62,9 +63,11 @@ public class UserKeranjangController {
 
             // delete url
             model.addAttribute("deleteUrl", "/kopmart/produk/keranjang/delete");
-            // model.addAttribute("productFields",
-            // ClassHelper.getFieldsFrom(Product.class, FieldsTextMode.UPPERCASE, "id",
-            // "fotoUrl", "fullDesc"));
+            model.addAttribute("viewModes", KeranjangViewMode.values());
+            model.addAttribute("viewMode", KeranjangViewMode.class);
+            model.addAttribute("editViewModeUrl", "/kopmart/produk/keranjang/edit/viewMode");
+            model.addAttribute("currentCartViewMode", userService.findById(
+                    UserHelper.getCurrentUser().get().getId()).get().getKeranjang().getViewMode());
         } catch (Exception e) {
             UserHelper.errorLog("gagal memuat halaman UserKeranjangController");
             // e.printStackTrace();
@@ -116,5 +119,24 @@ public class UserKeranjangController {
             UserHelper.errorLog("gagal menghapus product di keranjang", this);
         }
         return "redirect:/kopmart/produk/keranjang";
+    }
+
+    @PostMapping("/edit/viewMode")
+    public String editViewMode(
+            Model model,
+            @RequestParam(name = "cartView") Optional<String> viewMode,
+            @RequestParam(name = "currentUrl") Optional<String> requestUrl,
+            @RequestParam(name = "keranjangId") Optional<String> id) {
+        System.out.println("\033\143");
+        try {
+            Keranjang keranjang = keranjangService.findById(id.get()).get();
+            keranjang.setViewMode(KeranjangViewMode.valueOf(viewMode.get().toUpperCase()));
+            UserHelper.print(keranjang);
+            keranjangService.save(keranjang);
+        } catch (Exception e) {
+            e.printStackTrace();
+            UserHelper.errorLog("failed to edit view mode for keranjang");
+        }
+        return "redirect:" + requestUrl.get();
     }
 }

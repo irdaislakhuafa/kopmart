@@ -4,13 +4,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.irdaislakhuafa.kopmart.models.entities.utils.KeranjangViewMode;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -32,6 +37,7 @@ public class Keranjang extends BasicEntity<String> {
     @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private Set<Product> products = new HashSet<>();
 
-    @OneToOne(cascade = { CascadeType.ALL })
-    private User user;
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private KeranjangViewMode viewMode;
 }

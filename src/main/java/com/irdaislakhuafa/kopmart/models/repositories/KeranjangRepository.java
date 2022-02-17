@@ -15,6 +15,6 @@ public interface KeranjangRepository extends JpaRepository<Keranjang, String> {
     // public List<Product> findAllProductsByKeranjangId(@PathParam("keranjang_id")
     // String keranjangId);
 
-    public Keranjang findByUserId(String id);
+    // public Keranjang findByUserId(String id);
 
 }

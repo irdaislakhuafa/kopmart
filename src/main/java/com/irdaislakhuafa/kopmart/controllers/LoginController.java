@@ -6,6 +6,7 @@ import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Keranjang;
 import com.irdaislakhuafa.kopmart.models.entities.User;
+import com.irdaislakhuafa.kopmart.models.entities.utils.KeranjangViewMode;
 import com.irdaislakhuafa.kopmart.models.entities.utils.UserRole;
 import com.irdaislakhuafa.kopmart.services.UserService;
 
@@ -93,6 +94,7 @@ public class LoginController {
 
             Keranjang keranjang = new Keranjang();
             keranjang.setProducts(new HashSet<>());
+            keranjang.setViewMode(KeranjangViewMode.CARD);
 
             user.setKeranjang(keranjang);
 

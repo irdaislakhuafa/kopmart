@@ -15,7 +15,6 @@ public class TestController {
 
     @GetMapping
     public String name() {
-        System.out.println(keranjangService.findAllProduct());
         return "Hello World";
     }
 }
