@@ -38,7 +38,7 @@ public class UserProductController {
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("products", productService.findAll());
             model.addAttribute("categories", categoryService.findAll());
-            model.addAttribute("searchActionUrl", "/kopmart/produk");
+            model.addAttribute("searchActionUrl", "/kopmart/produk/search");
             model.addAttribute("currentUser", UserHelper.getCurrentUser().get());
 
             // if user is login
@@ -94,6 +94,11 @@ public class UserProductController {
             @RequestParam("keyword") Optional<String> keyword) {
 
         try {
+            // System.out.println("\033\143");
+            // System.out.println(categoryId);
+            // System.out.println(keyword);
+            // Thread.sleep(5000);
+
             boolean isAllCategories = categoryId.get().equalsIgnoreCase("semua kategori");
 
             model.addAttribute("title", ViewHelper.APP_TITLE);
