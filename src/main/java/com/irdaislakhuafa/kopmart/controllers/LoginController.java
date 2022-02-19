@@ -1,6 +1,7 @@
 package com.irdaislakhuafa.kopmart.controllers;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
@@ -41,11 +42,12 @@ public class LoginController {
     }
 
     @GetMapping("/user/register")
-    public String register(Model model) {
+    public String register(Model model, @RequestParam(value = "backUrl", required = false) Optional<String> backUrl) {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("user", new User());
-            model.addAttribute("loginUrl", "/kopmart/user/login");
+            model.addAttribute("backUrl", backUrl.orElse("/kopmart/user/login"));
+            model.addAttribute("registerUrl", "/kopmart/user/register");
         } catch (Exception e) {
             UserHelper.errorLog("Terjadi kesalahan di controller halaman register", this);
         }
@@ -66,6 +68,11 @@ public class LoginController {
         try {
             model.addAttribute("title", ViewHelper.APP_TITLE);
 
+            // if npm length more than 10
+            if (npm.length() > 10) {
+                model.addAttribute("npmError", "jumlah karakter npm tidak boleh lebih dari 10!");
+            }
+
             // npm
             userService.findByNpm(npm).ifPresent((valueNpm) -> {
                 model.addAttribute("npmError",
@@ -84,7 +91,14 @@ public class LoginController {
                         String.format("no telegram \"%s\" sudah ada!", noTelegram));
             });
 
-            if (userService.existsByNpmOrEmailOrNoTelegram(npm, email, noTelegram)) {
+            // password
+            if ((password.length() < 8)) {
+                model.addAttribute("passwordWarning", "password minimal 8 karakter!");
+            }
+
+            if (userService.existsByNpmOrEmailOrNoTelegram(npm, email, noTelegram)
+                    || (password.length() < 8)
+                    || (npm.length() > 10)) {
                 model.addAttribute("user", user);
                 return "register";
             }

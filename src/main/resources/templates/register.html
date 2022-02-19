@@ -18,7 +18,7 @@
 
                 <!-- start form  -->
                 <form th:object="${user}" class="login100-form validate-form" method="post"
-                    th:action="@{/kopmart/user/register}">
+                    th:action="@{${registerUrl}}">
                     <!-- login title -->
                     <span class="login100-form-title">
                         <div class="mb-3">
@@ -34,7 +34,9 @@
 
                     <!-- npm -->
                     <!-- error message -->
-                    <small class="text-danger text-center text-capitalize" th:text="${npmError}"></small>
+                    <div class="text-center">
+                        <small class="text-danger text-capitalize" th:text="${npmError}"></small>
+                    </div>
                     <div class="wrap-input100 validate-input pl-red"
                         data-validate="NPM yang di inginkan misal : 1412xxxxxx">
                         <input type="number" min="0" name="npm" class="shadow wow fadeInUp input100" minlength="10"
@@ -62,7 +64,9 @@
 
                     <!-- email as username -->
                     <!-- error message -->
-                    <small class="text-danger text-center text-capitalize" th:text="${emailError}"></small>
+                    <div class="text-center">
+                        <small class="text-danger text-capitalize" th:text="${emailError}"></small>
+                    </div>
                     <div class="wrap-input100 validate-input"
                         data-validate="Contoh email yang harus dimasukan: ex@abc.xyz">
                         <input class="input100 shadow wow fadeInUp " type="text" required name="email"
@@ -74,6 +78,10 @@
                     </div>
 
                     <!-- password -->
+                    <!-- warning message -->
+                    <div class="text-center">
+                        <small class="text-danger text-capitalize" th:text="${passwordWarning}"></small>
+                    </div>
                     <div class="wrap-input100 validate-input" data-validate="Password wajib dimasukan">
                         <input class="input100 shadow wow fadeInUp" type="password" name="password"
                             placeholder="Password" required th:field="*{password}">
@@ -85,7 +93,9 @@
 
                     <!-- no telegram -->
                     <!-- error message -->
-                    <small class="text-danger text-center text-capitalize" th:text="${noTelegramError}"></small>
+                    <div class="text-center">
+                        <small class="text-danger text-capitalize" th:text="${noTelegramError}"></small>
+                    </div>
                     <div class="wrap-input100 validate-input" data-validate="Nomor telegram harus berupa angka">
                         <input type="number" name="noTelegram" class="input100 shadow wow fadeInUp"
                             placeholder="No Telegram" min="000000" required th:field="*{noTelegram}">
@@ -101,7 +111,7 @@
                     <!-- buttons -->
                     <div class="container-login100-form-btn">
                         <div class="container row">
-                            <a th:href="@{${loginUrl}}" class="login100-form-btn text-decoration-none col-6 shadow"
+                            <a th:href="@{${backUrl}}" class="login100-form-btn text-decoration-none col-6 shadow"
                                 type="button">Kembali</a>
                             <button class="login100-form-btn col-6 shadow" type="submit">
                                 Daftar

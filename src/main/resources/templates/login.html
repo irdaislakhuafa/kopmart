@@ -67,6 +67,8 @@
                         </a>
                     </div>
 
+                    <!-- back url -->
+                    <input type="text" th:value="${#request.getRequestURI()}" name="backUrl" required hidden>
 
                     <div class="text-center p-t-136">
                         <a th:href="@{/kopmart/}" class="txt2">
