@@ -13,4 +13,6 @@ public interface CategoryRepository extends JpaRepository<Category, String> {
     public List<Category> findByNameContains(String name);
 
     public Optional<Category> findByName(String name);
+
+    public Optional<Category> findByNameIgnoreCase(String name);
 }

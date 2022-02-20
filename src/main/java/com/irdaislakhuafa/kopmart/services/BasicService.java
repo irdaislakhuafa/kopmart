@@ -22,4 +22,6 @@ public interface BasicService<A> {
     public List<A> findAll();
 
     public Page<A> findAll(Pageable pageable);
+
+    public Optional<A> findByNameIgnoreCase(String name);
 }

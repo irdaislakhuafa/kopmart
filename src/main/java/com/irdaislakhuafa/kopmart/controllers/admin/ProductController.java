@@ -1,5 +1,7 @@
 package com.irdaislakhuafa.kopmart.controllers.admin;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,9 +14,13 @@ import java.util.stream.IntStream;
 import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
+import com.irdaislakhuafa.kopmart.models.entities.converters.ProductDto;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 
+import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -173,6 +179,7 @@ public class ProductController {
             @PathVariable("id") Optional<String> productId) {
 
         try {
+            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
             // if product is exists
             if (productId.isPresent()) {
                 Product product = productService
@@ -183,7 +190,6 @@ public class ProductController {
                 model.addAttribute("product", product);
             }
 
-            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
             model.addAttribute("categories", categoryService.findAll());
         } catch (Exception e) {
             // e.printStackTrace();
@@ -236,5 +242,63 @@ public class ProductController {
             UserHelper.errorLog("Terjadi kesalahan saat menghapus product admin", this);
         }
         return "redirect:/kopmart/admin/produk/list";
+    }
+
+    @GetMapping("/upload/csv")
+    public String uploadCsv(Model model) {
+        try {
+            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
+            model.addAttribute("uploadCsvUrl", "/kopmart/admin/produk/upload/csv");
+        } catch (Exception e) {
+            UserHelper.errorLog("terjadi kesalahan saat memuat halaman upload csv!");
+        }
+        return "admin/produk/upload/csv";
+    }
+
+    @PostMapping("/upload/csv")
+    public String uploadCsv(
+            Model model,
+            @RequestParam(name = "fileCsv") MultipartFile fileScv,
+            @RequestParam(name = "backUrl", required = false) Optional<String> backUrl,
+            RedirectAttributes redirectAttributes) {
+
+        try (Reader fileCsvReader = new InputStreamReader(fileScv.getInputStream())) {
+            // System.out.println("\033\143");
+            if (!fileScv.getContentType().equalsIgnoreCase("text/csv")) {
+                System.out.println("bukan file csv");
+                model.addAttribute("fileError", "file yang anda masukan bukan file CSV!");
+                return "admin/produk/upload/csv";
+            } else {
+                /*
+                 * {// convert csv file to bean
+                 * CsvToBean<Product> productBean = new CsvToBeanBuilder<Product>(fileCsvReader)
+                 * .withType(Product.class)
+                 * .withIgnoreLeadingWhiteSpace(true)
+                 * .withThrowExceptions(true)
+                 * .build();
+                 * 
+                 * // parse file bean to ArrayList
+                 * List<Product> listProducts = productBean.parse();
+                 * System.out.println(listProducts);
+                 * }
+                 */
+
+                {// convert csv file to bean
+                    CsvToBean<ProductDto> productBean = new CsvToBeanBuilder<ProductDto>(fileCsvReader)
+                            .withType(ProductDto.class)
+                            .withIgnoreLeadingWhiteSpace(true)
+                            .withThrowExceptions(true)
+                            .build();
+
+                    // parse file bean to ArrayList
+                    List<ProductDto> listProducts = productBean.parse();
+                    System.out.println(listProducts);
+                }
+            }
+
+        } catch (Exception e) {
+            UserHelper.errorLog("terjadi kesalahan saat memproses file \"" + fileScv.getOriginalFilename() + "\"!");
+        }
+        return "redirect:" + backUrl.orElse("/kopmart/admin/produk/upload/csv");
     }
 }

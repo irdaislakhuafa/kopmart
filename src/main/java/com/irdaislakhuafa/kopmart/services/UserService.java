@@ -95,4 +95,10 @@ public class UserService implements UserDetailsService, BasicService<User> {
     public boolean existsByNpmOrEmailOrNoTelegram(String npm, String email, String noTelegram) {
         return userRepository.existsByNpmIgnoreCaseOrEmailIgnoreCaseOrNoTelegramIgnoreCase(npm, email, noTelegram);
     }
+
+    @Override
+    public Optional<User> findByNameIgnoreCase(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -57,4 +57,9 @@ public class CategoryService implements BasicService<Category> {
         return categoryRepository.findAll(pageable);
     }
 
+    @Override
+    public Optional<Category> findByNameIgnoreCase(String name) {
+        return categoryRepository.findByNameIgnoreCase(name);
+    }
+
 }

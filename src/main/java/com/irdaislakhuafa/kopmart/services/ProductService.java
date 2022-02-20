@@ -86,4 +86,10 @@ public class ProductService implements BasicService<Product> {
     public List<Product> findByCategoryName(String name) {
         return productRepository.findByCategoryIdNameIgnoreCase(name);
     }
+
+    @Override
+    public Optional<Product> findByNameIgnoreCase(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

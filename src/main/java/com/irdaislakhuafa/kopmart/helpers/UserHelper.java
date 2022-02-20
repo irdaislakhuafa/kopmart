@@ -3,7 +3,9 @@ package com.irdaislakhuafa.kopmart.helpers;
 import java.util.Optional;
 
 import com.irdaislakhuafa.kopmart.models.entities.User;
+import com.irdaislakhuafa.kopmart.services.CategoryService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserHelper {
