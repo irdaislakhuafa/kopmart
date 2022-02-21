@@ -130,7 +130,7 @@ public class ProductController {
     }
 
     // GET list product
-    @GetMapping({ "/list", "/", "" })
+    @GetMapping({ "/list", "/" })
     public String listProducts(
             Model model,
             @RequestParam("requestPage") Optional<Integer> requestPage,
@@ -303,12 +303,18 @@ public class ProductController {
                                     // full desc
                                     product.getFullDesc(),
                                     // category
-                                    categoryService
+                                    (categoryService
                                             .findByNameIgnoreCase(
                                                     product.getCategory().trim())
-                                            .orElse(
-                                                    categoryService.save(
-                                                            new Category(null, product.getCategory().trim(), "-"))),
+                                            .isPresent()) ? categoryService // if category exists
+                                                    .findByNameIgnoreCase(
+                                                            product.getCategory().trim())
+                                                    .get()
+                                                    // if not exists,
+                                                    // it will save new category with name categori from
+                                                    // fileCsv
+                                                    : categoryService.save(
+                                                            new Category(null, product.getCategory().trim(), "-")),
                                     // stok
                                     product.getStok()));
                 });
