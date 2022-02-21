@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-// TODO create endpoint upload CSV for this class
 @Controller
 @RequestMapping("/kopmart/admin/kategori")
 public class CategoryController {
@@ -214,4 +213,5 @@ public class CategoryController {
         }
         return "redirect:/kopmart/admin/kategori/upload/csv";
     }
+    // TODO : add download sample file CSV
 }
