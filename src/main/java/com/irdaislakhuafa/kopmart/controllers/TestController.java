@@ -24,24 +24,6 @@ public class TestController {
 
     @GetMapping
     public String name() throws Exception {
-        List<Map<String, Object>> listData = new ArrayList<>(
-                Arrays.asList(
-                        new HashMap<String, Object>() {
-                            {
-                                put("nama", "irda islakhu afa");
-                                put("noTelp", "082244786497");
-                                put("mLaki", true);
-                            }
-                        },
-                        new HashMap<String, Object>() {
-                            {
-                                put("nama", "ana ardani");
-                                put("noTelp", "089668062233");
-                                put("mLaki", false);
-                            }
-                        }));
-
-        DataToCsvHelper.writeDataToCsv(new PrintWriter(new File("/home/artix/.cache/statusInet.log")), listData);
         return "Hello World";
     }
 }
