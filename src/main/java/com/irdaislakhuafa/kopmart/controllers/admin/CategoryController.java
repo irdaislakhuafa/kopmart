@@ -240,12 +240,6 @@ public class CategoryController {
                             new HashMap<String, Object>() {
                                 {
                                     put("nama", "gorengan");
-                                    put("deskripsi", "-");
-                                }
-                            },
-                            new HashMap<String, Object>() {
-                                {
-                                    put("nama", "gorengan");
                                     put("deskripsi",
                                             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa at corrupti dolores");
                                 }
@@ -254,20 +248,6 @@ public class CategoryController {
                                 {
                                     put("nama", "ATK");
                                     put("deskripsi", "-");
-                                }
-                            },
-                            new HashMap<String, Object>() {
-                                {
-                                    put("nama", "ATK");
-                                    put("deskripsi",
-                                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa at corrupti dolores");
-                                }
-                            },
-                            new HashMap<String, Object>() {
-                                {
-                                    put("nama", "snack");
-                                    put("deskripsi",
-                                            "-");
                                 }
                             },
                             new HashMap<String, Object>() {

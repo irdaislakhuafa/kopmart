@@ -130,7 +130,7 @@ public class ProductController {
     }
 
     // GET list product
-    @GetMapping({ "/list", "/" })
+    @GetMapping({ "/list", "/", "" })
     public String listProducts(
             Model model,
             @RequestParam("requestPage") Optional<Integer> requestPage,
