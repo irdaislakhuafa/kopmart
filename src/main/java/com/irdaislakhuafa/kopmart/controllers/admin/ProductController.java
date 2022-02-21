@@ -54,6 +54,7 @@ public class ProductController {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("product", new Product());
+            model.addAttribute("newProductUrl", "/kopmart/admin/produk/new");
         } catch (Exception e) {
             // e.printStackTrace();
             UserHelper.errorLog("gagal memuat halaman untuk membuat new product", this);
@@ -212,10 +213,7 @@ public class ProductController {
                         productService.findById(
                                 product.getId()).get()
                                 .getFotoUrl());
-            }
-
-            // if foto url is null
-            if (product.getFotoUrl() == null) {
+            } else if (product.getFotoUrl() == null) {
                 redirectAttributes.addFlashAttribute("fotoErrorMessage",
                         "Foto tidak boleh kosong, gunakan foto sebelumnya jika tidak ingin merubah!");
 
@@ -225,7 +223,7 @@ public class ProductController {
             // update product
             productService.save(product);
         } catch (Exception e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             UserHelper.errorLog("terjadi kesalahan saat menyimpan product yg sudah di edit admin", this);
         }
         return "redirect:/kopmart/admin/produk/list";
