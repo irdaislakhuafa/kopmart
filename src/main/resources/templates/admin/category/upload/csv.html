@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/basic :: head}">
+</head>
+
+<body>
+    <!-- layer -->
+    <div class="layer"></div>
+
+    <!-- content -->
+    <div class="page-flex">
+        <!-- sidebar -->
+        <div th:replace="~{admin/fragments/basic :: sidebar}"></div>
+
+        <!-- main content -->
+        <div class="main-wrapper">
+            <!-- navbar -->
+            <div th:replace="~{admin/fragments/comp :: navbar}"></div>
+
+            <!-- container -->
+            <div class="container">
+                <br><br><br>
+                <div th:replace="~{admin/fragments/upload :: csv(${backActionUrl}, ${uploadCsvUrl})}"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- js -->
+    <div th:replace="~{admin/fragments/basic :: js}"></div>
+    <div th:replace="~{fragments/basic :: js}"></div>
+</body>
+
+</html>

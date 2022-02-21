@@ -67,7 +67,7 @@ public class CategoryController {
     }
 
     // get list
-    @GetMapping("/list")
+    @GetMapping({ "/list", "/" })
     public String listCategories(
             Model model,
             @RequestParam("requestPage") Optional<Integer> requestPage,
@@ -142,9 +142,7 @@ public class CategoryController {
             @RequestParam("categoryId") String categoryId,
             RedirectAttributes redirectAttributes) {
         try {
-            // FIXME fix this, send message when current category used by some products
             categoryService.removeById(categoryId);
-
         } catch (DataIntegrityViolationException e) {
             redirectAttributes.addFlashAttribute("categoryDeleteError",
                     "gagal menghapus kategori! pastikan kategori tidak sedang dipakai oleh produk!");
@@ -155,4 +153,16 @@ public class CategoryController {
         return "redirect:/kopmart/admin/kategori/list";
     }
 
+    // upload csv
+    @GetMapping("/upload/csv")
+    public String uploadCsv(Model model) {
+        try {
+            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
+            model.addAttribute("uploadCsvUrl", "/kopmart/admin/kategori/upload/csv");
+            model.addAttribute("backActionUrl", "/kopmart/admin/kategori/list");
+        } catch (Exception e) {
+            UserHelper.errorLog("terjadi kesalahan saat memuat halaman upload csv!");
+        }
+        return "admin/category/upload/csv";
+    }
 }
