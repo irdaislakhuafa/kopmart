@@ -89,7 +89,6 @@ public class ProductService implements BasicService<Product> {
 
     @Override
     public Optional<Product> findByNameIgnoreCase(String name) {
-        // TODO Auto-generated method stub
         return null;
     }
 }
