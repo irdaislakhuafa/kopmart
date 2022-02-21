@@ -1,5 +1,7 @@
 package com.irdaislakhuafa.kopmart.controllers.admin;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -9,6 +11,8 @@ import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 // TODO create endpoint upload CSV for this class
@@ -67,7 +72,7 @@ public class CategoryController {
     }
 
     // get list
-    @GetMapping("/list")
+    @GetMapping({ "/list", "/" })
     public String listCategories(
             Model model,
             @RequestParam("requestPage") Optional<Integer> requestPage,
@@ -142,9 +147,7 @@ public class CategoryController {
             @RequestParam("categoryId") String categoryId,
             RedirectAttributes redirectAttributes) {
         try {
-            // FIXME fix this, send message when current category used by some products
             categoryService.removeById(categoryId);
-
         } catch (DataIntegrityViolationException e) {
             redirectAttributes.addFlashAttribute("categoryDeleteError",
                     "gagal menghapus kategori! pastikan kategori tidak sedang dipakai oleh produk!");
@@ -155,4 +158,60 @@ public class CategoryController {
         return "redirect:/kopmart/admin/kategori/list";
     }
 
+    // upload csv
+    @GetMapping("/upload/csv")
+    public String uploadCsv(Model model) {
+        try {
+            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
+            model.addAttribute("uploadCsvUrl", "/kopmart/admin/kategori/upload/csv");
+            model.addAttribute("backActionUrl", "/kopmart/admin/kategori/list");
+        } catch (Exception e) {
+            UserHelper.errorLog("terjadi kesalahan saat memuat halaman upload csv!");
+        }
+        return "admin/category/upload/csv";
+    }
+
+    @PostMapping("/upload/csv")
+    public String uploadCsv(
+            Model model,
+            @RequestParam(name = "fileCsv") MultipartFile fileCsv,
+            RedirectAttributes redirectAttributes) {
+        try (Reader fileCsvReader = new InputStreamReader(fileCsv.getInputStream())) {
+            // if file is empty
+            if (fileCsv.isEmpty()) { // error
+                redirectAttributes.addFlashAttribute("fileError", "silahkan masukan file CSV!");
+            } else if (!fileCsv.getContentType().equalsIgnoreCase("text/csv")) { // warning
+                // if file is not csv
+                redirectAttributes.addFlashAttribute("fileWarning",
+                        "file yang masukan bukan file CSV!");
+            } else { // success
+                // parse csv file to bean
+                CsvToBean<Category> categoryBean = new CsvToBeanBuilder<Category>(fileCsvReader)
+                        .withType(Category.class)
+                        .withIgnoreLeadingWhiteSpace(true)
+                        .withThrowExceptions(true)
+                        .build();
+
+                // parse bean to ArrayList
+                List<Category> categories = categoryBean.parse();
+
+                // save all categories
+                categoryService.saveAll(categories);
+
+                redirectAttributes.addFlashAttribute("fileSuccess",
+                        "Berhasil menyimpan file \"" + fileCsv.getOriginalFilename() + "\" ke database :D");
+            }
+        } catch (DataIntegrityViolationException e) {
+            // if file already exists
+            redirectAttributes.addFlashAttribute("fileWarning", "data pada file \"" + fileCsv.getOriginalFilename()
+                    + "\" mungkin sudah ada! silahkan periksa kembali file anda!");
+        } catch (Exception e) {
+            // if getting error
+            redirectAttributes.addFlashAttribute("fileError",
+                    "gagal memproses file \"" + fileCsv.getOriginalFilename() + "\"!. silahkan cek format file anda!");
+            UserHelper.errorLog("terjadi kesalahan saat memproses file \"" + fileCsv.getOriginalFilename() + "\"!");
+            e.printStackTrace();
+        }
+        return "redirect:/kopmart/admin/kategori/upload/csv";
+    }
 }
