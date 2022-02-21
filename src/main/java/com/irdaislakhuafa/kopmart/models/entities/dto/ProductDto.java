@@ -1,4 +1,4 @@
-package com.irdaislakhuafa.kopmart.models.entities.converters;
+package com.irdaislakhuafa.kopmart.models.entities.dto;
 
 import com.opencsv.bean.CsvBindByName;
 

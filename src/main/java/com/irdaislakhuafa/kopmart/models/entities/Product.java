@@ -37,7 +37,7 @@ public class Product extends BasicEntity<String> {
     @Column(unique = true, nullable = true, length = 1000)
     private String fotoUrl;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = false, unique = true)
     @NotNull(message = "nama tidak boleh kosong!")
     @Size(max = 100, message = "nama maksimal 100 karakter!")
     @CsvBindByName(column = "nama")
@@ -49,12 +49,12 @@ public class Product extends BasicEntity<String> {
     private Double harga;
 
     @Column(length = 500)
-    @Max(value = 500, message = "deskripsi singkat maksimal 500 karakter!")
+    @Size(max = 500, message = "deskripsi singkat maksimal 500 karakter!")
     @CsvBindByName(column = "deskripsi singkat")
     private String simpleDesc;
 
     @Column(length = 1500)
-    @Max(value = 1500, message = "deskripsi lengkap maksimal 1500 karakter!")
+    @Size(max = 1500, message = "deskripsi lengkap maksimal 1500 karakter!")
     @CsvBindByName(column = "deskripsi lengkap")
     private String fullDesc;
 

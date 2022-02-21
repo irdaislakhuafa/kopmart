@@ -5,6 +5,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -13,14 +14,14 @@ import java.util.stream.IntStream;
 
 import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
+import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
-import com.irdaislakhuafa.kopmart.models.entities.converters.ProductDto;
+import com.irdaislakhuafa.kopmart.models.entities.dto.ProductDto;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -128,7 +129,7 @@ public class ProductController {
     }
 
     // GET list product
-    @GetMapping("/list")
+    @GetMapping({ "/list", "/" })
     public String listProducts(
             Model model,
             @RequestParam("requestPage") Optional<Integer> requestPage,
@@ -258,46 +259,79 @@ public class ProductController {
     @PostMapping("/upload/csv")
     public String uploadCsv(
             Model model,
-            @RequestParam(name = "fileCsv") MultipartFile fileScv,
+            @RequestParam(name = "fileCsv") MultipartFile fileCsv,
             @RequestParam(name = "backUrl", required = false) Optional<String> backUrl,
             RedirectAttributes redirectAttributes) {
 
-        try (Reader fileCsvReader = new InputStreamReader(fileScv.getInputStream())) {
-            // System.out.println("\033\143");
-            if (!fileScv.getContentType().equalsIgnoreCase("text/csv")) {
-                System.out.println("bukan file csv");
-                model.addAttribute("fileError", "file yang anda masukan bukan file CSV!");
-                return "admin/produk/upload/csv";
+        try (Reader fileCsvReader = new InputStreamReader(fileCsv.getInputStream())) {
+            model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
+            if (fileCsv.isEmpty()) {
+                // if file csv not selected
+                redirectAttributes.addFlashAttribute("fileError", "silahkan masukan file CSV!");
+            } else if (!fileCsv.getContentType().equalsIgnoreCase("text/csv")) {
+                // if content type not csv file
+                redirectAttributes.addFlashAttribute("fileError", "file yang anda masukan bukan file CSV!");
             } else {
-                /*
-                 * {// convert csv file to bean
-                 * CsvToBean<Product> productBean = new CsvToBeanBuilder<Product>(fileCsvReader)
-                 * .withType(Product.class)
-                 * .withIgnoreLeadingWhiteSpace(true)
-                 * .withThrowExceptions(true)
-                 * .build();
-                 * 
-                 * // parse file bean to ArrayList
-                 * List<Product> listProducts = productBean.parse();
-                 * System.out.println(listProducts);
-                 * }
-                 */
+                // convert csv file to bean
+                CsvToBean<ProductDto> productBean = new CsvToBeanBuilder<ProductDto>(fileCsvReader)
+                        .withType(ProductDto.class)
+                        .withIgnoreLeadingWhiteSpace(true)
+                        .withThrowExceptions(true)
+                        .build();
 
-                {// convert csv file to bean
-                    CsvToBean<ProductDto> productBean = new CsvToBeanBuilder<ProductDto>(fileCsvReader)
-                            .withType(ProductDto.class)
-                            .withIgnoreLeadingWhiteSpace(true)
-                            .withThrowExceptions(true)
-                            .build();
+                // parse file bean to ArrayList
+                List<ProductDto> listProductBeans = productBean.parse();
 
-                    // parse file bean to ArrayList
-                    List<ProductDto> listProducts = productBean.parse();
-                    System.out.println(listProducts);
-                }
+                // create list object products
+                List<Product> products = new ArrayList<>();
+
+                // insert list product bean to products
+                listProductBeans.forEach((product) -> {
+                    products.add(
+                            new Product(
+                                    // id
+                                    null,
+                                    // foto url
+                                    null,
+                                    // name
+                                    product.getName(),
+                                    // harga
+                                    product.getHarga(),
+                                    // simple desc
+                                    product.getSimpleDesc(),
+                                    // full desc
+                                    product.getFullDesc(),
+                                    // category
+                                    (categoryService
+                                            .findByNameIgnoreCase(
+                                                    product.getCategory().trim())
+                                            .isPresent()) ? categoryService // if category exists
+                                                    .findByNameIgnoreCase(
+                                                            product.getCategory().trim())
+                                                    .get()
+                                                    // if not exists,
+                                                    // it will save new category with name categori from
+                                                    // fileCsv
+                                                    : categoryService.save(
+                                                            new Category(null, product.getCategory().trim(), "-")),
+                                    // stok
+                                    product.getStok()));
+                });
+                // save alll products on list
+                productService.saveAll(products);
             }
-
+            redirectAttributes.addFlashAttribute("fileSuccess",
+                    "Berhasil menyimpan file \"" + fileCsv.getOriginalFilename() + "\" ke database :D");
+        } catch (DataIntegrityViolationException e) {
+            // if file already exists
+            redirectAttributes.addFlashAttribute("fileWarning", "data pada file \"" + fileCsv.getOriginalFilename()
+                    + "\" mungkin sudah ada! silahkan periksa kembali file anda!");
         } catch (Exception e) {
-            UserHelper.errorLog("terjadi kesalahan saat memproses file \"" + fileScv.getOriginalFilename() + "\"!");
+            // if getting error
+            redirectAttributes.addFlashAttribute("fileError",
+                    "gagal memproses file \"" + fileCsv.getOriginalFilename() + "\"!. silahkan cek format file anda!");
+            UserHelper.errorLog("terjadi kesalahan saat memproses file \"" + fileCsv.getOriginalFilename() + "\"!");
+            e.printStackTrace();
         }
         return "redirect:" + backUrl.orElse("/kopmart/admin/produk/upload/csv");
     }

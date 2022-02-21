@@ -2,6 +2,8 @@ package com.irdaislakhuafa.kopmart.controllers.user;
 
 import java.util.Optional;
 
+import javax.validation.ConstraintViolationException;
+
 import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Category;
@@ -94,10 +96,6 @@ public class UserProductController {
             @RequestParam("keyword") Optional<String> keyword) {
 
         try {
-            // System.out.println("\033\143");
-            // System.out.println(categoryId);
-            // System.out.println(keyword);
-            // Thread.sleep(5000);
 
             boolean isAllCategories = categoryId.get().equalsIgnoreCase("semua kategori");
 
@@ -125,8 +123,7 @@ public class UserProductController {
                             new Category(
                                     null,
                                     "Kategori tidak valid",
-                                    "Deskripsi tidak valid",
-                                    null));
+                                    "Deskripsi tidak valid"));
             model.addAttribute("categoryValueId", categoryValue.getId());
 
             // if user is login
@@ -140,6 +137,8 @@ public class UserProductController {
                         .get()
                         .getProducts().size());
             }
+        } catch (ConstraintViolationException e) {
+            System.out.println("oioi".toUpperCase());
         } catch (Exception e) {
             // e.printStackTrace();
             UserHelper.errorLog("error saat search by category or keyword", this);

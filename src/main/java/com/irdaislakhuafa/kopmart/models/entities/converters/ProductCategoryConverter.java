@@ -8,20 +8,22 @@ import com.opencsv.exceptions.CsvConstraintViolationException;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class ProductCategoryConverter extends AbstractBeanField<Category, String> {
     @Autowired
-    private CategoryService categoryService; // kenapa null ajg
+    private CategoryService categoryService;
 
     @Override
     protected Object convert(String value) throws CsvDataTypeMismatchException, CsvConstraintViolationException {
-        Category category = null;
-        // System.out.println("\033\143");
+        Category category = new Category("id", value, "description");
+        System.out.println("\033\143");
 
-        // System.out.println(categoryService);
+        System.out.println(categoryService);
+        // System.out.println(applicationContext);
+        System.out.println(value.trim());
         try {
             category = categoryService.findByNameIgnoreCase(value).get();
             // System.out.println(category);
