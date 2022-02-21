@@ -51,15 +51,4 @@ public class UserHelper {
         System.out.println((enableMyLog) ? object : "");
     }
 
-    // public static Keranjang getCurrentKeranjang() {
-    // Keranjang keranjang = null;
-    // try {
-    // keranjang = UserHelper.getCurrentUser().get().getKeranjang();
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // System.out.println("Gagal mendapatkan keranjang saat ini!");
-    // }
-
-    // return keranjang;
-    // }
 }

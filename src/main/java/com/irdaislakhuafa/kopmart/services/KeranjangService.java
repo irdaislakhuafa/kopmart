@@ -61,7 +61,6 @@ public class KeranjangService implements BasicService<Keranjang> {
 
     @Override
     public Optional<Keranjang> findByNameIgnoreCase(String name) {
-        // TODO Auto-generated method stub
         return null;
     }
 

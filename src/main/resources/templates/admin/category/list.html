@@ -19,9 +19,11 @@
             <div th:replace="~{admin/fragments/comp::navbar}"></div>
 
             <!-- container -->
-            <div class="container">
+            <div class="container ">
                 <br><br><br>
-                <div class="card shadow col-sm-8 mx-auto " style="border-radius: 10px;">
+
+
+                <div class="card shadow col-sm-8 my-auto mx-auto " style="border-radius: 10px;">
                     <div class="card-body">
                         <!-- add button -->
                         <a th:href="@{'/kopmart/admin/kategori/new'}" class="btn btn-outline-primary mb-3 shadow"
@@ -73,6 +75,14 @@
                                 th:class="${pageNumber == (categoryPages.number + 1)} ? 'btn btn-outline-primary py-0 rounded rounded-pill px-2 ' : ''"></a>
                         </a>
 
+                    </div>
+                </div>
+
+                <!-- error message -->
+                <div th:if="${categoryDeleteError != null}" id="temporaryView">
+                    <div class="text-center mb-3 mt-3">
+                        <span class="shadow  bg-light px-3 py-2 rounded rounded-pill text-capitalize"
+                            style="color: #ff0000 !important;" th:text="${categoryDeleteError}">wjwjwjwkwkwk</span>
                     </div>
                 </div>
             </div>

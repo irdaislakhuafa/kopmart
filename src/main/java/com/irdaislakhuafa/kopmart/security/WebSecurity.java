@@ -25,6 +25,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/style/**",
                         // assets
                         "/assets/**",
+                        // scripts
+                        "/scripts/**",
                         // kopmart
                         "/",
                         "/kopmart",

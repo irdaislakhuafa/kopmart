@@ -98,7 +98,6 @@ public class UserService implements UserDetailsService, BasicService<User> {
 
     @Override
     public Optional<User> findByNameIgnoreCase(String name) {
-        // TODO Auto-generated method stub
         return null;
     }
 }
