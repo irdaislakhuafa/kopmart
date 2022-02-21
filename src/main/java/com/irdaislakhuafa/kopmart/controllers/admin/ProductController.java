@@ -249,6 +249,7 @@ public class ProductController {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
             model.addAttribute("uploadCsvUrl", "/kopmart/admin/produk/upload/csv");
             model.addAttribute("backActionUrl", "/kopmart/admin/produk/list");
+            model.addAttribute("downloadCsvUrl", "/kopmart/admin/produk/download/sample/produk.csv");
         } catch (Exception e) {
             UserHelper.errorLog("terjadi kesalahan saat memuat halaman upload csv!");
         }

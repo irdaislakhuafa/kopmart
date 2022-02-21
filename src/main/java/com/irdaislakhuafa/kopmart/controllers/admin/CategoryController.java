@@ -1,12 +1,20 @@
 package com.irdaislakhuafa.kopmart.controllers.admin;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletResponse;
+
+import com.irdaislakhuafa.kopmart.helpers.DataToCsvHelper;
 import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Category;
@@ -72,7 +80,7 @@ public class CategoryController {
     }
 
     // get list
-    @GetMapping({ "/list", "/" })
+    @GetMapping({ "/list", "/", "" })
     public String listCategories(
             Model model,
             @RequestParam("requestPage") Optional<Integer> requestPage,
@@ -165,6 +173,7 @@ public class CategoryController {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
             model.addAttribute("uploadCsvUrl", "/kopmart/admin/kategori/upload/csv");
             model.addAttribute("backActionUrl", "/kopmart/admin/kategori/list");
+            model.addAttribute("downloadCsvUrl", "/kopmart/admin/kategori/download/sample/kategori.csv");
         } catch (Exception e) {
             UserHelper.errorLog("terjadi kesalahan saat memuat halaman upload csv!");
         }
@@ -213,5 +222,74 @@ public class CategoryController {
             e.printStackTrace();
         }
         return "redirect:/kopmart/admin/kategori/upload/csv";
+    }
+
+    // download file csv
+    @GetMapping("/download/sample/kategori.csv")
+    public void downloadSampleCsv(HttpServletResponse response) {
+        try {
+
+            // set content type file text/csv
+            response.setContentType("text/csv");
+            // set header file
+            response.setHeader("Content-Disposition",
+                    "attachment; file=" + DataToCsvHelper.generateFileCsvName("kategori.csv"));
+
+            // create object list of HashMap
+            List<Map<String, Object>> listData = new ArrayList<>(
+                    Arrays.asList(
+                            new HashMap<String, Object>() {
+                                {
+                                    put("nama", "gorengan");
+                                    put("deskripsi", "-");
+                                }
+                            },
+                            new HashMap<String, Object>() {
+                                {
+                                    put("nama", "gorengan");
+                                    put("deskripsi",
+                                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa at corrupti dolores");
+                                }
+                            },
+                            new HashMap<String, Object>() {
+                                {
+                                    put("nama", "ATK");
+                                    put("deskripsi", "-");
+                                }
+                            },
+                            new HashMap<String, Object>() {
+                                {
+                                    put("nama", "ATK");
+                                    put("deskripsi",
+                                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa at corrupti dolores");
+                                }
+                            },
+                            new HashMap<String, Object>() {
+                                {
+                                    put("nama", "snack");
+                                    put("deskripsi",
+                                            "-");
+                                }
+                            },
+                            new HashMap<String, Object>() {
+                                {
+                                    put("nama", "snack");
+                                    put("deskripsi",
+                                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa at corrupti dolores");
+                                }
+                            }));
+
+            // write listData to file csv
+            DataToCsvHelper.writeDataToCsv(response.getWriter(), listData);
+
+            // force any content buffer written to client
+            response.flushBuffer();
+        } catch (IOException e) {
+            UserHelper.errorLog("terjadi kesalahan saat memuat file csv!");
+            e.printStackTrace();
+        } catch (Exception e) {
+            UserHelper.errorLog("terjadi kesalahan saat memuat file csv! silahkan hubungi admin!");
+            e.printStackTrace();
+        }
     }
 }

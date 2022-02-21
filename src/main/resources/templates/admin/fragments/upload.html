@@ -1,4 +1,5 @@
-<div th:fragment="csv(backActionUrl, uploadCsvUrl)" class="card mx-auto shadow col-sm-6" style="border-radius: 10px;">
+<div th:fragment="csv(backActionUrl, uploadCsvUrl, downloadCsvUrl)" class="card mx-auto shadow col-sm-6"
+    style="border-radius: 10px;">
     <div class="card-body">
         <h1 for="fileCsv" class="text-capitalize text-center ">pilih file
             <span class="text-uppercase"> csv</span>
@@ -40,7 +41,8 @@
             <div class="mb-3 ">
                 <span class="text-capitalize mx-4">belum tau format CSV nya seperti
                     apa?</span>
-                <a href="" class="btn btn-outline-primary rounded rounded-3 shadow" style="border: none;">Download
+                <a th:href="@{${downloadCsvUrl}}" class="btn btn-outline-primary rounded rounded-3 shadow"
+                    style="border: none;">Download
                     Sample</a>
                 <a th:href="@{${backActionUrl}}" class="btn btn-outline-primary shadow text-capitalize"
                     style="border: none;">kembali</a>

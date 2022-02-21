@@ -21,7 +21,9 @@
             <!-- container -->
             <div class="container">
                 <br><br><br>
-                <div th:replace="~{admin/fragments/upload :: csv(${backActionUrl}, ${uploadCsvUrl})}"></div>
+                <div
+                    th:replace="~{admin/fragments/upload :: csv(${backActionUrl}, ${uploadCsvUrl}, ${downloadCsvUrl})}">
+                </div>
             </div>
             <!-- end container -->
         </div>
