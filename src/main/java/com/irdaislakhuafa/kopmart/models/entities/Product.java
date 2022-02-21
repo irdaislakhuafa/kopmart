@@ -1,7 +1,9 @@
 package com.irdaislakhuafa.kopmart.models.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -56,7 +58,7 @@ public class Product extends BasicEntity<String> {
     @CsvBindByName(column = "deskripsi lengkap")
     private String fullDesc;
 
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     @CsvCustomBindByName(column = "kategori", converter = ProductCategoryConverter.class)
     private Category categoryId;

@@ -28,7 +28,4 @@ public class Category extends BasicEntity<String> {
 
     @Column(length = 500)
     private String description;
-
-    // @OneToMany(cascade = { CascadeType.ALL })
-    // List<Product> product = new ArrayList<>();
 }
