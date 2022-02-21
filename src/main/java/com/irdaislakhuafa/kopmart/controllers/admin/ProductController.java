@@ -263,13 +263,14 @@ public class ProductController {
 
         try (Reader fileCsvReader = new InputStreamReader(fileCsv.getInputStream())) {
             model.addAttribute("title", ViewHelper.APP_TITLE_ADMIN);
-            if (fileCsv.isEmpty()) {
+            if (fileCsv.isEmpty()) { // error
                 // if file csv not selected
                 redirectAttributes.addFlashAttribute("fileError", "silahkan masukan file CSV!");
-            } else if (!fileCsv.getContentType().equalsIgnoreCase("text/csv")) {
+            } else if (!fileCsv.getContentType().equalsIgnoreCase("text/csv")) { // warning
                 // if content type not csv file
-                redirectAttributes.addFlashAttribute("fileError", "file yang anda masukan bukan file CSV!");
-            } else {
+                redirectAttributes.addFlashAttribute("fileError",
+                        "file yang masukan bukan file CSV!");
+            } else { // success
                 // convert csv file to bean
                 CsvToBean<ProductDto> productBean = new CsvToBeanBuilder<ProductDto>(fileCsvReader)
                         .withType(ProductDto.class)
@@ -317,9 +318,9 @@ public class ProductController {
                 });
                 // save alll products on list
                 productService.saveAll(products);
+                redirectAttributes.addFlashAttribute("fileSuccess",
+                        "Berhasil menyimpan file \"" + fileCsv.getOriginalFilename() + "\" ke database :D");
             }
-            redirectAttributes.addFlashAttribute("fileSuccess",
-                    "Berhasil menyimpan file \"" + fileCsv.getOriginalFilename() + "\" ke database :D");
         } catch (DataIntegrityViolationException e) {
             // if file already exists
             redirectAttributes.addFlashAttribute("fileWarning", "data pada file \"" + fileCsv.getOriginalFilename()
