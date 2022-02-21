@@ -7,10 +7,11 @@
     <title th:text="${title}">KOPMART | Admin Dashboard</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" th:href="@{/admin/img/svg/logo.svg}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/admin/img/svg/Logo.svg}" type="image/x-icon">
     <!-- Custom styles -->
     <link rel="stylesheet" th:href="@{/admin/css/style.min.css}">
     <link rel="stylesheet" th:href="@{/style/style.css}">
+    <link rel="stylesheet" th:href="@{/style/custom.css}">
 
     <!-- import bootstrap -->
     <!-- <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}"> -->
@@ -25,6 +26,7 @@
     <script th:src="@{/admin/plugins/feather.min.js}"></script>
     <!-- Custom scripts -->
     <script th:src="@{/admin/js/script.js}"></script>
+    <script th:src="@{/scripts/script.js}"></script>
 </div>
 
 <!-- ! Sidebar -->
@@ -112,6 +114,27 @@
 
                 <!-- list 4 -->
                 <li>
+                    <a href="#" class="show-cat-btn">
+                        <span class="user-3 icon" aria-hidden="true"></span>Pengguna
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+
+                    <!-- sub menu -->
+                    <ul class="cat-sub-menu">
+                        <li>
+                            <a href="" class="text-capitalize">daftar pengguna</a>
+                        </li>
+                        <li>
+                            <a href="" class="text-capitalize">tambah pengguna</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- list 5 -->
+                <li>
                     <!-- media -->
                     <a class="show-cat-btn" href="##">
                         <span class="icon image" aria-hidden="true"></span>Media
@@ -132,7 +155,7 @@
                     </ul>
                 </li>
 
-                <!-- list 5 -->
+                <!-- list 6 -->
                 <li>
                     <a class="show-cat-btn" href="##">
                         <span class="icon paper" aria-hidden="true"></span>Pages

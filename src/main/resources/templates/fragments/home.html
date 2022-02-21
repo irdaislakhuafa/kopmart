@@ -1,6 +1,6 @@
 <!-- cards -->
 <div th:fragment="cards">
-    <div class="row">
+    <div class="row d-flex   justify-content-evenly ">
 
         <!-- <div> -->
         <div class="col-lg-3 " th:each="category : ${usedCategories}">
@@ -10,9 +10,15 @@
                 </div>
 
                 <div class="body">
-                    <h5 class="text-secondary" th:text="${category.name}">Title</h5>
+                    <h5 class="text-secondary text-capitalize" th:text="${category.name}">Title</h5>
                     <p th:text="${category.description}">Descriprions</p>
-                    <a href="service.html" class="btn btn-primary st-case">Cari</a>
+                    <form th:action="@{${categorySearchUrl}}" method="get">
+                        <!-- category id -->
+                        <input type="text" name="categoryId" id="categoryId" hidden required th:value="${category.id}">
+
+                        <!-- button -->
+                        <button class="btn btn-primary st-case" type="submit">Cari</button>
+                    </form>
                 </div>
             </div>
         </div>

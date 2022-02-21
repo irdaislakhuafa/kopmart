@@ -1,13 +1,20 @@
 package com.irdaislakhuafa.kopmart.models.entities;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.irdaislakhuafa.kopmart.models.entities.utils.KeranjangViewMode;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -20,12 +27,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Keranjang {
+public class Keranjang extends BasicEntity<String> {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @OneToMany(cascade = { CascadeType.ALL })
-    private List<Product> productsId;
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private Set<Product> products = new HashSet<>();
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private KeranjangViewMode viewMode;
 }

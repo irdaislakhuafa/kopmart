@@ -82,6 +82,19 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>webjars-locator-core</artifactId>
 		</dependency>
+
+		<!-- spring boot security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- opencsv -->
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>5.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

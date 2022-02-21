@@ -1,0 +1,59 @@
+<!-- head -->
+
+<head th:fragment="head">
+    <title th:text="${title}">Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" th:href="@{/style/images/icons/favicon.ico}" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" th:href="@{/style/vendor/bootstrap/css/bootstrap.min.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" th:href="@{/style/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" th:href="@{/style/vendor/animate/animate.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" th:href="@{/style/vendor/css-hamburgers/hamburgers.min.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" th:href="@{/style/vendor/select2/select2.min.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" th:href="@{/style/login/css/util.css}">
+    <link rel="stylesheet" th:href="@{/style/login/css/main.css}">
+    <!--===============================================================================================-->
+
+    <!-- bs 5 css -->
+    <!-- <div th:replace="~{fragments/login :: bs5-css}"></div> -->
+    <link rel="stylesheet" th:href="@{/style/custom.css}">
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+
+<!-- js -->
+<div th:fragment="js">
+    <!--===============================================================================================-->
+    <script th:src="@{/style/vendor/jquery/jquery-3.2.1.min.js}"></script>
+    <!--===============================================================================================-->
+    <script th:src="@{/style/vendor/bootstrap/js/popper.js}"></script>
+    <script th:src="@{/style/vendor/bootstrap/js/bootstrap.min.js}"></script>
+    <!--===============================================================================================-->
+    <script th:src="@{/style/vendor/select2/select2.min.js}"></script>
+    <!--===============================================================================================-->
+    <script th:src="@{/style/vendor/tilt/tilt.jquery.min.js}"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script th:src="@{/style/js/main.js}"></script>
+
+    <!-- template -->
+    <div th:replace="~{fragments/basic::js}"></div>
+</div>
+
+<!-- bootstrap css -->
+<div th:fragment="bs5-css">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</div>

@@ -15,11 +15,13 @@ public interface BasicService<A> {
 
     public List<A> findByNameContains(String name);
 
-    public A findByName(String name);
+    public Optional<A> findByName(String name);
 
     public List<A> saveAll(List<A> entities);
 
     public List<A> findAll();
 
     public Page<A> findAll(Pageable pageable);
+
+    public Optional<A> findByNameIgnoreCase(String name);
 }

@@ -40,12 +40,12 @@ public class ProductService implements BasicService<Product> {
 
     @Override
     public List<Product> findByNameContains(String name) {
-        return productRepository.findByNameContains(name);
+        return productRepository.findByNameContainsIgnoreCase(name);
     }
 
     @Override
-    public Product findByName(String name) {
-        return productRepository.findByName(name);
+    public Optional<Product> findByName(String name) {
+        return productRepository.findByNameIgnoreCase(name);
     }
 
     @Override
@@ -78,8 +78,17 @@ public class ProductService implements BasicService<Product> {
     }
 
     public List<Product> findByNameAndCategory(String name, String categoryId) {
-        return productRepository.findByNameContainsIgnoreCaseAndCategoryId(
+        return productRepository.findByNameContainsIgnoreCaseAndCategoryIdId(
                 name,
-                categoryService.findById(categoryId).get());
+                categoryId);
+    }
+
+    public List<Product> findByCategoryName(String name) {
+        return productRepository.findByCategoryIdNameIgnoreCase(name);
+    }
+
+    @Override
+    public Optional<Product> findByNameIgnoreCase(String name) {
+        return null;
     }
 }

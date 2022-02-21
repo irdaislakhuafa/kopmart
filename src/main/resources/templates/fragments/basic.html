@@ -20,6 +20,11 @@
     <link rel="stylesheet" th:href="@{/assets/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/assets/vendor/animate/animate.css}">
     <link rel="stylesheet" th:href="@{/assets/css/theme.css}">
+    <link rel="stylesheet" th:href="@{/style/custom.css}">
+
+    <!-- <div th:replace="~{fragments/basic::fontAwesome}"></div> -->
+    <link rel="stylesheet" th:href="@{/style/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+
 </head>
 
 <!-- js -->
@@ -53,16 +58,45 @@
 
             <div class="navbar-collapse collapse" id="navbarContent">
                 <ul class="navbar-nav ml-auto">
-                    <!-- <h1 th:text="${#request.getRequestURI() == '/kopmart/'}"></h1> -->
-                    <li class="nav-item"
-                        th:classappend="${#request.getRequestURI() == '/kopmart/'} ? 'active shadow rounded-pill px-3' : ''">
+                    <!-- beranda -->
+                    <li class="nav-item" th:classappend="${
+                            #request.getRequestURI() == '/kopmart' ||
+                            #request.getRequestURI() == '/kopmart/' || 
+                            #request.getRequestURI() == '/kopmart/home' || 
+                            #request.getRequestURI() == '/kopmart/home/' || 
+                            #request.getRequestURI().contains('/kopmart/home') 
+                        } ? 'active shadow rounded-pill px-3' : ''">
                         <a class="nav-link" th:href="@{/kopmart/}">Beranda</a>
                     </li>
 
-                    <li class="nav-item"
-                        th:classappend="${#request.getRequestURI() == '/kopmart/produk'} ? 'active shadow rounded-pill px-3' : ''">
+                    <!-- produk -->
+                    <li class="nav-item" th:classappend="${
+                            #request.getRequestURI().contains('/kopmart/produk') && 
+                            (
+                                !#request.getRequestURI().contains('/kopmart/produk/keranjang')
+                            )
+                        } ? 'active shadow rounded-pill px-3' : ''">
                         <a class="nav-link" th:href="@{/kopmart/produk}">Produk</a>
                     </li>
+
+                    <!-- if not registeres -->
+                    <li class="nav-item">
+                        <span th:if="${currentUser != null}" class="nav-link">
+                            <a th:if="${currentUser.getEmail() == 'anonymouse@user.com'}"
+                                th:href="@{/kopmart/user/login}">
+                                Masuk
+                            </a>
+                            <a href="/profil" th:unless="${currentUser.email == 'anonymouse@user.com'}"
+                                th:text="${currentUser.nama}" class="text-primary pe-3 text-capitalize"></a>
+                        </span>
+                        <a th:if="${currentUser == null}" class="nav-link" th:href="@{/kopmart/user/login}">
+                            Masuk
+                        </a>
+                    </li>
+                    <!-- keranjang -->
+                    <!-- <div class="nav-item">
+                        <a th:href="@{/kopmart/produk/keranjang}"></a>
+                    </div> -->
 
                     <!-- <li class="nav-item">
                         <a class="nav-link" th:href="@{/kopmart/}">About</a>
@@ -80,8 +114,11 @@
                         <a class="nav-link" th:href="@{/kopmart/}">Contact</a>
                     </li> -->
 
-                    <li class="nav-item">
-                        <a class="btn">
+                    <li class="nav-item" th:classappend="${
+                        #request.getRequestURI() == '/kopmart/produk/keranjang' || 
+                        #request.getRequestURI() == '/kopmart/produk/keranjang/'  
+                    } ? 'active' : ''">
+                        <a class="text-decoration-none" th:href="@{/kopmart/produk/keranjang}">
                             <!-- icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                 class="bi bi-cart4" viewBox="0 0 16 16">
@@ -90,7 +127,8 @@
                             </svg>
 
                             <!-- notif -->
-                            <span class="shadow badge bg-primary text-light top-0 translate-middle rounded-pill">
+                            <span th:text="${currentUser == 'anonymouse@user.com' ? '99+' : cartLength}"
+                                class="shadow badge bg-primary text-light top-0 translate-middle rounded-pill">
                                 99+
                             </span>
                         </a>
@@ -132,7 +170,7 @@
             <div class="col-md-6">
                 <nav aria-label="Breadcrumb">
                     <ul class="breadcrumb justify-content-center py-0 bg-transparent">
-                        <li class="breadcrumb-item"><a href="index.html">KOPMART</a></li>
+                        <li class="breadcrumb-item"><a href="/kopmart/">KOPMART</a></li>
                         <li class="breadcrumb-item active"><a th:text="${name}" class="st-case"></a></li>
                     </ul>
                 </nav>
@@ -141,3 +179,58 @@
         </div>
     </div>
 </div>
+
+<!-- footer -->
+<div th:fragment="footer">
+    <footer class="page-footer bg-image" style="background-color: #5439f8;">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-3 py-3">
+                    <h3>SEOGram</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero amet, repellendus eius blanditiis
+                        in
+                        iusto
+                        eligendi iure.</p>
+
+                    <div class="social-media-button">
+                        <a href="#"><span class="mai-logo-facebook-f"></span></a>
+                        <a href="#"><span class="mai-logo-twitter"></span></a>
+                        <a href="#"><span class="mai-logo-google-plus-g"></span></a>
+                        <a href="#"><span class="mai-logo-instagram"></span></a>
+                        <a href="#"><span class="mai-logo-youtube"></span></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 py-3">
+                    <h5>Company</h5>
+                    <ul class="footer-menu">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Career</a></li>
+                        <li><a href="#">Advertise</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 py-3">
+                    <h5>Contact Us</h5>
+                    <p>203 Fake St. Mountain View, San Francisco, California, USA</p>
+                    <a href="#" class="footer-link">+00 1122 3344 5566</a>
+                    <a href="#" class="footer-link">seogram@temporary.com</a>
+                </div>
+                <div class="col-lg-3 py-3">
+                    <h5>Newsletter</h5>
+                    <p>Get updates, news or events on your mail.</p>
+                    <form action="#">
+                        <input type="text" class="form-control" placeholder="Enter your email..">
+                        <button type="submit" class="btn btn-success btn-block mt-2">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <p class="text-center" id="copyright">Copyright &copy; 2020. This template design and develop by <a
+                    href="https://macodeid.com/" target="_blank">MACode ID</a></p>
+        </div>
+    </footer>
+</div>
+
+<!-- font awesome -->
+<link rel="stylesheet" th:href="@{/style/fonts/font-awesome-4.7.0/css/font-awesome.min.css}" th:fragment="fontAwesome">

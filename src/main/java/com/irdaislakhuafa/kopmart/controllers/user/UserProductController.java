@@ -2,10 +2,14 @@ package com.irdaislakhuafa.kopmart.controllers.user;
 
 import java.util.Optional;
 
+import javax.validation.ConstraintViolationException;
+
+import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Category;
 import com.irdaislakhuafa.kopmart.models.entities.Product;
 import com.irdaislakhuafa.kopmart.services.CategoryService;
+import com.irdaislakhuafa.kopmart.services.KeranjangService;
 import com.irdaislakhuafa.kopmart.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,17 +30,34 @@ public class UserProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private KeranjangService keranjangService;
+
     // produk
     @GetMapping
     public String produk(Model model) {
         try {
-            // System.out.println(productService.findAll());
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("products", productService.findAll());
             model.addAttribute("categories", categoryService.findAll());
-            model.addAttribute("searchActionUrl", "/kopmart/produk");
+            model.addAttribute("searchActionUrl", "/kopmart/produk/search");
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get());
+
+            // if user is login
+            if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {
+                model.addAttribute("cartLength", keranjangService.findById(
+                        UserHelper
+                                .getCurrentUser()
+                                .get()
+                                .getKeranjang()
+                                .getId())
+                        .get()
+                        .getProducts().size());
+            }
+
         } catch (Exception e) {
-            e.printStackTrace();
+            UserHelper.errorLog("terjadi error tidak diketahui", this);
+            // e.printStackTrace();
         }
         return "produk";
     }
@@ -48,31 +68,80 @@ public class UserProductController {
         try {
             Product product = productService.findById(productId).get();
             model.addAttribute("product", product);
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get());
+
+            // if user is login
+            if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {
+                model.addAttribute("cartLength", keranjangService.findById(
+                        UserHelper
+                                .getCurrentUser()
+                                .get()
+                                .getKeranjang()
+                                .getId())
+                        .get()
+                        .getProducts().size());
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            UserHelper.errorLog("gagal mendapatkan details produk dengan id \"" + productId + "\"", this);
+            // e.printStackTrace();
         }
         return "details";
     }
 
     // search by category
-    @PostMapping
+    @GetMapping("/search")
     public String searchProducts(
             Model model,
             @RequestParam("categoryId") Optional<String> categoryId,
             @RequestParam("keyword") Optional<String> keyword) {
 
         try {
-            Category categoryValue = categoryService.findById(categoryId.orElse("")).get();
+
+            boolean isAllCategories = categoryId.get().equalsIgnoreCase("semua kategori");
+
             model.addAttribute("title", ViewHelper.APP_TITLE);
             model.addAttribute("products",
-                    productService.findByNameAndCategory(keyword.orElse(""), categoryId.orElse("")));
-            model.addAttribute("categories", categoryService.findAll());
-            model.addAttribute("searchActionUrl", "/kopmart/produk");
-            model.addAttribute("categoryValue", categoryValue);
-            model.addAttribute("keyword", keyword.get());
+                    // is all categories?
+                    (isAllCategories) ?
 
+                    // true
+                            productService.findByNameContains(
+                                    keyword.orElse(""))
+                            :
+                            // false
+                            productService.findByNameAndCategory(
+                                    keyword.orElse(""),
+                                    categoryId.get()));
+
+            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("searchActionUrl", "/kopmart/produk/search");
+            model.addAttribute("keyword", keyword.orElse(""));
+            model.addAttribute("currentUser", UserHelper.getCurrentUser().get());
+
+            Category categoryValue = categoryService.findById(categoryId.get())
+                    .orElse(
+                            new Category(
+                                    null,
+                                    "Kategori tidak valid",
+                                    "Deskripsi tidak valid"));
+            model.addAttribute("categoryValueId", categoryValue.getId());
+
+            // if user is login
+            if (!UserHelper.getCurrentUser().get().getEmail().equalsIgnoreCase("anonymouse@gmail.com")) {
+                model.addAttribute("cartLength", keranjangService.findById(
+                        UserHelper
+                                .getCurrentUser()
+                                .get()
+                                .getKeranjang()
+                                .getId())
+                        .get()
+                        .getProducts().size());
+            }
+        } catch (ConstraintViolationException e) {
+            System.out.println("oioi".toUpperCase());
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            UserHelper.errorLog("error saat search by category or keyword", this);
         }
         return "produk";
     }

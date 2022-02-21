@@ -23,6 +23,7 @@
 
     <!-- start some categories product -->
     <div class="page-section" th:each="category, status : ${usedCategories}" th:class="${status.odd} ? 'bg-light' : ''">
+        <!-- used categories -->
         <div class="container">
             <!-- start category card -->
             <div class="text-center wow fadeInUp">
@@ -31,35 +32,7 @@
                 <h1 th:text="${category.name}" class="display-3 py-4"></h1>
                 <hr class="col-sm-6 mx-auto">
 
-                <!-- start products cards -->
-                <div th:each="product : ${productService.findByCategoryId(category.id)}"
-                    class="row card-inline d-inline-block  m-3 p-0 overflow-auto">
-                    <!-- <div th:replace="~{fragments/produk::card(${product})}"></div> -->
-                    <div th:if="${product != null}">
-                        <!-- card product -->
-                        <div class="card text-start shadow">
-                            <img class="card-img-top" th:src="@{/assets/img/blog/blog-1.jpg}" alt="">
-                            <!-- card body -->
-                            <div class="card-body">
-                                <!-- title -->
-                                <h4 class="card-title">
-                                    <a th:href="@{'/kopmart/produk/details/' + ${product.id}}"
-                                        th:text="${product.name}"></a>
-                                </h4>
-                                <!-- category -->
-                                <small>Kategori : <a th:text="${product.categoryId.name}"></a></small>
-                                <!-- description -->
-                                <p class="card-text" th:text="${product.simpleDesc}">Simple Desc</p>
-                                <!-- button -->
-                                <a href="#" class="btn btn-primary">Tambahkan</a>
-                                <!-- harga -->
-                                Rp. <span th:text="${product.harga}"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br><br><br>
-                <!-- end products cards -->
+
 
                 <!-- category properties -->
                 <h3 class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa at
@@ -74,10 +47,31 @@
             <!-- end category card -->
 
         </div>
+
+        <!-- products -->
+        <div class="container-fluid">
+            <div class="row d-flex  justify-content-evenly ">
+                <!-- start products cards -->
+                <div th:each="product : ${productService.findByCategoryId(category.id)}" class="card-inline   m-3 p-0 ">
+                    <!-- <div th:replace="~{fragments/produk::card(${product})}"></div> -->
+                    <div th:if="${product != null}">
+                        <!-- card product -->
+                        <div th:replace="fragments/produk::card(${product})"></div>
+                    </div>
+                </div>
+                <!-- start products cards -->
+            </div>
+        </div>
+
+        <br><br><br>
+        <!-- end products cards -->
+
     </div>
     <!-- end some categories product -->
 
 
+    <!-- footer -->
+    <div th:replace="~{fragments/basic::footer}"></div>
 
     <!-- js -->
     <div th:replace="fragments/basic::js"></div>

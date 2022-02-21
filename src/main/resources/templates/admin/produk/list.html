@@ -23,6 +23,12 @@
                 <br><br><br>
                 <div class="card shadow  mx-auto " style="border-radius: 10px;">
                     <div class="card-body">
+                        <!-- add button -->
+                        <a th:href="@{'/kopmart/admin/produk/new'}"
+                            class="btn btn-outline-primary text-capitalize mb-3 shadow" style="border: none;">Tambah</a>
+                        <a th:href="@{'/kopmart/admin/produk/upload/csv'}"
+                            class="btn btn-outline-primary mb-3 shadow text-capitalize" style="border: none;">upload
+                            CSV</a>
 
                         <table class="table table-striped table-responsive">
                             <thead class="thead-inverse">
@@ -31,10 +37,10 @@
                                     <th>NAMA</th>
                                     <th>HARGA</th>
                                     <th>STOK</th>
-                                    <th>FOTO URL</th>
+                                    <!-- <th>FOTO URL</th> -->
                                     <th>KATEGORI</th>
                                     <th>DESKRIPSI SINGKAT</th>
-                                    <th>DESKRIPSI LENGKAP</th>
+                                    <!-- <th>DESKRIPSI LENGKAP</th> -->
                                     <th>AKSI</th>
                                 </tr>
                             </thead>
@@ -42,7 +48,8 @@
                             <tbody>
 
                                 <div th:if="${productPages != null}">
-                                    <tr th:each="product, status : ${productPages.content}">
+                                    <tr th:each="product, status : ${productPages.content}"
+                                        class="text-capitalize text-start">
                                         <!-- no -->
                                         <td th:text="${status.index + 1}"></td>
                                         <!-- nama -->
@@ -52,24 +59,26 @@
                                         <!-- stok -->
                                         <td th:text="${product.stok}"></td>
                                         <!-- fotoUrl -->
-                                        <td th:text="${product.fotoUrl}"></td>
+                                        <!-- <td th:text="${product.fotoUrl}"></td> -->
                                         <!-- category -->
                                         <td th:text="${product.categoryId.name}"></td>
                                         <!-- simple description -->
                                         <td th:text="${product.simpleDesc}"></td>
                                         <!-- full description -->
-                                        <td th:text="${product.fullDesc}"></td>
+                                        <!-- <td th:text="${product.fullDesc}"></td> -->
                                         <!-- aksi -->
                                         <td class="row" style="margin-right: 5px;">
                                             <!-- edit button -->
-                                            <a th:href="@{'/kopmart/admin/kategori/edit/' + ${product.id}}"
-                                                class="btn btn-primary mx-auto">Edit</a>
+                                            <a th:href="@{'/kopmart/admin/produk/edit/' + ${product.id}}"
+                                                class="btn btn-outline-primary mx-auto shadow-sm"
+                                                style="border: none;">Edit</a>
 
                                             <!-- delete button -->
-                                            <form th:action="@{/kopmart/admin/kategori/delete}" method="post">
+                                            <form th:action="@{/kopmart/admin/produk/delete}" method="post">
                                                 <input type="text" hidden th:value="${product.id}" readonly required
                                                     name="categoryId">
-                                                <button type="submit" class="btn btn-outline-primary">Del</button>
+                                                <button type="submit" class="btn btn-outline-danger shadow-sm"
+                                                    style="border: none;">Del</button>
                                             </form>
                                         </td>
                                     </tr>

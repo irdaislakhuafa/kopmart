@@ -1,55 +1,32 @@
-<!-- produk cart -->
-<div th:fragment="cards">
-    <!-- row -->
-    <div class="row">
-
-        <!-- col -->
-        <div class="col">
-            <div th:each="product : ${products}" class="card m-4 shadow wow fadeInUp" style="width: 18rem;float: left;">
-                <!-- image -->
-                <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img-top" alt="Foto Produk">
-
-                <!-- card body -->
-                <div class="card-body">
-                    <!-- title -->
-                    <h5 class="card-title">
-                        <a th:href="@{'/kopmart/produk/details/' + ${product.id}}" th:text="${product.name}"></a>
-                    </h5>
-                    <!-- category -->
-                    <small>Kategori : <a th:text="${product.categoryId.name}"></a></small>
-                    <!-- description -->
-                    <p class="card-text" th:text="${product.simpleDesc}">Simple Desc</p>
-                    <!-- button -->
-                    <a href="#" class="btn btn-primary">Tambahkan</a>
-                    <!-- harga -->
-                    Rp. <span th:text="${product.harga}"></span>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
 <!-- produk cart with parameter -->
-<div th:fragment="card(product)">
-    <!-- col -->
-    <div class="col">
-        <div th:each="product : ${products}" class="card m-4 shadow wow fadeInUp" style="width: 18rem;float: left;">
-            <!-- image -->
-            <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img-top" alt="Foto Produk">
-
-            <!-- card body -->
-            <div class="card-body">
-                <!-- title -->
-                <h5 class="card-title">
-                    <a th:href="@{'/kopmart/produk/details/' + ${product.id}}" th:text="${product.name}"></a>
-                </h5>
-                <!-- category -->
-                <small>Kategori : <a th:text="${product.categoryId.name}"></a></small>
-                <!-- description -->
-                <p class="card-text" th:text="${product.simpleDesc}">Simple Desc</p>
-                <!-- button -->
-                <a href="#" class="btn btn-primary">Tambahkan</a>
+<div class="card  text-start shadow" th:fragment="card(product)">
+    <img class="card-img-top" th:src="@{/assets/img/blog/blog-1.jpg}" alt="">
+    <!-- card body -->
+    <div class="card-body">
+        <!-- title -->
+        <h4 class="card-title text-capitalize">
+            <a th:href="@{'/kopmart/produk/details/' + ${product.id}}" th:text="${product.name}"></a>
+        </h4>
+        <!-- category -->
+        <small>Kategori : <a th:text="${product.categoryId.name}"></a></small>
+        <!-- description -->
+        <p class="card-text" th:text="${product.simpleDesc}">Simple Desc</p>
+        <!-- button -->
+        <div class="row">
+            <div>
+                <form th:action="@{/kopmart/produk/keranjang/add}" method="post">
+                    <!-- product id -->
+                    <input type="text" th:value="${product.id}" name="id" id="id" hidden required readonly>
+                    <!-- button -->
+                    <button type="submit" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                        </svg>
+                        Tambahkan
+                    </button>
+                </form>
                 <!-- harga -->
                 Rp. <span th:text="${product.harga}"></span>
             </div>
@@ -58,6 +35,47 @@
 </div>
 
 <!-- produk details -->
-<div th:fragment="details">
-    <img th:src="" alt="">
+<div th:fragment="details(product)">
+    <div class="card mx-auto p-4 shadow mb-5 border border-light" style="background-color: #f6f5fc;">
+        <div class="row">
+
+            <!-- foto -->
+            <div class="col-sm-6 justify-content-evenly d-flex ">
+                <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img shadow" th:alt="${product.name}">
+            </div>
+
+            <div class="col-sm-6">
+                <!-- start form -->
+                <form action="" th:object="${product}">
+                    <!-- title -->
+                    <div class="p-3 shadow mt-3 rounded-pill shadow card-header">
+                        <h1 class="text-center" th:text="*{name}">Title</h1>
+                    </div>
+                    <hr>
+
+                    <!-- full desc -->
+                    <p th:text="*{fullDesc}">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
+                        repellat distinctio
+                        consequuntur quo libero. Ut repellendus, natus impedit voluptatibus quidem amet quasi
+                        officiis repudiandae neque voluptates aspernatur iure optio aliquid!</p>
+
+
+                    <!-- harga -->
+                    <div class="row">
+                        <h4 class="ms-2 mb-3">
+                            Rp. <a th:text="*{harga}">1000.0</a>
+                        </h4>
+                    </div>
+
+                    <!-- stok -->
+                    <h5 class="fs-6 ms-2 text-primary">Stok : <span th:text="*{stok}">9</span></h5>
+
+                    <!-- <div class="row"> -->
+                    <button class="btn btn-primary">Tambahkan</button>
+                    <a th:href="@{/kopmart/produk}" class="btn btn-outline-primary">Kembali</a>
+                    <!-- </div> -->
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

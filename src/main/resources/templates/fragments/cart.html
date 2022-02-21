@@ -1,0 +1,142 @@
+<!-- card view -->
+<div th:fragment="cartCard(product)">
+    <div class="card m-3 p-4 shadow wow fadeInUp">
+        <div class="row">
+            <!-- img -->
+            <div class="col-sm-6 d-flex justity-content-evenly">
+                <img th:src="@{/assets/img/blog/blog-1.jpg}" class="card-img-top" th:alt="${product.name}">
+            </div>
+
+            <!-- content -->
+            <div class="col-sm-6 ">
+                <!-- <form th:action="@{/}" class="" method="post"> -->
+                <!-- <input type=" text" th:value="${product.id}" name="id" hidden> -->
+                <h5 th:text="${product.name}" class="card-header rounded-pill shadow mt-3 text-center text-uppercase">
+                </h5>
+
+                <div class="card-body">
+
+                    <p th:text="${product.fullDesc}" class="card-text fs-5"></p>
+                    <small class="text-muted my-0">Kategori : <span th:text="${product.categoryId.name}"></span></small>
+                </div>
+
+                <div class="mb-3 input-group">
+                    <label for="jumlah" class="input-group-text">Jumlah</label>
+                    <input type="number" id="jumlah" min="0" value="1" class="form-control col-sm-2 col-3">
+                </div>
+
+                <div class="row">
+                    <div class="col-2 me-3">
+                        <!-- check out -->
+                        <form th:action="@{/}">
+                            <button type="button"
+                                class="btn btn-outline-primary rounded-pill border border-light shadow">
+                                <!-- start icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-cash" viewBox="0 0 16 16">
+                                    <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                                    <path
+                                        d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
+                                </svg>
+                                <!-- end icon -->
+                                <!-- Beli -->
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="col-2">
+                        <!-- delete -->
+                        <form th:action="@{${deleteUrl}}" method="post">
+                            <input type="text" th:value="${product.id}" hidden readonly required name="id" id="id">
+                            <button type="submit"
+                                class="shadow btn rounded-pill btn-outline-danger border border-light shadow">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                </svg>
+                                <!-- Hapus -->
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- table view -->
+<div th:fragment="cartTable(products)" class="wow fadeInUp">
+    <table class="table table-responsive shadow border border-light rounded">
+        <thead>
+            <tr class="text-uppercase text-center">
+                <th>no</th>
+                <th>nama</th>
+                <th>harga</th>
+                <th>deskripsi singkat</th>
+                <th>kategori</th>
+                <th>jumlah</th>
+                <th>aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product, no : ${products}" class="text-capitalize">
+                <!-- nomor -->
+                <td th:text="${no.count}"></td>
+
+                <!-- product name -->
+                <td th:text="${product.name}"></td>
+
+                <!-- harga -->
+                <td th:text="${'Rp. ' + product.harga}"></td>
+
+                <!-- simple description -->
+                <td th:text="${product.simpleDesc}"></td>
+
+                <!-- category name -->
+                <td th:text="${product.categoryId.name}"></td>
+
+                <!-- input jumlah -->
+                <td>
+                    <input type="number" min="1" class="form-control" value="1">
+                </td>
+
+                <!-- buttons -->
+                <td class="row">
+                    <div class="col-2 mx-5">
+                        <!-- check out -->
+                        <form th:action="@{/}">
+                            <button type="button" class="btn btn-outline-primary rounded-pill">
+                                <!-- start icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-cash" viewBox="0 0 16 16">
+                                    <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                                    <path
+                                        d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z" />
+                                </svg>
+                                <!-- end icon -->
+                                <!-- Beli -->
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="col-2">
+                        <!-- delete -->
+                        <form th:action="@{${deleteUrl}}" method="post">
+                            <input type="text" th:value="${product.id}" hidden readonly required name="id" id="id">
+                            <button type="submit" class=" btn rounded-pill btn-outline-danger ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                </svg>
+                                <!-- Hapus -->
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

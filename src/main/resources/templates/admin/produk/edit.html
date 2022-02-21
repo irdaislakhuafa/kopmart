@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/basic::head}"> </head>
+
+<body>
+    <!-- layer -->
+    <div class="layer"></div>
+
+    <!-- content -->
+    <div class="page-flex">
+        <!-- sidebar -->
+        <div th:replace="~{admin/fragments/basic::sidebar}"></div>
+
+        <!-- main content -->
+        <div class="main-wrapper">
+            <!-- navbar -->
+            <div th:replace="~{admin/fragments/comp::navbar}"></div>
+
+            <!-- container -->
+            <div class="container">
+                <br><br><br>
+                <div class="card shadow  mx-auto " style="border-radius: 10px;">
+                    <div class="card-body">
+                        <!-- start form -->
+                        <form th:action="@{/kopmart/admin/produk/edit}" th:object="${product}" method="post"
+                            enctype="multipart/form-data">
+
+                            <!-- id -->
+                            <input type="text" hidden name="id" readonly required th:field="*{id}">
+
+                            <!-- name -->
+                            <div class="mb-3 input-group">
+                                <label for="name" class="input-group-text bg-primary">Nama</label>
+                                <input th:field="*{name}" type="text" class="form-control" id="name" name="name"
+                                    placeholder="Ex. Kacang garuda" required>
+                            </div>
+
+                            <!-- harga -->
+                            <div class="mb-3 input-group">
+                                <label for="harga" class="input-group-text bg-primary">Harga</label>
+                                <input th:field="*{harga}" type="number" class="form-control" id="harga" name="harga"
+                                    placeholder="Ex. 10000" required>
+                            </div>
+
+                            <!-- foto -->
+                            <div class="mb-3">
+                                <label for="foto" class="form-label">Foto <a th:text="${errorMessage}"
+                                        style="color: red; margin-bottom: 3px;"></a></label>
+                                <!-- foto error message -->
+                                <a th:text="${fotoErrorMessage}"
+                                    style="margin-left: 10px; font-size: 14px; color: #dc3545;" class="text-danger"></a>
+                                <input type="file" name="foto" id="foto" class="form-control">
+
+                                <input type="checkbox" class="shadow" style="margin-left: 10px; margin-top: 5px;"
+                                    value="true" id="oldPic" checked name="oldPic">
+                                <label for="oldPic">Gunakan foto sebelumnya.</label>
+                            </div>
+
+
+
+                            <!-- categories -->
+                            <div class="mb-3">
+                                <label for="fullDesc" class="form-label">Kategori</label>
+                                <select name="categoryId" class="form-select" required>
+                                    <option>Pilih Kategori</option>
+                                    <option th:each="category : ${categories}" th:value="${category.id}"
+                                        th:selected="${category.id == product.categoryId.id}">
+                                        <span th:text="${category.name}"></span>
+                                    </option>
+                                </select>
+                            </div>
+
+                            <!-- stok -->
+                            <div class="mb-3 input-group">
+                                <label for="stok" class="input-group-text bg-primary">Stok</label>
+                                <input th:field="*{stok}" type="number" class="form-control" name="stok" id="stok"
+                                    required placeholder="Ex. 100">
+                            </div>
+
+                            <!-- simple desc -->
+                            <div class="mb-3">
+                                <label for="simpleDesc" class="form-label">Deskripsi Singkat</label>
+                                <textarea th:text="*{simpleDesc}" class="form-control" name="simpleDesc" id="simpleDesc"
+                                    rows="1" required></textarea>
+                            </div>
+
+                            <!-- full desc -->
+                            <div class="mb-3">
+                                <label for="fullDesc" class="form-label">Deskripsi Lengkap</label>
+                                <textarea th:field="*{fullDesc}" class="form-control" name="fullDesc" id="fullDesc"
+                                    rows="3" required></textarea>
+                            </div>
+
+                            <!-- buttons -->
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-outline-primary shadow text-capitalize"
+                                    style="border: none;">Simpan</button>
+                            </div>
+
+                        </form>
+                        <!-- end form -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- js -->
+    <div th:replace="~{admin/fragments/basic::js}"></div>
+</body>
+
+</html>

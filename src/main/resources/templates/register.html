@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/login ::  head}">
+</head>
+
+<body>
+
+    <!-- start content -->
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100  py-5 shadow-lg wow fadeInUp">
+
+                <!-- kopmart logo -->
+                <div class="login100-pic pt-5 mt-5 js-tilt" data-tilt>
+                    <img th:src="@{/style/images/img-01.png}" alt="IMG">
+                </div>
+
+                <!-- start form  -->
+                <form th:object="${user}" class="login100-form validate-form" method="post"
+                    th:action="@{${registerUrl}}">
+                    <!-- login title -->
+                    <span class="login100-form-title">
+                        <div class="mb-3">
+                            Daftar Member
+                        </div>
+                        K O P
+                        <span class="text-primary">M</span>
+                        <span class="text-success">A</span>
+                        <span class="text-warning">R</span>
+                        <span class="text-danger">T</span>
+                    </span>
+                    <!-- end login title -->
+
+                    <!-- npm -->
+                    <!-- error message -->
+                    <div class="text-center">
+                        <small class="text-danger text-capitalize" th:text="${npmError}"></small>
+                    </div>
+                    <div class="wrap-input100 validate-input pl-red"
+                        data-validate="NPM yang di inginkan misal : 1412xxxxxx">
+                        <input type="number" min="0" name="npm" class="shadow wow fadeInUp input100" minlength="10"
+                            required placeholder="NPM" th:placeholder="${
+                                npmError == null ? 'NPM' : npmError
+                            }" th:field="*{npm}" th:classappend="${
+                                npmError == null ? '' : 'text-danger'
+                            }">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-address-card" aria-hidden="true"></i>
+                        </span>
+                        <!-- <span th:text="${npmError}" class="text-center"></span> -->
+                    </div>
+
+                    <!-- nama -->
+                    <div class="wrap-input100 validate-input" data-validate="Masukan nama anda">
+                        <input type="text" name="nama" class="input100 shadow wow fadeInUp" placeholder="Nama mahasiswa"
+                            required th:field="*{nama}">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <!-- email as username -->
+                    <!-- error message -->
+                    <div class="text-center">
+                        <small class="text-danger text-capitalize" th:text="${emailError}"></small>
+                    </div>
+                    <div class="wrap-input100 validate-input"
+                        data-validate="Contoh email yang harus dimasukan: ex@abc.xyz">
+                        <input class="input100 shadow wow fadeInUp " type="text" required name="email"
+                            th:placeholder="${emailError == null ? 'Email' : emailError}" th:field="*{email}">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <!-- password -->
+                    <!-- warning message -->
+                    <div class="text-center">
+                        <small class="text-danger text-capitalize" th:text="${passwordWarning}"></small>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Password wajib dimasukan">
+                        <input class="input100 shadow wow fadeInUp" type="password" name="password"
+                            placeholder="Password" required th:field="*{password}">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <!-- no telegram -->
+                    <!-- error message -->
+                    <div class="text-center">
+                        <small class="text-danger text-capitalize" th:text="${noTelegramError}"></small>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Nomor telegram harus berupa angka">
+                        <input type="number" name="noTelegram" class="input100 shadow wow fadeInUp"
+                            placeholder="No Telegram" min="000000" required th:field="*{noTelegram}">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-telegram"></i>
+                        </span>
+                    </div>
+
+                    <!-- user role -->
+                    <!-- <input type="text" hidden readonly required th:value="USER" name="userRole" id="userRole"> -->
+
+                    <!-- buttons -->
+                    <div class="container-login100-form-btn">
+                        <div class="container row">
+                            <a th:href="@{${backUrl}}" class="login100-form-btn text-decoration-none col-6 shadow"
+                                type="button">Kembali</a>
+                            <button class="login100-form-btn col-6 shadow" type="submit">
+                                Daftar
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+                <!-- end form  -->
+            </div>
+        </div>
+    </div>
+
+    <!-- end content -->
+
+    <!-- js -->
+    <div th:replace="~{fragments/login :: js}"></div>
+    <script>
+        const inputs = document.getElementsByTagName(`input`);
+        Array.from(inputs).forEach((value) => {
+            value.style.textTransform = 'capitalize';
+            // value.inputMode
+        })
+    </script>
+</body>
+
+</html>
