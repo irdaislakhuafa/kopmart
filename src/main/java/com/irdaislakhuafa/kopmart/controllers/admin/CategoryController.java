@@ -292,5 +292,4 @@ public class CategoryController {
         }
     }
 
-    // TODO : add download sample file CSV for data product
 }
