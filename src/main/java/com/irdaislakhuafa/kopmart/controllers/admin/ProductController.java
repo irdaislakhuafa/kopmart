@@ -1,17 +1,24 @@
 package com.irdaislakhuafa.kopmart.controllers.admin;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletResponse;
+
+import com.irdaislakhuafa.kopmart.helpers.DataToCsvHelper;
 import com.irdaislakhuafa.kopmart.helpers.UserHelper;
 import com.irdaislakhuafa.kopmart.helpers.ViewHelper;
 import com.irdaislakhuafa.kopmart.models.entities.Category;
@@ -237,7 +244,7 @@ public class ProductController {
         try {
             productService.removeById(categoryId);
         } catch (Exception e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             UserHelper.errorLog("Terjadi kesalahan saat menghapus product admin", this);
         }
         return "redirect:/kopmart/admin/produk/list";
@@ -336,5 +343,81 @@ public class ProductController {
         }
         return "redirect:" + backUrl.orElse("/kopmart/admin/produk/upload/csv");
     }
+
     // TODO : create download sample file CSv for data product
+    // download sample csv
+    @GetMapping("/download/sample/produk.csv")
+    public void downloadSampleCsv(HttpServletResponse response) {
+        try {
+            // set content response type
+            response.setContentType("text/csv");
+            // set file name to download
+            response.setHeader("Content-Disposition",
+                    "attachment; file=" + DataToCsvHelper.generateFileCsvName("produk.csv"));
+
+            // create list object of HashMap
+            List<Map<String, Object>> listData = new ArrayList<>(
+                    Arrays.asList(
+                            new HashMap<String, Object>() {
+                                {
+                                    put("nama", "kacang goreng (maksimal 100 karakter ya, ga boleh sama :D)");
+                                    put("harga", 2000);
+                                    put("deskripsi singkat",
+                                            "ini adalah deskripsi singkat untuk produk ini (maksimal 500 karakter ya)");
+                                    put("deskripsi lengkap",
+                                            "ini adalah deskripsi lengkap untuk produk ini, Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa at corrupti dolores (maksimal 1500 karakter ya)");
+                                    put("kategori", "gorengan (maksimal 100 karakter ya)");
+                                    put("stok", 1000);
+                                }
+                            },
+                            new HashMap<String, Object>() {
+                                {
+                                    put("nama", "tahu");
+                                    put("harga", 2000);
+                                    put("deskripsi singkat",
+                                            "ini adalah deskripsi singkat untuk produk ini ");
+                                    put("deskripsi lengkap",
+                                            "ini adalah deskripsi lengkap untuk produk ini, Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa at corrupti dolores ");
+                                    put("kategori", "atk (maksimal 100 karakter ya)");
+                                    put("stok", 1000);
+                                }
+                            },
+                            new HashMap<String, Object>() {
+                                {
+                                    put("nama", "apel");
+                                    put("harga", 2000);
+                                    put("deskripsi singkat",
+                                            "ini adalah deskripsi singkat untuk produk ini ");
+                                    put("deskripsi lengkap",
+                                            "ini adalah deskripsi lengkap untuk produk ini, Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa at corrupti dolores ");
+                                    put("kategori", "buah (maksimal 100 karakter ya)");
+                                    put("stok", 1000);
+                                }
+                            },
+                            new HashMap<String, Object>() {
+                                {
+                                    put("nama", "tempe goreng");
+                                    put("harga", 2000);
+                                    put("deskripsi singkat",
+                                            "ini adalah deskripsi singkat untuk produk ini ");
+                                    put("deskripsi lengkap",
+                                            "ini adalah deskripsi lengkap untuk produk ini, Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa at corrupti dolores ");
+                                    put("kategori", "gorengan (maksimal 100 karakter ya)");
+                                    put("stok", 1000);
+                                }
+                            }));
+
+            // write file data to file csv
+            DataToCsvHelper.writeDataToCsv(response.getWriter(), listData);
+
+            // force any content buffer written to client
+            response.flushBuffer();
+        } catch (IOException e) {
+
+        } catch (Exception e) {
+            UserHelper
+                    .errorLog("terjadi kesalahan yang tidak di ketahui saat memuat file csv! silahkan hubungi admin!");
+            e.printStackTrace();
+        }
+    }
 }

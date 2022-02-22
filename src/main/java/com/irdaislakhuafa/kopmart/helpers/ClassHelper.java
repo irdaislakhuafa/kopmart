@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ClassHelper {
-    public static List<String> getFieldsFrom(Class cls, FieldsTextMode textMode, String... ignoredFields) {
+    public static List<String> getFieldsFrom(Class<?> cls, FieldsTextMode textMode, String... ignoredFields) {
         List<String> fields = new ArrayList<>();
         try {
             // get fields from class
