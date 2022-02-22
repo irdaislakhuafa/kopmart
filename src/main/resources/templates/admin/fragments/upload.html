@@ -1,0 +1,53 @@
+<div th:fragment="csv(backActionUrl, uploadCsvUrl, downloadCsvUrl)" class="card mx-auto shadow col-sm-6"
+    style="border-radius: 10px;">
+    <div class="card-body">
+        <h1 for="fileCsv" class="text-capitalize text-center ">pilih file
+            <span class="text-uppercase"> csv</span>
+        </h1>
+        <hr class="mb-4 col-sm-6 mx-auto">
+        <!-- start form -->
+        <form th:action="@{${uploadCsvUrl}}" method="post" enctype="multipart/form-data">
+            <!-- file csv -->
+            <div class="input-group" th:classappend="${fileError == null ? 'mb-3' : 'mb-2'}">
+                <input type="file" name="fileCsv" id="fileCsv" class="mx-auto form-control shadow col-sm-10">
+                <button type="submit" class="rounded rounded-3 btn btn-outline-primary  shadow"
+                    style="border: none;">Simpan</button>
+            </div>
+
+            <!-- error message -->
+            <div class="text-center" id="temporaryView" th:classappend="${
+                    (fileError != null || fileWarning != null || fileSuccess != null) ? 'mb-3' : '' 
+                }">
+                <small th:text="${
+                    (fileError != null) ? fileError : 
+                    (fileWarning != null) ? fileWarning : fileSuccess
+                }" th:class="${
+                        (fileError != null || fileWarning != null || fileSuccess != null) ? 'bg-danger shadow py-2 px-3 rounded-pill text-capitalize text-danger' : ''}"
+                    th:style="${
+                        (fileError != null) ? '
+                            color: #ff0000 !important;
+                        ' : (fileWarning != null) ? '
+                            color: #ffc107 !important;
+                        ' : '
+                            color: #00ff00 !important;
+                        '  
+                }"></small>
+            </div>
+
+            <!-- back url -->
+            <input type="text" hidden required th:value="${#request.getRequestURI()}" name="backUrl">
+
+            <!-- download format -->
+            <div class="mb-3 ">
+                <span class="text-capitalize mx-4">belum tau format CSV nya seperti
+                    apa?</span>
+                <a th:href="@{${downloadCsvUrl}}" class="btn btn-outline-primary rounded rounded-3 shadow"
+                    style="border: none;">Download
+                    Sample</a>
+                <a th:href="@{${backActionUrl}}" class="btn btn-outline-primary shadow text-capitalize"
+                    style="border: none;">kembali</a>
+            </div>
+        </form>
+        <!-- end form -->
+    </div>
+</div>

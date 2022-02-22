@@ -25,16 +25,9 @@
                     th:replace="~{admin/fragments/upload :: csv(${backActionUrl}, ${uploadCsvUrl}, ${downloadCsvUrl})}">
                 </div>
             </div>
-            <!-- end container -->
+
         </div>
     </div>
-
-    <!-- my custom js -->
-    <script>
-        setTimeout(() => {
-            document.getElementById(`fileErrorWarningOrSuccess`).remove();
-        }, 5 * 1000);
-    </script>
 
     <!-- js -->
     <div th:replace="~{admin/fragments/basic :: js}"></div>
