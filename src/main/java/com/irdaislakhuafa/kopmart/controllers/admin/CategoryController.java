@@ -267,7 +267,8 @@ public class CategoryController {
             UserHelper.errorLog("terjadi kesalahan saat memuat file csv!");
             e.printStackTrace();
         } catch (Exception e) {
-            UserHelper.errorLog("terjadi kesalahan saat memuat file csv! silahkan hubungi admin!");
+            UserHelper
+                    .errorLog("terjadi kesalahan yang tidak di ketahui saat memuat file csv! silahkan hubungi admin!");
             e.printStackTrace();
         }
     }
