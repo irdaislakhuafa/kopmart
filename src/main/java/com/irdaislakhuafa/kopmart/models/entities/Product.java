@@ -58,7 +58,13 @@ public class Product extends BasicEntity<String> {
     @CsvBindByName(column = "deskripsi lengkap")
     private String fullDesc;
 
-    @ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    // @ManyToOne
+    @ManyToOne(cascade = {
+            CascadeType.REFRESH,
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH
+    }, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     @CsvCustomBindByName(column = "kategori", converter = ProductCategoryConverter.class)
     private Category categoryId;
