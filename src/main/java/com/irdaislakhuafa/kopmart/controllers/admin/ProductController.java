@@ -239,10 +239,13 @@ public class ProductController {
     @PostMapping("/delete")
     public String delete(
             Model model,
-            @RequestParam("categoryId") String categoryId) {
+            @RequestParam("productId") String productId) {
 
         try {
-            productService.removeById(categoryId);
+            System.out.println("\033\143");
+            System.out.println("oioi");
+            System.out.println(productService.findById(productId));
+            productService.removeById(productId);
         } catch (Exception e) {
             e.printStackTrace();
             UserHelper.errorLog("Terjadi kesalahan saat menghapus product admin", this);
