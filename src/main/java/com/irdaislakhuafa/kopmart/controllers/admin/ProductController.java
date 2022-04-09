@@ -87,14 +87,10 @@ public class ProductController {
         model.addAttribute("categories", categoryService.findAll());
 
         try {
-            String fileName = new Date().toInstant()
-                    + foto.getOriginalFilename();
+            String fileName = new Date().toInstant() + foto.getOriginalFilename();
+
             // get path of file
-            Path path = Paths
-                    .get(
-                            System.getProperty("user.home")
-                                    + "/.cache/"
-                                    + fileName);
+            Path path = Paths.get(System.getProperty("user.home") + "/.cache/" + fileName);
 
             // get bytes of file
             byte[] bytes = foto.getBytes();
